@@ -1,5 +1,3 @@
-import styles from './index.module.css';
-
 import Head from 'next/head';
 
 export default function Home() {
@@ -17,7 +15,7 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className={styles.main}>Home page</main>
+            <main className='page'>Home page</main>
         </>
     );
 }

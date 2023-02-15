@@ -1,0 +1,15 @@
+:root {
+    /* colors */
+    --color-link: black;
+    --color-link-hover: red;
+    --color-navbar: rgb(159, 234, 255);
+    --color-font: black;
+    --color-background: white;
+}
+
+[data-theme='dark'] {
+    --color-link: white;
+    --color-navbar: rgb(17, 68, 83);
+    --color-font: white;
+    --color-background: black;
+}
