@@ -3,7 +3,11 @@ import IconMoon from '@/assets/icons/IconMoon';
 import IconSun from '@/assets/icons/IconSun';
 import { useEffect, useState } from 'react';
 
-export default function Theme() {
+interface Theme {
+    handleClick: () => void;
+}
+
+export default function Theme(props: Theme) {
     const [theme, setTheme] = useState('light');
 
     useEffect(() => {
@@ -16,6 +20,7 @@ export default function Theme() {
         } else {
             setTheme('light');
         }
+        props.handleClick()
     }
 
     return (

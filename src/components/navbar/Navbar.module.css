@@ -1,9 +1,0 @@
-.navbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-grow: 1;
-    gap: 2rem;
-    padding: 1.5rem;
-    background-color: var(--color-navbar);
-}
