@@ -9,7 +9,7 @@ export default function ReportPage() {
     }
 
     return (
-        <div>
+        <div className='page'>
             <p>Report:{report}</p>
             <p>Page:{page}</p>
         </div>

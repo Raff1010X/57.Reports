@@ -5,6 +5,6 @@ export default function ReportPage() {
     const pageNumber = router.query.page
 
     return (
-        <div>Report page: {pageNumber}</div>
+        <div className='page'>Report page: {pageNumber}</div>
     )
 }
