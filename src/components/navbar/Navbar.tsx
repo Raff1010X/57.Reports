@@ -30,7 +30,7 @@ export default function Navbar() {
 
     return (
         <nav className="navbar">
-            <Logo handleClick={handleClickBurger} />
+            <Logo handleClick={handleClickBurger} menuActive={menuActive.isActive}/>
             <div className={menuActive.className}>
                 <NavLinks handleClick={handleClickBurger} />
                 <Theme handleClick={handleClickBurger} />
