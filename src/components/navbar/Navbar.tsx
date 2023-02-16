@@ -6,12 +6,12 @@ import Theme from './Theme';
 import { useState } from 'react';
 
 interface MenuActive {
-    isActive: boolean;
+    menuActive: boolean;
     className: string;
 }
 
 const initialMenuActive = {
-    isActive: false,
+    menuActive: false,
     className: 'burger-menu',
 };
 
@@ -20,23 +20,22 @@ export default function Navbar() {
 
     function handleClickBurger() {
         setMenuActive((prevState: MenuActive) => {
-            const className = prevState.isActive
+            const className = prevState.menuActive
                 ? 'burger-menu burger-menu--inactive'
                 : 'burger-menu burger-menu--active';
-            const newMenuActive = { isActive: !prevState.isActive, className };
-            return newMenuActive;
+            return { menuActive: !prevState.menuActive, className };
         });
     }
 
     return (
         <nav className="navbar">
-            <Logo handleClick={handleClickBurger} menuActive={menuActive.isActive}/>
+            <Logo handleClick={handleClickBurger} menuActive={menuActive.menuActive}/>
             <div className={menuActive.className}>
                 <NavLinks handleClick={handleClickBurger} />
                 <Theme handleClick={handleClickBurger} />
             </div>
             <Burger
-                menuActive={menuActive.isActive}
+                menuActive={menuActive.menuActive}
                 handleClick={handleClickBurger}
             />
         </nav>
