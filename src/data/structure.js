@@ -7,9 +7,10 @@ const department = {
     name: '',
 };
 
-const receivers = {
+const receiver = {
     department: '',
     email: '',
+    name: '',
     password: '',
 } 
 
@@ -20,9 +21,9 @@ const report = {
     number: '',
     date_audit: '',
     date_report: '',
-    departments: '',
     auditors: '',
     receivers: '',
+    finished: ''
 };
 
 const page = {

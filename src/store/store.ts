@@ -1,20 +1,16 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import asyncDispatchMiddleware from './asyncDispatchMiddleware'
+import asyncDispatchMiddleware from './asyncDispatchMiddleware';
 
 import userReducer from './slices/user/userSlice';
 
 const reducer = {
     user: userReducer,
-}
-
-const middleware = (getDefaultMiddleware: () => any) => [
-    ...getDefaultMiddleware(),
-    ...[asyncDispatchMiddleware],
-];
+};
 
 export const store = configureStore({
     reducer,
-    middleware,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(asyncDispatchMiddleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
