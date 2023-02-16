@@ -5,20 +5,19 @@ import Logo from './Logo';
 import Theme from './Theme';
 import { useState } from 'react';
 
-
 export default function Navbar() {
     const [menuActive, setMenuActive] = useState(false);
+    const [className, setClassName] = useState('burger-menu');
 
     function handleClickBurger() {
+        if (!menuActive) setClassName('burger-menu burger-menu--active');
+        if (menuActive) setClassName('burger-menu burger-menu--inactive');
         setMenuActive((prevState: boolean) => !prevState);
     }
 
-    let className = 'burger-menu burger-menu--active';
-    if (!menuActive) className = 'burger-menu';
-
     return (
         <nav className="navbar">
-            <Logo />
+            <Logo handleClick={handleClickBurger} />
             <div className={className}>
                 <NavLinks handleClick={handleClickBurger} />
                 <Theme handleClick={handleClickBurger} />

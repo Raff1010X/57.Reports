@@ -44,7 +44,7 @@
     white-space: nowrap;
     color: var(--color-link);
     cursor: pointer;
-    transition: 0.25s, position 0;
+    transition: 0.25s;
 }
 
 .link:hover {
@@ -105,7 +105,6 @@
 
     .burger-menu {
         position: absolute;
-        display: none;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -115,16 +114,17 @@
         width: 100%;
         height: calc(100% - 5rem);
         background-color: var(--color-navbar);
+        display: none;
     }
 
     .burger-menu--active {
         display: flex;
         opacity: 0;
-        transform: translate(90%, -100%) scale(0.1);
+        transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg);
         -webkit-animation-name: slideDown;
         animation-name: slideDown;
-        -webkit-animation-duration: .5s;
-        animation-duration: .5s;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
     }
@@ -132,22 +132,60 @@
     @-webkit-keyframes slideDown {
         0% {
             opacity: 0;
-            transform: translate(90%, -100%) scale(0.1);
+            transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg);
         }
         100% {
             opacity: 1;
-            transform: translate(0, 0) scale(1);
+            transform: translateY(0) scale(1) rotateY(0) rotateX(0);
         }
     }
 
     @keyframes slideDown {
         0% {
             opacity: 0;
-            transform: translate(90%, -100%) scale(0.1);
+            transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg);
         }
         100% {
             opacity: 1;
-            transform: translate(0, 0) scale(1);
+            transform: translateY(0) scale(1) rotateY(0) rotateX(0);
+        }
+    }
+
+    .burger-menu--inactive {
+        display: flex;
+        opacity: 0;
+        transform: translateX(-60%);
+        -webkit-animation-name: slideUp;
+        animation-name: slideUp;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+
+    @-webkit-keyframes slideUp {
+        0% {
+            opacity: 1;
+            transform: translateX(0);
+            display: flex;
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(-60%);
+            display: none;
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            opacity: 1;
+            transform: translateX(0);
+            display: flex;
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(-60%);
+            display: none;
         }
     }
 
