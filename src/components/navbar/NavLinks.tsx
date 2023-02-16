@@ -4,8 +4,9 @@ import IconFolderAdd from '@/assets/icons/IconFolderAdd';
 import IconLoginBoxLine from '@/assets/icons/IconLoginBoxLine';
 import IconLogoutBoxLine from '@/assets/icons/IconLogoutBoxLine';
 import IconUser from '@/assets/icons/IconUser';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { setIsUserLogged, selectIsUserLogged } from '@/store/slices/user/userSlice';
 
-import { useState } from 'react';
 import NavLink from './NavLink';
 
 interface NavLinks {
@@ -13,11 +14,18 @@ interface NavLinks {
 }
 
 export default function NavLinks(props: NavLinks) {
-    const [logged, setLogged] = useState(true);
+
+    const dispatch = useAppDispatch();
+    const isUserLogged = useAppSelector(selectIsUserLogged);
+
+    function handleClickLogInOut() {
+        dispatch(setIsUserLogged(!isUserLogged))
+        props.handleClick()
+    }
 
     return (
         <>
-            {logged && (
+            {isUserLogged && (
                 <>
                     <NavLink
                         linkTo={'/newreport'}
@@ -42,18 +50,18 @@ export default function NavLinks(props: NavLinks) {
                         className={'link flex-right'}
                         text={'Logout'}
                         icon={IconLogoutBoxLine}
-                        handleClick={props.handleClick}
+                        handleClick={handleClickLogInOut}
                     />
                 </>
             )}
 
-            {!logged && (
+            {!isUserLogged && (
                 <NavLink
                     linkTo={'login'}
                     className={'link flex-right'}
                     text={'Login'}
                     icon={IconLoginBoxLine}
-                    handleClick={props.handleClick}
+                    handleClick={handleClickLogInOut}
                 />
             )}
         </>

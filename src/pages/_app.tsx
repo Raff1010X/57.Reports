@@ -4,7 +4,7 @@ import '@/styles/globals.css';
 import '@/styles/Navbar.css';
 
 import { Provider } from 'react-redux';
-import { store } from '../redux/store';
+import { store } from '../store/store';
 import type { AppProps } from 'next/app';
 import { fontInter } from '@/assets/fonts/fontLoader';
 import Layout from '@/components/layout/Layout';
