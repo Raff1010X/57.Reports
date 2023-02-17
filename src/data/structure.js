@@ -1,18 +1,20 @@
-const user = {
+const superUser = {
+    project: '',
     email: '',
     password: '',
-}
-
-const department = {
-    name: '',
 };
 
-const receiver = {
+const user = {
+    project: '',
     department: '',
     email: '',
     name: '',
     password: '',
-} 
+};
+
+const department = {
+    name: '',
+};
 
 const report = {
     header: '',
@@ -23,7 +25,7 @@ const report = {
     date_report: '',
     auditors: '',
     receivers: '',
-    finished: ''
+    finished: '',
 };
 
 const page = {

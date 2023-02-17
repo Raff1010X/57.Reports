@@ -1,20 +1,12 @@
+import { UserState } from '@/types/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
 import { userLogInAsync, userLogOutAsync } from './userAPI';
 
-type UserState = {
-    status: string;
-    user: {
-        email: string;
-        isLoged: boolean;
-        role: string;
-    };
-};
-
 const initialState: UserState = {
     status: 'idle',
-    user: { email: '', role: '', isLoged: false },
+    user: { project: '', email: '', role: '', isLoged: false },
 };
 
 export const userSlice = createSlice({

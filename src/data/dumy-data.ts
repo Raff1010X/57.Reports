@@ -1,31 +1,130 @@
-const user = {
-    email: 'raff@acme.pl',
-    password: 'admin1234',
-};
+import { SuperUser, User } from "@/types/user";
+
+const superUsers: SuperUser[] = [
+    {
+        project: 'Audits',
+        email: 'raff@acme.pl',
+        password: 'admin1234',
+    },
+    {
+        project: 'Reports',
+        email: 'raff@acme.pl',
+        password: 'admin1234',
+    },
+];
+
+const users: User[] = [
+    {
+        project: 'Audits',
+        department: 'dep1',
+        email: 'raff@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+    {
+        project: 'Audits',
+        department: 'dep1',
+        email: 'dep1a@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+    {
+        project: 'Audits',
+        department: 'dep1',
+        email: 'dep1b@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+    {
+        project: 'Audits',
+        department: 'dep2',
+        email: 'dep2@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+    {
+        project: 'Audits',
+        department: 'dep2',
+        email: 'dep2a@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+    {
+        project: 'Audits',
+        department: 'dep3',
+        email: 'dep3@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+    {
+        project: 'Audits',
+        department: 'dep4',
+        email: 'dep4@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+    {
+        project: 'Audits',
+        department: 'dep5',
+        email: 'dep5@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+    {
+        project: 'Audits',
+        department: 'dep6',
+        email: 'dep6@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+    {
+        project: 'Audits',
+        department: 'dep7',
+        email: 'dep7@acme.pl',
+        name: 'name surname',
+        password: 'test1234',
+    },
+];
+
+function isValidUser(userData: any, array: SuperUser[] | User[]): boolean {
+    const isValidUser = array.some(
+        (el) =>
+            userData.project === el.project &&
+            userData.email === el.email &&
+            userData.password === el.password
+    );
+    return isValidUser;
+}
 
 export async function logIn(userData: any) {
     let response = {
         status: 'rejected',
         message: 'Invalid password or user name.',
-        user: { email: '', isLoged: false, role: '' },
+        user: { project: '', email: '', isLoged: false, role: '' },
     };
-    if (userData.email === user.email && userData.password === user.password) {
+
+    if (isValidUser(userData, superUsers)) {
         response = {
             status: 'success',
             message: 'Welcome back!',
-            user: { email: userData.email, isLoged: true, role: 'superUser' },
+            user: {
+                project: userData.project,
+                email: userData.email,
+                isLoged: true,
+                role: 'superUser',
+            },
         };
     } else {
-        const receiver = receivers.some(
-            (el) =>
-                userData.email === el.email && userData.password === el.password
-        );
-
-        if (receiver)
+        if (isValidUser(userData, users))
             response = {
                 status: 'success',
                 message: 'Welcome back!',
-                user: { email: userData.email, isLoged: true, role: 'user' },
+                user: {
+                    project: userData.project,
+                    email: userData.email,
+                    isLoged: true,
+                    role: 'user',
+                },
             };
     }
     return response;
@@ -35,7 +134,7 @@ export async function logOut() {
     const response = {
         status: 'success',
         message: 'Logged out successfully!',
-        user: { email: '', isLoged: false, role: '' },
+        user: { project: '', email: '', isLoged: false, role: '' },
     };
     return response;
 }
@@ -61,69 +160,6 @@ const departments = [
     },
     {
         name: 'dep7',
-    },
-];
-
-const receivers = [
-    {
-        department: 'dep1',
-        email: 'raff@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
-    },
-    {
-        department: 'dep1',
-        email: 'dep1a@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
-    },
-    {
-        department: 'dep1',
-        email: 'dep1b@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
-    },
-    {
-        department: 'dep2',
-        email: 'dep2@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
-    },
-    {
-        department: 'dep2',
-        email: 'dep2a@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
-    },
-    {
-        department: 'dep3',
-        email: 'dep3@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
-    },
-    {
-        department: 'dep4',
-        email: 'dep4@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
-    },
-    {
-        department: 'dep5',
-        email: 'dep5@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
-    },
-    {
-        department: 'dep6',
-        email: 'dep6@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
-    },
-    {
-        department: 'dep7',
-        email: 'dep7@acme.pl',
-        name: 'name surname',
-        password: 'test1234',
     },
 ];
 
