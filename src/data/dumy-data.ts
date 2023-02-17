@@ -3,17 +3,17 @@ const user = {
     password: 'admin1234',
 };
 
-export async function login(userData: any) {
+export async function logIn(userData: any) {
     let response = {
         status: 'rejected',
         message: 'Invalid password or user name.',
-        user: { isLoged: false, role: 'none' },
+        user: { email: '', isLoged: false, role: '' },
     };
     if (userData.email === user.email && userData.password === user.password) {
         response = {
             status: 'success',
             message: 'Welcome back!',
-            user: { isLoged: true, role: 'superUser' },
+            user: { email: userData.email, isLoged: true, role: 'superUser' },
         };
     } else {
         const receiver = receivers.some(
@@ -25,9 +25,18 @@ export async function login(userData: any) {
             response = {
                 status: 'success',
                 message: 'Welcome back!',
-                user: { isLoged: true, role: 'user' },
+                user: { email: userData.email, isLoged: true, role: 'user' },
             };
     }
+    return response;
+}
+
+export async function logOut() {
+    const response = {
+        status: 'success',
+        message: 'Logged out successfully!',
+        user: { email: '', isLoged: false, role: '' },
+    };
     return response;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////

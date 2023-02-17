@@ -1,4 +1,4 @@
-import { login } from '@/data/dumy-data';
+import { logIn, logOut } from '@/data/dumy-data';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -8,9 +8,17 @@ interface User {
 }
 
 export const userLogInAsync = createAsyncThunk(
-    'user/fetchLogin',
+    'user/fetchLogIn',
     async (data: User) => {
-        const response = await login(data);
+        const response = await logIn(data);
+        return response;
+    }
+);
+
+export const userLogOutAsync = createAsyncThunk(
+    'user/fetchLogOut',
+    async () => {
+        const response = await logOut();
         return response;
     }
 );

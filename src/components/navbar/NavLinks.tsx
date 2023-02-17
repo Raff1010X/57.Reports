@@ -5,8 +5,8 @@ import IconLoginBoxLine from '@/assets/icons/IconLoginBoxLine';
 import IconLogoutBoxLine from '@/assets/icons/IconLogoutBoxLine';
 import IconUser from '@/assets/icons/IconUser';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { userLogInAsync } from '@/store/slices/user/userAPI';
-import { logOut, selectIsUserLogged } from '@/store/slices/user/userSlice';
+import { userLogOutAsync } from '@/store/slices/user/userAPI';
+import { selectIsUserLogged } from '@/store/slices/user/userSlice';
 
 import NavLink from './NavLink';
 
@@ -19,14 +19,11 @@ export default function NavLinks(props: NavLinks) {
     const isUserLogged = useAppSelector(selectIsUserLogged);
 
     function handleClickLogIn() {
-        dispatch(
-            userLogInAsync({ password: 'admin1234', email: 'raff@acme.pl' })
-        );
         props.handleClick();
     }
 
     function handleClickLogOut() {
-        dispatch(logOut());
+        dispatch(userLogOutAsync());
         props.handleClick();
     }
 

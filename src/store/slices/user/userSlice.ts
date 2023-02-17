@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
-import { userLogInAsync } from './userAPI';
+import { userLogInAsync, userLogOutAsync } from './userAPI';
 
 type UserState = {
     status: string;
@@ -24,30 +24,41 @@ export const userSlice = createSlice({
         setUserEmail: (state, action: PayloadAction<string>) => {
             state.user.email = action.payload;
         },
-        logOut: (state) => {
-            state.status = 'idle';
-            state.user = initialState.user;
-        },
     },
     extraReducers: (builder) => {
         builder
+            // log in
             .addCase(userLogInAsync.pending, (state) => {
                 state.status = 'loading';
             })
             .addCase(userLogInAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 if (action.payload.status === 'success') {
-                    state.user = { ...state.user, ...action.payload.user };
+                    state.user = { ...action.payload.user };
                 }
             })
             .addCase(userLogInAsync.rejected, (state) => {
+                state.status = 'failed';
+                state.user = initialState.user;
+            })
+            // log out
+            .addCase(userLogOutAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(userLogOutAsync.fulfilled, (state, action) => {
+                state.status = 'idle';
+                if (action.payload.status === 'success') {
+                    state.user = { ...action.payload.user };
+                }
+            })
+            .addCase(userLogOutAsync.rejected, (state) => {
                 state.status = 'failed';
                 state.user = initialState.user;
             });
     },
 });
 
-export const { setUserEmail, logOut } = userSlice.actions;
+export const { setUserEmail } = userSlice.actions;
 
 export const selectIsUserLogged = (state: RootState) => state.user.user.isLoged;
 export const selectUser = (state: RootState) => state.user.user;
