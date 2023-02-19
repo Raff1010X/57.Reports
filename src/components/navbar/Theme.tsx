@@ -8,10 +8,21 @@ interface Theme {
 }
 
 export default function Theme(props: Theme) {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState('');
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
+        if (typeof window !== 'undefined' && theme === '') {
+            let localStorageTheme = localStorage.getItem('report-theme');
+            if (localStorageTheme === null) localStorageTheme = 'light';
+            setTheme(localStorageTheme)
+        }
+    }, []);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && theme !== '') {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('report-theme', theme);
+        }
     }, [theme]);
 
     function handleThemeChange() {
@@ -20,7 +31,7 @@ export default function Theme(props: Theme) {
         } else {
             setTheme('light');
         }
-        props.handleClick()
+        props.handleClick();
     }
 
     return (

@@ -1,12 +1,9 @@
-export interface SuperUser {
+export interface User {
     project: string;
     email: string;
     password: string;
-}
-
-export interface User extends SuperUser {
-    department: string;
-    name: string;
+    name?: string ;
+    department?: string; 
 }
 
 export type UserState = {
@@ -14,6 +11,7 @@ export type UserState = {
     user: {
         project: string;
         email: string;
+        department: string;
         isLoged: boolean;
         role: string;
     };

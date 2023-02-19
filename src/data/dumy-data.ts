@@ -1,15 +1,19 @@
-import { SuperUser, User } from "@/types/user";
+import { User } from "@/types/user";
 
-const superUsers: SuperUser[] = [
+const superUsers: User[] = [
     {
         project: 'Audits',
+        department: '',
         email: 'raff@acme.pl',
         password: 'admin1234',
+        name: 'raff raff'
     },
     {
         project: 'Reports',
+        department: '',
         email: 'raff@acme.pl',
         password: 'admin1234',
+        name: 'raff raff'
     },
 ];
 
@@ -86,47 +90,39 @@ const users: User[] = [
     },
 ];
 
-function isValidUser(userData: any, array: SuperUser[] | User[]): boolean {
-    const isValidUser = array.some(
+function isValidUser(userData: User, array: User[] ): User | undefined {
+    const isValidUser = array.find(
         (el) =>
             userData.project === el.project &&
             userData.email === el.email &&
             userData.password === el.password
     );
-    return isValidUser;
+    return isValidUser
 }
 
-export async function logIn(userData: any) {
+export async function logIn(userData: User) {
     let response = {
         status: 'rejected',
         message: 'Invalid password or user name.',
-        user: { project: '', email: '', isLoged: false, role: '' },
+        user: { project: '', email: '', department: '', isLoged: false, role: '' },
     };
 
-    if (isValidUser(userData, superUsers)) {
+    let user: User | undefined;
+    user = isValidUser(userData, superUsers)
+    if (!user) user = isValidUser(userData, users)
+    if (user) {
         response = {
             status: 'success',
             message: 'Welcome back!',
             user: {
-                project: userData.project,
-                email: userData.email,
+                project: user.project,
+                email: user.email,
+                department: user.department!,
                 isLoged: true,
                 role: 'superUser',
             },
         };
-    } else {
-        if (isValidUser(userData, users))
-            response = {
-                status: 'success',
-                message: 'Welcome back!',
-                user: {
-                    project: userData.project,
-                    email: userData.email,
-                    isLoged: true,
-                    role: 'user',
-                },
-            };
-    }
+    } 
     return response;
 }
 
@@ -134,7 +130,7 @@ export async function logOut() {
     const response = {
         status: 'success',
         message: 'Logged out successfully!',
-        user: { project: '', email: '', isLoged: false, role: '' },
+        user: { project: '', email: '', department: '', isLoged: false, role: '' },
     };
     return response;
 }

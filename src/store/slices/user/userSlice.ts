@@ -6,7 +6,7 @@ import { userLogInAsync, userLogOutAsync } from './userAPI';
 
 const initialState: UserState = {
     status: 'idle',
-    user: { project: '', email: '', role: '', isLoged: false },
+    user: { project: '', email: '', department: '', role: '', isLoged: false },
 };
 
 export const userSlice = createSlice({
