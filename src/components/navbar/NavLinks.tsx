@@ -4,9 +4,8 @@ import IconFolderAdd from '@/assets/icons/IconFolderAdd';
 import IconLoginBoxLine from '@/assets/icons/IconLoginBoxLine';
 import IconLogoutBoxLine from '@/assets/icons/IconLogoutBoxLine';
 import IconUser from '@/assets/icons/IconUser';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { userLogOutAsync } from '@/store/slices/user/userAPI';
-import { selectIsUserLogged } from '@/store/slices/user/userSlice';
+import { useAppSelector } from '@/store/hooks';
+import { selectIsUserLogged } from '@/store/slices/auth/authSlice';
 
 import NavLink from './NavLink';
 
@@ -15,7 +14,6 @@ interface NavLinks {
 }
 
 export default function NavLinks(props: NavLinks) {
-    const dispatch = useAppDispatch();
     const isUserLogged = useAppSelector(selectIsUserLogged);
 
     function handleClickLogIn() {
@@ -23,7 +21,6 @@ export default function NavLinks(props: NavLinks) {
     }
 
     function handleClickLogOut() {
-        dispatch(userLogOutAsync());
         props.handleClick();
     }
 
@@ -50,7 +47,7 @@ export default function NavLinks(props: NavLinks) {
                         handleClick={props.handleClick}
                     />
                     <NavLink
-                        linkTo={'/login'}
+                        linkTo={'/auth/logout'}
                         className={'link flex-right'}
                         text={'Logout'}
                         icon={IconLogoutBoxLine}
@@ -61,7 +58,7 @@ export default function NavLinks(props: NavLinks) {
 
             {!isUserLogged && (
                 <NavLink
-                    linkTo={'login'}
+                    linkTo={'/auth/login'}
                     className={'link flex-right'}
                     text={'Login'}
                     icon={IconLoginBoxLine}

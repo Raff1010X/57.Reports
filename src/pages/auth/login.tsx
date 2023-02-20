@@ -1,16 +1,19 @@
-import { useAppDispatch } from '@/store/hooks';
-import { userLogInAsync } from '@/store/slices/user/userAPI';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { userLogInAsync } from '@/store/slices/auth/authAPI';
 import { FormEvent, useRef } from 'react';
 
 import style from '@/styles/login.module.sass';
 import Link from 'next/link';
-import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
-import IconUser from '@/assets/icons/IconUser';
-import React from 'react';
 import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
+import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
+import React from 'react';
+import IconUser from '@/assets/icons/IconUser';
+import { selectAuthStatus } from '@/store/slices/auth/authSlice';
+import Loader from '@/assets/icons/loader';
 
-export default function SignIn() {
+export default function Login() {
     const dispatch = useAppDispatch();
+    const authStatus = useAppSelector(selectAuthStatus);
 
     // const refs = new Array<MutableRefObject<HTMLInputElement>>(3).map(() => useRef<HTMLInputElement>(null));
     const refs = Array.from({ length: 3 }, () =>
@@ -19,10 +22,6 @@ export default function SignIn() {
 
     const handleLogIn = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        console.log(refs[0]?.current?.value);
-        console.log(refs[1]?.current?.value);
-        console.log(refs[2]?.current?.value);
 
         refs[0]?.current?.reportValidity();
         refs[1]?.current?.reportValidity();
@@ -52,7 +51,11 @@ export default function SignIn() {
         <div className="page">
             <div className="page-content">
                 <form className={style.loginform} onSubmit={handleLogIn}>
-                    <p className={style.title}><IconBxUserPlus width={'2.5rem'} height={'2.5rem'} /><br/>Sign up!</p>
+                    <p className={style.title}>
+                        <IconUser width={'2.5rem'} height={'2.5rem'} />
+                        <br />
+                        Log in!
+                    </p>
                     <label className={style.label} htmlFor="fproject">
                         Project name:
                     </label>
@@ -101,17 +104,15 @@ export default function SignIn() {
                             refs[2]?.current?.setCustomValidity('');
                         }}
                     />
-                    <input
-                        className={style.button}
-                        type="submit"
-                        value="Sign up!"
-                    />
+                    <button className={style.button} type="submit">
+                        {authStatus === 'idle' ? 'Log in!' : <Loader />}
+                    </button>
 
-                    <Link className={style.link} href={'/login'}>
-                        <IconUser width={'2rem'} height={'2rem'} />
-                        Log in!
+                    <Link className={style.link} href={'/auth/signup'}>
+                        <IconBxUserPlus width={'2rem'} height={'2rem'} />
+                        Sign up!
                     </Link>
-                    <Link className={style.link} href={'/login/reset'}>
+                    <Link className={style.link} href={'/auth/reset'}>
                         <IconHeadQuestionOutline
                             width={'2rem'}
                             height={'2rem'}

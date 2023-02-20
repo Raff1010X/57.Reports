@@ -1,10 +1,10 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import asyncDispatchMiddleware from './asyncDispatchMiddleware';
 
-import userReducer from './slices/user/userSlice';
+import authReducer from './slices/auth/authSlice';
 
 const reducer = {
-    user: userReducer,
+    auth: authReducer,
 };
 
 export const store = configureStore({

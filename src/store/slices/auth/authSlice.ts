@@ -2,15 +2,16 @@ import { UserState } from '@/types/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
-import { userLogInAsync, userLogOutAsync } from './userAPI';
+import { userLogInAsync, userLogOutAsync } from './authAPI';
+import router from 'next/router';
 
 const initialState: UserState = {
     status: 'idle',
     user: { project: '', email: '', department: '', role: '', isLoged: false },
 };
 
-export const userSlice = createSlice({
-    name: 'user',
+export const authSlice = createSlice({
+    name: 'auth',
     initialState,
     reducers: {
         setUserEmail: (state, action: PayloadAction<string>) => {
@@ -22,15 +23,14 @@ export const userSlice = createSlice({
             // log in
             .addCase(userLogInAsync.pending, (state) => {
                 state.status = 'loading';
-                console.log('loading')
             })
             .addCase(userLogInAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 if (action.payload.status === 'success') {
                     state.user = { ...action.payload.user };
                     console.log(state.user)
+                    router.push('/')
                 } else {
-                    console.log(action.payload.user)
                     console.log('not valid user')
                 }
             })
@@ -56,9 +56,10 @@ export const userSlice = createSlice({
     },
 });
 
-export const { setUserEmail } = userSlice.actions;
+export const { setUserEmail } = authSlice.actions;
 
-export const selectIsUserLogged = (state: RootState) => state.user.user.isLoged;
-export const selectUser = (state: RootState) => state.user.user;
+export const selectAuthStatus = (state: RootState) => state.auth.status;
+export const selectIsUserLogged = (state: RootState) => state.auth.user.isLoged;
+export const selectUser = (state: RootState) => state.auth.user;
 
-export default userSlice.reducer;
+export default authSlice.reducer;

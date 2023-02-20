@@ -1,5 +1,5 @@
-import { useAppDispatch } from '@/store/hooks';
-import { userLogInAsync } from '@/store/slices/user/userAPI';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { userLogInAsync } from '@/store/slices/auth/authAPI';
 import { FormEvent, useRef } from 'react';
 
 import style from '@/styles/login.module.sass';
@@ -8,9 +8,12 @@ import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import React from 'react';
 import IconUser from '@/assets/icons/IconUser';
+import Loader from '@/assets/icons/loader';
+import { selectAuthStatus } from '@/store/slices/auth/authSlice';
 
 export default function Reset() {
     const dispatch = useAppDispatch();
+    const authStatus = useAppSelector(selectAuthStatus);
 
     // const refs = new Array<MutableRefObject<HTMLInputElement>>(3).map(() => useRef<HTMLInputElement>(null));
     const refs = Array.from({ length: 3 }, () =>
@@ -55,16 +58,17 @@ export default function Reset() {
                             refs[1]?.current?.setCustomValidity('');
                         }}
                     />
-                    <input
+                    <button
                         className={style.button}
                         type="submit"
-                        value="Send new password"
-                    />
-                    <Link className={style.link} href={'/login'}>
+                    >
+                        {(authStatus==="idle") ? "Log in!" : <Loader/>}
+                    </button>
+                    <Link className={style.link} href={'/auth/login'}>
                         <IconUser width={'2rem'} height={'2rem'} />
                         Log in!
                     </Link>
-                    <Link className={style.link} href={'/login/signup'}>
+                    <Link className={style.link} href={'/auth/signup'}>
                         <IconBxUserPlus width={'2rem'} height={'2rem'} />
                         Sign up!
                     </Link>
