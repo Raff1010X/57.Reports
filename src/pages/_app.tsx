@@ -1,8 +1,8 @@
-import '@/styles/reset.css';
-import '@/styles/colors.css';
-import '@/styles/scroll-bar.css';
-import '@/styles/globals.css';
-import '@/styles/navbar.css';
+import '@/styles/reset.sass';
+import '@/styles/colors.sass';
+import '@/styles/globals.sass';
+import '@/styles/navbar.sass';
+import '@/styles/scroll-bar.sass';
 
 import { Provider } from 'react-redux';
 import { store } from '../store/store';

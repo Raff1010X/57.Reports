@@ -2,7 +2,7 @@ import { useAppDispatch } from '@/store/hooks';
 import { userLogInAsync } from '@/store/slices/user/userAPI';
 import { FormEvent, useRef } from 'react';
 
-import style from '@/styles/login.module.css';
+import style from '@/styles/login.module.sass';
 import Link from 'next/link';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import IconUser from '@/assets/icons/IconUser';

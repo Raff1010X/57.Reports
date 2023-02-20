@@ -2,7 +2,7 @@ import { useAppDispatch } from '@/store/hooks';
 import { userLogInAsync } from '@/store/slices/user/userAPI';
 import { FormEvent, useRef } from 'react';
 
-import style from '@/styles/login.module.css';
+import style from '@/styles/login.module.sass';
 import Link from 'next/link';
 import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
@@ -39,7 +39,7 @@ export default function Reset() {
         <div className="page">
             <div className="page-content">
                 <form className={style.loginform} onSubmit={handleLogIn}>
-                    <p className={style.title}><IconHeadQuestionOutline width={'2.5rem'} height={'2.5rem'} /><br/>Reset password</p>
+                    <p className={style.title}><IconHeadQuestionOutline width={'2.5rem'} height={'2.5rem'} /><br/>Forgot password</p>
                     <label className={style.label} htmlFor="lemail">
                         Your email:
                     </label>
@@ -58,7 +58,7 @@ export default function Reset() {
                     <input
                         className={style.button}
                         type="submit"
-                        value="Reset password"
+                        value="Send new password"
                     />
                     <Link className={style.link} href={'/login'}>
                         <IconUser width={'2rem'} height={'2rem'} />
