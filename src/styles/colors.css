@@ -5,6 +5,7 @@
     --color-navbar: rgb(172, 237, 255);
     --color-font: black;
     --color-background: rgb(209, 246, 255);
+    --color-placeholder: rgba(255, 0, 0, 0.5);
     --invert: 0%;
 }
 
@@ -14,5 +15,6 @@
     --color-navbar: rgb(0, 33, 43);
     --color-font: white;
     --color-background: rgb(0, 46, 59);
+    --color-placeholder: rgba(0, 255, 0, 0.5);
     --invert: 100%;
 }

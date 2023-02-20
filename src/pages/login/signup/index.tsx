@@ -7,6 +7,7 @@ import Link from 'next/link';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import IconUser from '@/assets/icons/IconUser';
 import React from 'react';
+import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 
 export default function SignIn() {
     const dispatch = useAppDispatch();
@@ -51,7 +52,7 @@ export default function SignIn() {
         <div className="page">
             <div className="page-content">
                 <form className={style.loginform} onSubmit={handleLogIn}>
-                    <p className={style.title}>Sign up!</p>
+                    <p className={style.title}><IconBxUserPlus width={'2.5rem'} height={'2.5rem'} /><br/>Sign up!</p>
                     <label className={style.label} htmlFor="fproject">
                         Project name:
                     </label>

@@ -39,7 +39,7 @@ export default function Reset() {
         <div className="page">
             <div className="page-content">
                 <form className={style.loginform} onSubmit={handleLogIn}>
-                    <p className={style.title}>Reset password</p>
+                    <p className={style.title}><IconHeadQuestionOutline width={'2.5rem'} height={'2.5rem'} /><br/>Reset password</p>
                     <label className={style.label} htmlFor="lemail">
                         Your email:
                     </label>
@@ -64,16 +64,9 @@ export default function Reset() {
                         <IconUser width={'2rem'} height={'2rem'} />
                         Log in!
                     </Link>
-                    <Link className={style.link} href={'/login/signin'}>
+                    <Link className={style.link} href={'/login/signup'}>
                         <IconBxUserPlus width={'2rem'} height={'2rem'} />
                         Sign up!
-                    </Link>
-                    <Link className={style.link} href={'/login/reset'}>
-                        <IconHeadQuestionOutline
-                            width={'2rem'}
-                            height={'2rem'}
-                        />
-                        Forgot password?
                     </Link>
                 </form>
             </div>

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import React from 'react';
+import IconUser from '@/assets/icons/IconUser';
 
 export default function Login() {
     const dispatch = useAppDispatch();
@@ -47,7 +48,11 @@ export default function Login() {
         <div className="page">
             <div className="page-content">
                 <form className={style.loginform} onSubmit={handleLogIn}>
-                    <p className={style.title}>Log in!</p>
+                    <p className={style.title}>
+                        <IconUser width={'2.5rem'} height={'2.5rem'} />
+                        <br />
+                        Log in!
+                    </p>
                     <label className={style.label} htmlFor="fproject">
                         Project name:
                     </label>
@@ -102,7 +107,7 @@ export default function Login() {
                         value="Log in!"
                     />
 
-                    <Link className={style.link} href={'/login/signin'}>
+                    <Link className={style.link} href={'/login/signup'}>
                         <IconBxUserPlus width={'2rem'} height={'2rem'} />
                         Sign up!
                     </Link>
