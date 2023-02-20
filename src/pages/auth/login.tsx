@@ -9,7 +9,8 @@ import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import React from 'react';
 import IconUser from '@/assets/icons/IconUser';
 import { selectAuthStatus } from '@/store/slices/auth/authSlice';
-import Loader from '@/assets/icons/loader';
+import Loader from '@/assets/icons/Loader';
+
 
 export default function Login() {
     const dispatch = useAppDispatch();

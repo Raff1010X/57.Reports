@@ -36,6 +36,7 @@ html
     height: calc(100vh - 5rem)
     color: var(--color-font)
     overflow-y: scroll
+    background-color: var(--color-background)
 
 .page-content
     width: 90%
@@ -47,3 +48,15 @@ html
     flex-grow: 1
     padding: 1rem 0 1rem 0
     font-size: 1.5rem
+
+.message
+    width: 100vw
+    height: 100vh
+    top: 0
+    left: 0
+    position: absolute
+    background-color: #00000065
+    z-index: -1
+
+.message--visible
+    z-index: 1 !important

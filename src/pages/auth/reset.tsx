@@ -8,8 +8,9 @@ import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import React from 'react';
 import IconUser from '@/assets/icons/IconUser';
-import Loader from '@/assets/icons/loader';
+
 import { selectAuthStatus } from '@/store/slices/auth/authSlice';
+import Loader from '@/assets/icons/Loader';
 
 export default function Reset() {
     const dispatch = useAppDispatch();

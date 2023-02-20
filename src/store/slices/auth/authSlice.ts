@@ -27,11 +27,11 @@ export const authSlice = createSlice({
             .addCase(userLogInAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 if (action.payload.status === 'success') {
-                    state.user = { ...action.payload.user };
-                    console.log(state.user)
+                    state.user = { ...action.payload.user }
                     router.push('/')
                 } else {
-                    console.log('not valid user')
+                    
+                    console.log(action.payload.message)
                 }
             })
             .addCase(userLogInAsync.rejected, (state) => {
