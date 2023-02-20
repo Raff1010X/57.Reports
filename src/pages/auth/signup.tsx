@@ -108,7 +108,7 @@ export default function SignIn() {
                         className={style.button}
                         type="submit"
                     >
-                        {(authStatus==="idle") ? "Log in!" : <Loader/>}
+                        {(authStatus==="idle") ? "Sign up!" : <Loader/>}
                     </button>
 
                     <Link className={style.link} href={'/auth/login'}>

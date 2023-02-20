@@ -62,7 +62,7 @@ export default function Reset() {
                         className={style.button}
                         type="submit"
                     >
-                        {(authStatus==="idle") ? "Log in!" : <Loader/>}
+                        {(authStatus==="idle") ? "Send password!" : <Loader/>}
                     </button>
                     <Link className={style.link} href={'/auth/login'}>
                         <IconUser width={'2rem'} height={'2rem'} />

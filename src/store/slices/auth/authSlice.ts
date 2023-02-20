@@ -61,5 +61,9 @@ export const { setUserEmail } = authSlice.actions;
 export const selectAuthStatus = (state: RootState) => state.auth.status;
 export const selectIsUserLogged = (state: RootState) => state.auth.user.isLoged;
 export const selectUser = (state: RootState) => state.auth.user;
+export const selectIsSuperUser = (state: RootState) => {
+    const isSuperUser = state.auth.user.role ==='superUser' ? true : false;
+    return isSuperUser
+};
 
 export default authSlice.reducer;

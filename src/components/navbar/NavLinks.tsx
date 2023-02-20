@@ -5,7 +5,7 @@ import IconLoginBoxLine from '@/assets/icons/IconLoginBoxLine';
 import IconLogoutBoxLine from '@/assets/icons/IconLogoutBoxLine';
 import IconUser from '@/assets/icons/IconUser';
 import { useAppSelector } from '@/store/hooks';
-import { selectIsUserLogged } from '@/store/slices/auth/authSlice';
+import { selectIsSuperUser, selectIsUserLogged } from '@/store/slices/auth/authSlice';
 
 import NavLink from './NavLink';
 
@@ -15,6 +15,7 @@ interface NavLinks {
 
 export default function NavLinks(props: NavLinks) {
     const isUserLogged = useAppSelector(selectIsUserLogged);
+    const isSuperUser = useAppSelector(selectIsSuperUser);
 
     function handleClickLogIn() {
         props.handleClick();
@@ -28,24 +29,24 @@ export default function NavLinks(props: NavLinks) {
         <>
             {isUserLogged && (
                 <>
-                    <NavLink
+                    {isSuperUser && <NavLink
                         linkTo={'/newreport'}
                         text={'New report'}
                         icon={IconFolderAdd}
                         handleClick={props.handleClick}
-                    />
+                    />}
                     <NavLink
                         linkTo={'/reports'}
                         text={'Reports'}
                         icon={IconDocumentsOutline}
                         handleClick={props.handleClick}
                     />
-                    <NavLink
+                    {isSuperUser && <NavLink
                         linkTo={'/user'}
                         text={'User'}
                         icon={IconUser}
                         handleClick={props.handleClick}
-                    />
+                    />}
                     <NavLink
                         linkTo={'/auth/logout'}
                         className={'link flex-right'}
