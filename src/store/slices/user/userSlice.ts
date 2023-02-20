@@ -22,16 +22,22 @@ export const userSlice = createSlice({
             // log in
             .addCase(userLogInAsync.pending, (state) => {
                 state.status = 'loading';
+                console.log('loading')
             })
             .addCase(userLogInAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 if (action.payload.status === 'success') {
                     state.user = { ...action.payload.user };
+                    console.log(state.user)
+                } else {
+                    console.log(action.payload.user)
+                    console.log('not valid user')
                 }
             })
             .addCase(userLogInAsync.rejected, (state) => {
                 state.status = 'failed';
                 state.user = initialState.user;
+                console.log('failed')
             })
             // log out
             .addCase(userLogOutAsync.pending, (state) => {

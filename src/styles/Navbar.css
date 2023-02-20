@@ -127,6 +127,7 @@
         animation-duration: 0.5s;
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
+        z-index: 1;
     }
 
     @-webkit-keyframes slideDown {
@@ -161,6 +162,7 @@
         animation-duration: 0.5s;
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
+        z-index: -1;
     }
 
     @-webkit-keyframes slideUp {

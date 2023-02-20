@@ -1,23 +1,44 @@
 import { useAppDispatch } from '@/store/hooks';
 import { userLogInAsync } from '@/store/slices/user/userAPI';
-import { FormEvent } from 'react';
+import { FormEvent, MutableRefObject, useRef } from 'react';
 
 import style from '@/styles/login.module.css';
 import Link from 'next/link';
 import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
+import React from 'react';
 
 export default function Login() {
     const dispatch = useAppDispatch();
 
+    // const refs = new Array<MutableRefObject<HTMLInputElement>>(3).map(() => useRef<HTMLInputElement>(null));
+    const refs = Array.from({ length: 3 }, () =>
+        useRef<HTMLInputElement>(null)
+    );
+
     const handleLogIn = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        refs[0]?.current?.reportValidity();
+        refs[1]?.current?.reportValidity();
+        refs[2]?.current?.reportValidity();
+
+        if (
+            !refs[0]?.current?.checkValidity() ||
+            !refs[1]?.current?.checkValidity() ||
+            !refs[2]?.current?.checkValidity()
+        )
+            return;
+
+        const project = refs[0]?.current?.value || '';
+        const email = refs[1]?.current?.value || '';
+        const password = refs[2]?.current?.value || '';
+
         dispatch(
             userLogInAsync({
-                project: 'Audits',
-                password: 'admin1234',
-                email: 'raff@acme.pl',
+                project,
+                password,
+                email,
             })
         );
     };
@@ -26,46 +47,71 @@ export default function Login() {
         <div className="page">
             <div className="page-content">
                 <form className={style.loginform} onSubmit={handleLogIn}>
+                    <p className={style.title}>Log in!</p>
                     <label className={style.label} htmlFor="fproject">
-                        Project:
+                        Project name:
                     </label>
                     <input
+                        ref={refs[0]}
                         className={style.input}
                         type="text"
                         id="fproject"
-                        name="fproject"
+                        placeholder="Project"
+                        required
+                        minLength={3}
+                        maxLength={64}
+                        onChange={() => {
+                            refs[0]?.current?.setCustomValidity('');
+                        }}
                     />
                     <label className={style.label} htmlFor="lemail">
-                        Email:
+                        Your email:
                     </label>
                     <input
+                        ref={refs[1]}
                         className={style.input}
                         type="email"
                         autoComplete="email"
                         id="lemail"
-                        name="lemail"
+                        placeholder="Email"
+                        required
+                        onChange={() => {
+                            refs[1]?.current?.setCustomValidity('');
+                        }}
                     />
                     <label className={style.label} htmlFor="lpassword">
                         Password:
                     </label>
                     <input
+                        ref={refs[2]}
                         className={style.input}
                         type="password"
                         autoComplete="current-password"
                         id="lpassword"
-                        name="lpassword"
+                        placeholder="Password"
+                        required
+                        minLength={8}
+                        maxLength={64}
+                        onChange={() => {
+                            refs[2]?.current?.setCustomValidity('');
+                        }}
                     />
                     <input
                         className={style.button}
                         type="submit"
-                        value="Log in"
+                        value="Log in!"
                     />
 
                     <Link className={style.link} href={'/login/signin'}>
-                        <IconBxUserPlus width={'3rem'} height={'3rem'}/> Sign up!
+                        <IconBxUserPlus width={'2rem'} height={'2rem'} />
+                        Sign up!
                     </Link>
                     <Link className={style.link} href={'/login/reset'}>
-                        <IconHeadQuestionOutline width={'3rem'} height={'3rem'}/>I forgot my password
+                        <IconHeadQuestionOutline
+                            width={'2rem'}
+                            height={'2rem'}
+                        />
+                        Forgot password?
                     </Link>
                 </form>
             </div>
