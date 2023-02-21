@@ -1,10 +1,16 @@
-import '@/styles/reset.sass';
-import '@/styles/colors.sass';
-import '@/styles/globals.sass';
-import '@/styles/navbar.sass';
-import '@/styles/scroll-bar.sass';
-import '@/styles/message.sass';
-import '@/styles/ms-icons.css'
+import '@/styles/global/reset.sass';
+import '@/styles/global/colors.sass';
+import '@/styles/global/globals.sass';
+
+import '@/styles/components/layout.sass';
+import '@/styles/components/navbar.sass';
+import '@/styles/components/message.sass';
+
+import '@/styles/pages/page.sass';
+
+import '@/styles/interface/scroll-bar.sass';
+import '@/styles/interface/ms-icons.css'
+
 
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
