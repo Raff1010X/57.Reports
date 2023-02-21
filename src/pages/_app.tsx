@@ -3,6 +3,8 @@ import '@/styles/colors.sass';
 import '@/styles/globals.sass';
 import '@/styles/navbar.sass';
 import '@/styles/scroll-bar.sass';
+import '@/styles/message.sass';
+import '@/styles/ms-icons.css'
 
 import { Provider } from 'react-redux';
 import { store } from '../store/store';

@@ -11,7 +11,7 @@ export default function Login() {
 
     return (
         <div className="page">
-            <div className="page-content">You were succesfully logged out.</div>
+            <div className="page-content">You have successfully been logged out!</div>
         </div>
     );
 }

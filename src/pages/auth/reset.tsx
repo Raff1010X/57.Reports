@@ -1,15 +1,14 @@
+import React from 'react';
+import { selectAuthStatus } from '@/store/slices/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { userLogInAsync } from '@/store/slices/auth/authAPI';
 import { FormEvent, useRef } from 'react';
-
 import style from '@/styles/login.module.sass';
+import ui from '@/styles/ui.module.sass';
 import Link from 'next/link';
 import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
-import React from 'react';
 import IconUser from '@/assets/icons/IconUser';
-
-import { selectAuthStatus } from '@/store/slices/auth/authSlice';
 import Loader from '@/assets/icons/Loader';
 
 export default function Reset() {
@@ -44,12 +43,12 @@ export default function Reset() {
             <div className="page-content">
                 <form className={style.loginform} onSubmit={handleLogIn}>
                     <p className={style.title}><IconHeadQuestionOutline width={'2.5rem'} height={'2.5rem'} /><br/>Forgot password</p>
-                    <label className={style.label} htmlFor="lemail">
+                    <label className={ui.label} htmlFor="lemail">
                         Your email:
                     </label>
                     <input
                         ref={refs[1]}
-                        className={style.input}
+                        className={ui.input}
                         type="email"
                         autoComplete="email"
                         id="lemail"
@@ -60,16 +59,16 @@ export default function Reset() {
                         }}
                     />
                     <button
-                        className={style.button}
+                        className={ui.button}
                         type="submit"
                     >
                         {(authStatus==="idle") ? "Send password!" : <Loader/>}
                     </button>
-                    <Link className={style.link} href={'/auth/login'}>
+                    <Link className={ui.link} href={'/auth/login'}>
                         <IconUser width={'2rem'} height={'2rem'} />
                         Log in!
                     </Link>
-                    <Link className={style.link} href={'/auth/signup'}>
+                    <Link className={ui.link} href={'/auth/signup'}>
                         <IconBxUserPlus width={'2rem'} height={'2rem'} />
                         Sign up!
                     </Link>

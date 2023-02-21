@@ -12,11 +12,13 @@ const reducer = {
 export const store = configureStore({
     reducer,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: ['message/setMessage'],
-            },
-        }).concat(asyncDispatchMiddleware),
+        getDefaultMiddleware(
+        //     {
+        //     serializableCheck: {
+        //         ignoredActions: ['message/setMessage'],
+        //     },
+        // }
+        ).concat(asyncDispatchMiddleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -1,0 +1,84 @@
+.input
+    font-size: 1.5rem
+    width: 100%
+    padding: 0.5rem
+    background-color: inherit
+    color: inherit
+    border: 1px solid var(--color-font)
+    box-shadow: inset 0 0 10px var(--color-background)
+
+.input::-webkit-input-placeholder
+    color: var(--color-placeholder)
+
+
+.input::-moz-placeholder
+    color: var(--color-placeholder)
+
+
+.input:-ms-input-placeholder
+    color: var(--color-placeholder)
+
+
+.input::-ms-input-placeholder
+    color: var(--color-placeholder)
+
+
+.input::placeholder
+    color: var(--color-placeholder)
+
+.input:focus
+    outline: 1px solid var(--color-link-hover)
+
+
+.input:invalid:not(:placeholder-shown)
+    outline: 2px dashed var(--color-link-hover)
+
+
+// background
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active
+    border: 1px solid var(--color-font)
+    -webkit-text-fill-color: var(--color-font)
+    box-shadow: 0 0 0 1000px var(--color-background) inset
+    -webkit-transition: background-color 5000s ease-in-out 0s
+    transition: background-color 5000s ease-in-out 0s
+    // transition: box-shadow .5s ease-out
+
+.label
+    width: 100%
+    text-align: center
+    margin-top: .5rem
+    font-size: 1.25rem
+
+.button
+    font-size: 1.5rem
+    width: 100%
+    padding: 1rem
+    margin: 2rem 0 2rem 0
+    cursor: pointer
+    background-color: inherit
+    color: inherit
+    border: 2px solid var(--color-font)
+
+.link
+    width: 100%
+    text-align: center
+    font-size: 1.25rem
+    text-decoration: none
+    color: var(--color-link)
+    transition: 0.5s
+    margin: .5rem 0 .5rem 0
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    gap: 1rem
+    white-space: nowrap
+
+.link:hover,
+.button:hover
+    transition: 0.5s
+    color: var(--color-link-hover)
+

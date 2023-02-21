@@ -1,9 +1,10 @@
-import { UserState } from '@/types/user';
+import { User, UserState } from '@/types/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
 import { userLogInAsync, userLogOutAsync } from './authAPI';
 import router from 'next/router';
+import { showMessage } from '../message/messageSlice';
 
 const initialState: UserState = {
     status: 'idle',
@@ -24,14 +25,13 @@ export const authSlice = createSlice({
             .addCase(userLogInAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(userLogInAsync.fulfilled, (state, action) => {
+            .addCase(userLogInAsync.fulfilled, (state, action: User | any) => {
                 state.status = 'idle';
                 if (action.payload.status === 'success') {
                     state.user = { ...action.payload.user }
                     router.push('/')
                 } else {
-                    
-                    console.log(action.payload.message)
+                    action.asyncDispatch(showMessage(action.payload.message))
                 }
             })
             .addCase(userLogInAsync.rejected, (state) => {

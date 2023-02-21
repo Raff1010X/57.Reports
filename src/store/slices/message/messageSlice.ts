@@ -1,39 +1,24 @@
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RefObject, useRef } from 'react';
 import { RootState } from '../../store';
 
 const initialState = {
-    message: ''
+    message: '',
 };
-
-
-function showMessage(reff: RefObject<HTMLDivElement>) {
-    reff?.current?.classList.add("message--visible")
-}
-
-function hideMessage(reff: RefObject<HTMLDivElement>) {
-    reff?.current?.classList.remove("message--visible")
-}
 
 export const messageSlice = createSlice({
     name: 'message',
     initialState,
     reducers: {
-        setMessage: (state, action: PayloadAction<{message: string; reff: RefObject<HTMLDivElement>}>) => {
-            state.message = action.payload.message;
-            if (action.payload.message !== "") {
-                showMessage(action.payload.reff);
-            }
-            else {
-                hideMessage(action.payload.reff);
-            }
-            
+        showMessage: (state, action: PayloadAction<string>) => {
+            state.message = action.payload;
+        },
+        hideMessage: (state) => {
+            state.message = '';
         },
     },
 });
 
-export const { setMessage } = messageSlice.actions;
+export const { showMessage, hideMessage } = messageSlice.actions;
 
 export const selectMessage = (state: RootState) => state.message.message;
 

@@ -103,7 +103,7 @@ function isValidUser(userData: User, array: User[]): User | undefined {
 export async function logIn(userData: User) {
     let response = {
         status: 'rejected',
-        message: 'Invalid password or user name.',
+        message: 'Invalid password, user or project name!',
         user: {
             project: '',
             email: '',

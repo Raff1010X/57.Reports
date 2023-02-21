@@ -1,14 +1,14 @@
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { userLogInAsync } from '@/store/slices/auth/authAPI';
 import { FormEvent, useRef } from 'react';
-
+import { selectAuthStatus } from '@/store/slices/auth/authSlice';
 import style from '@/styles/login.module.sass';
+import ui from '@/styles/ui.module.sass';
 import Link from 'next/link';
 import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
-import React from 'react';
 import IconUser from '@/assets/icons/IconUser';
-import { selectAuthStatus } from '@/store/slices/auth/authSlice';
 import Loader from '@/assets/icons/Loader';
 
 
@@ -57,12 +57,12 @@ export default function Login() {
                         <br />
                         Log in!
                     </p>
-                    <label className={style.label} htmlFor="fproject">
+                    <label className={ui.label} htmlFor="fproject">
                         Project name:
                     </label>
                     <input
                         ref={refs[0]}
-                        className={style.input}
+                        className={ui.input}
                         type="text"
                         id="fproject"
                         placeholder="Project"
@@ -73,12 +73,12 @@ export default function Login() {
                             refs[0]?.current?.setCustomValidity('');
                         }}
                     />
-                    <label className={style.label} htmlFor="lemail">
+                    <label className={ui.label} htmlFor="lemail">
                         Your email:
                     </label>
                     <input
                         ref={refs[1]}
-                        className={style.input}
+                        className={ui.input}
                         type="email"
                         autoComplete="email"
                         id="lemail"
@@ -88,12 +88,12 @@ export default function Login() {
                             refs[1]?.current?.setCustomValidity('');
                         }}
                     />
-                    <label className={style.label} htmlFor="lpassword">
+                    <label className={ui.label} htmlFor="lpassword">
                         Password:
                     </label>
                     <input
                         ref={refs[2]}
-                        className={style.input}
+                        className={ui.input}
                         type="password"
                         autoComplete="current-password"
                         id="lpassword"
@@ -105,15 +105,15 @@ export default function Login() {
                             refs[2]?.current?.setCustomValidity('');
                         }}
                     />
-                    <button className={style.button} type="submit">
+                    <button className={ui.button} type="submit">
                         {authStatus === 'idle' ? 'Log in!' : <Loader />}
                     </button>
 
-                    <Link className={style.link} href={'/auth/signup'}>
+                    <Link className={ui.link} href={'/auth/signup'}>
                         <IconBxUserPlus width={'2rem'} height={'2rem'} />
                         Sign up!
                     </Link>
-                    <Link className={style.link} href={'/auth/reset'}>
+                    <Link className={ui.link} href={'/auth/reset'}>
                         <IconHeadQuestionOutline
                             width={'2rem'}
                             height={'2rem'}
