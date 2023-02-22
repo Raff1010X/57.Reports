@@ -9,7 +9,7 @@ import '@/styles/components/message.sass';
 import '@/styles/pages/page.sass';
 
 import '@/styles/interface/scroll-bar.sass';
-import '@/styles/interface/ms-icons.css'
+import '@/styles/interface/ms-icons.sass'
 
 
 import { Provider } from 'react-redux';

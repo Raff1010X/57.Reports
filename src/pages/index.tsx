@@ -1,6 +1,15 @@
 import Head from 'next/head';
+import Link from 'next/link';
+import { useAppSelector } from '@/store/hooks';
+import { selectIsUserLogged } from '@/store/slices/auth/authSlice';
+import ui from '@/styles/interface/ui.module.sass';
+import BackgroundVideo from '@/components/BackgroundVideo';
 
 export default function Home() {
+    const isUserLogged = useAppSelector(selectIsUserLogged);
+    const style = isUserLogged ? 'page' : 'page page-fullscreen';
+    console.log(style);
+
     return (
         <>
             <Head>
@@ -15,7 +24,14 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className='page'>Home page</main>
+            <main className={style}>
+                <div className="page-content">
+                    <BackgroundVideo />
+                    <Link className={ui.button} href="/auth/login">
+                        Login
+                    </Link>
+                </div>
+            </main>
         </>
     );
 }
