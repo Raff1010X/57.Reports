@@ -1,5 +1,7 @@
 // Logo in Navbar.tsx
 import IconFiletypePdf from '@/assets/icons/IconFiletypePdf';
+import { useAppSelector } from '@/store/hooks';
+import { selectIsUserLogged } from '@/store/slices/auth/authSlice';
 import Link from 'next/link';
 
 interface Logo {
@@ -8,6 +10,8 @@ interface Logo {
 }
 
 export default function Logo(props: Logo) {
+    const isUserLogged = useAppSelector(selectIsUserLogged);
+
     function handleClick() {
         if (props.menuActive) props.handleClick();
     }
@@ -16,7 +20,7 @@ export default function Logo(props: Logo) {
         <>
             <Link
                 className="link font-xl"
-                href={'/'}
+                href={isUserLogged ? '/' : '/auth/login'}
                 onClick={handleClick}
             >
                 <IconFiletypePdf width="2rem" height="2rem" />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { userLogInAsync } from '@/store/slices/auth/authAPI';
 import { FormEvent, useRef } from 'react';
@@ -11,10 +11,15 @@ import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import IconUser from '@/assets/icons/IconUser';
 import Loader from '@/assets/icons/Loader';
 
-
 export default function Login() {
     const dispatch = useAppDispatch();
     const authStatus = useAppSelector(selectAuthStatus);
+
+
+    useEffect(() => {
+        const element = document.getElementById("background-video");
+        element?.classList.add("bgvideo_hidden")
+    }, [])
 
     // const refs = new Array<MutableRefObject<HTMLInputElement>>(3).map(() => useRef<HTMLInputElement>(null));
     const refs = Array.from({ length: 3 }, () =>

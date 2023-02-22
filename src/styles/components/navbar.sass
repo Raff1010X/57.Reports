@@ -58,31 +58,12 @@
     top: 100%
     background-color: var(--color-link-hover)
     opacity: 0
-    -webkit-animation-name: opacity100
-    animation-name: opacity100
+    -webkit-animation-name: opacity
+    animation-name: opacity1
     -webkit-animation-duration: 1s
     animation-duration: 1s
     -webkit-animation-fill-mode: forwards
     animation-fill-mode: forwards
-
-
-@-webkit-keyframes opacity100 
-    0% 
-        opacity: 0
-    
-    100% 
-        opacity: 1
-    
-
-
-@keyframes opacity100 
-    0% 
-        opacity: 0
-    
-    100% 
-        opacity: 1
-    
-
 
 .font-xl 
     font-size: 1.5rem
@@ -122,24 +103,6 @@
         -webkit-animation-fill-mode: forwards
         animation-fill-mode: forwards
         z-index: 1
-    
-    @-webkit-keyframes slideDown 
-        0% 
-            opacity: 0
-            transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg)
-        
-        100% 
-            opacity: 1
-            transform: translateY(0) scale(1) rotateY(0) rotateX(0)
-
-    @keyframes slideDown 
-        0% 
-            opacity: 0
-            transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg)
-        
-        100% 
-            opacity: 1
-            transform: translateY(0) scale(1) rotateY(0) rotateX(0)
 
     .burger-menu--inactive 
         display: flex
@@ -152,28 +115,6 @@
         -webkit-animation-fill-mode: forwards
         animation-fill-mode: forwards
         z-index: -1
-    
-    @-webkit-keyframes slideUp 
-        0% 
-            opacity: 1
-            transform: translateX(0)
-            display: flex
-        
-        100% 
-            opacity: 0
-            transform: translateX(-60%)
-            display: none
-        
-    @keyframes slideUp 
-        0% 
-            opacity: 1
-            transform: translateX(0)
-            display: flex
-        
-        100% 
-            opacity: 0
-            transform: translateX(-60%)
-            display: none
         
     .flex-right 
         margin-left: 0

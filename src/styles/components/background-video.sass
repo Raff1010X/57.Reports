@@ -1,0 +1,57 @@
+.bgvideo
+    position: absolute
+    width: 100vw
+    height: 100vh
+    top: 0
+    left: 0
+    overflow: hidden
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    background-color: white
+    // background-image: url('./pexels-koolshooters-6980918.webp')
+    background-position: center
+    background-size: cover
+
+.bgvideo_hidden
+    opacity: 0
+    animation-name: hide 
+    -webkit-animation-duration: .25s
+    animation-duration: .25s
+    -webkit-animation-fill-mode: forwards
+    animation-fill-mode: forwards
+
+.video
+    width: 100%
+    height: 100%
+    -o-object-fit: cover
+    object-fit: cover
+
+.bgvideo-content
+    position: absolute
+    width: 80%
+    height: 80%
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    gap: 2.5rem
+    color: white
+
+.bgvideo-button
+    border: 1px solid white !important
+    color: white
+    background: #00000096 !important
+
+.bgvideo-title
+    font-size: 4rem
+    text-align: center
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, 1))
+
+.bgvideo-text
+    font-size: 2rem
+    text-align: center
+    line-height: 1.5
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, 1))
+

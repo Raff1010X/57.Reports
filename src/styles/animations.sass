@@ -1,0 +1,88 @@
+// --------------------------
+@-webkit-keyframes hide 
+    0% 
+        opacity: 1
+        z-index: 1
+    100% 
+        opacity: 0
+        z-index: -1
+    
+@keyframes hide
+    0% 
+        opacity: 1
+        z-index: 1
+    100% 
+        opacity: 0
+        z-index: -1
+
+// --------------------------
+@-webkit-keyframes show 
+    0% 
+        z-index: 1
+        opacity: 0
+    100% 
+        z-index: 1
+        opacity: 1
+    
+@keyframes show 
+    0% 
+        z-index: 1
+        opacity: 0
+    100% 
+        z-index: 1
+        opacity: 1
+
+// --------------------------
+@-webkit-keyframes opacity1
+    0% 
+        opacity: 0
+    100% 
+        opacity: 1
+    
+@keyframes opacity1
+    0% 
+        opacity: 0
+    100% 
+        opacity: 1
+    
+// --------------------------
+@-webkit-keyframes slideDown 
+    0% 
+        opacity: 0
+        transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg)
+    
+    100% 
+        opacity: 1
+        transform: translateY(0) scale(1) rotateY(0) rotateX(0)
+
+@keyframes slideDown 
+    0% 
+        opacity: 0
+        transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg)
+    
+    100% 
+        opacity: 1
+        transform: translateY(0) scale(1) rotateY(0) rotateX(0)
+
+// --------------------------
+@-webkit-keyframes slideUp 
+    0% 
+        opacity: 1
+        transform: translateX(0)
+        display: flex
+    
+    100% 
+        opacity: 0
+        transform: translateX(-60%)
+        display: none
+    
+@keyframes slideUp 
+    0% 
+        opacity: 1
+        transform: translateX(0)
+        display: flex
+    
+    100% 
+        opacity: 0
+        transform: translateX(-60%)
+        display: none

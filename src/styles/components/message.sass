@@ -16,41 +16,16 @@ message-background--start
     align-items: center
     justify-content: center
     backdrop-filter: blur(3px)
-    -webkit-animation-name: hide-message
-    animation-name: hide-message
+    -webkit-animation-name: hide
+    animation-name: hide
     -webkit-animation-duration: .25s
     animation-duration: .25s
     -webkit-animation-fill-mode: forwards
     animation-fill-mode: forwards
-    
-@keyframes hide-message 
-    0% 
-        z-index: 1
-        opacity: 1
-    100% 
-        z-index: -1
-        opacity: 0
-
-@-webkit-keyframes show-message 
-    0% 
-        z-index: 1
-        opacity: 0
-    100% 
-        z-index: 1
-        opacity: 1
-    
-@keyframes show-message 
-    0% 
-        z-index: 1
-        opacity: 0
-    100% 
-        z-index: 1
-        opacity: 1
-
 
 .message--visible
-    -webkit-animation-name: show-message
-    animation-name: show-message
+    -webkit-animation-name: show
+    animation-name: show
     -webkit-animation-duration: .25s
     animation-duration: .25s
     -webkit-animation-fill-mode: forwards

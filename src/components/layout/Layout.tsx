@@ -1,19 +1,27 @@
 // wraps Components in _app.tsx provides navbar to all pages
-import { ReactElement } from 'react';
+import { useAppSelector } from '@/store/hooks';
+import { selectIsUserLogged } from '@/store/slices/auth/authSlice';
+import { ReactElement, useRef } from 'react';
+import BackgroundVideo from '../BackgroundVideo';
 import Message from '../message/Message';
 import Navbar from '../navbar/Navbar';
+import { fontInter } from '@/assets/fonts/fontLoader';
 
 interface Layout {
-    className: string; // local font name
     children: ReactElement;
 }
 
 export default function Layout(props: Layout) {
+    const isUserLogged = useAppSelector(selectIsUserLogged);
+
     return (
-        <div className={props.className}>
-            <Navbar />
-            {props.children}
-            <Message />
-        </div>
+        <>
+            <div className={`${fontInter.className} layout`}>
+                <Navbar />
+                {props.children}
+                <Message />
+            </div>
+            {(!isUserLogged) && <BackgroundVideo />}
+        </>
     );
 }

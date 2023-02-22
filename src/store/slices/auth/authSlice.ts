@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
 import { userLogInAsync, userLogOutAsync } from './authAPI';
-import router from 'next/router';
+import Router from 'next/router';
 import { showMessage } from '../message/messageSlice';
 
 const initialState: UserState = {
@@ -29,7 +29,7 @@ export const authSlice = createSlice({
                 state.status = 'idle';
                 if (action.payload.status === 'success') {
                     state.user = { ...action.payload.user }
-                    router.push('/')
+                    Router.push('/')
                 } else {
                     action.asyncDispatch(showMessage(action.payload.message))
                 }
