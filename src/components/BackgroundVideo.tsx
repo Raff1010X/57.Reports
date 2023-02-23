@@ -26,7 +26,7 @@ export default function BackgroundVideo() {
                 />
             </video>
             <div className={`bgvideo-content ${fontInter.className}`}>
-                <IconFiletypePdf width="10rem" height="10rem" />
+                <IconFiletypePdf width="10rem" height="10rem" className="icon-shadow"/>
                 <p className="bgvideo-title">Report creator</p>
                 <p className="bgvideo-text">
                     Create audit reports <br />
