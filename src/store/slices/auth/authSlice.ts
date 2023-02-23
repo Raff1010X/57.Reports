@@ -9,14 +9,15 @@ import { showMessage } from '../message/messageSlice';
 const initialState: UserState = {
     status: 'idle',
     user: { project: '', email: '', department: '', role: '', isLoged: false },
+    loggedOut: false,
 };
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUserEmail: (state, action: PayloadAction<string>) => {
-            state.user.email = action.payload;
+        setLoggedOut: (state) => {
+            state.loggedOut = true;
         },
     },
     extraReducers: (builder) => {
@@ -56,11 +57,12 @@ export const authSlice = createSlice({
     },
 });
 
-export const { setUserEmail } = authSlice.actions;
+export const { setLoggedOut } = authSlice.actions;
 
 export const selectAuthStatus = (state: RootState) => state.auth.status;
 export const selectIsUserLogged = (state: RootState) => state.auth.user.isLoged;
 export const selectUser = (state: RootState) => state.auth.user;
+export const selectLoggedOut = (state: RootState) => state.auth.loggedOut;
 export const selectIsSuperUser = (state: RootState) => {
     const isSuperUser = state.auth.user.role ==='superUser' ? true : false;
     return isSuperUser

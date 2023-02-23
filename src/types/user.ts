@@ -15,4 +15,5 @@ export type UserState = {
         isLoged: boolean;
         role: string;
     };
+    loggedOut: boolean;
 };

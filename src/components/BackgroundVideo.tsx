@@ -3,15 +3,23 @@ import ui from '@/styles/interface/ui.module.sass';
 import { fontInter } from '@/assets/fonts/fontLoader';
 import IconFiletypePdf from '@/assets/icons/IconFiletypePdf';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { selectLoggedOut } from '@/store/slices/auth/authSlice';
 
 export default function BackgroundVideo() {
+    
     const router = useRouter();
 
     function handleClick() {
         router.replace('/auth/login')
     }
+    
+    const loggedOut = useSelector(selectLoggedOut)
+    let className = "bgvideo"
+    if (!loggedOut) className = "bgvideo bgvideo-no_animation"
+
     return (
-        <div className="bgvideo" id="background-video">
+        <div className={className} id="background-video">
             <video
                 className="video"
                 playsInline
@@ -35,7 +43,6 @@ export default function BackgroundVideo() {
                 <button
                     className={`${ui.button} bgvideo-button`}
                     onClick={handleClick}
-                    // href='/auth/login'
                 >
                     Login
                 </button>
