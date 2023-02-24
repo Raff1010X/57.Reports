@@ -1,9 +1,3 @@
-const superUser = {
-    project: '',
-    email: '',
-    password: '',
-};
-
 const user = {
     project: '',
     department: '',
