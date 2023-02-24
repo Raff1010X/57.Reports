@@ -6,7 +6,7 @@ export const testMiddleware = async (
     next: NextApiHandler
 ) => {
 
-    console.log("middleware");
+    console.log("TEST middleware");
 
-    await next(req, res);
+    return next(req, res);
 };

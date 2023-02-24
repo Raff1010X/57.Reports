@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next/types";
 
-export const testGet = (req: NextApiRequest, res: NextApiResponse) => {
+export const testGet = async (req: NextApiRequest, res: NextApiResponse) => {
     res.send('Hello world');
 };
 
