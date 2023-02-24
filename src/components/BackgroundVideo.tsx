@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import ui from '@/styles/interface/ui.module.sass';
 import { fontInter } from '@/assets/fonts/fontLoader';
 import IconFiletypePdf from '@/assets/icons/IconFiletypePdf';
