@@ -9,7 +9,7 @@ export default function Login() {
     useEffect(() => {
         dispatch(userLogOutAsync());
         dispatch(setLoggedOut())
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className="page">

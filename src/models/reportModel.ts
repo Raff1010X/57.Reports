@@ -1,4 +1,4 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, Schema, model, models } from 'mongoose';
 
 const ReportSchema: Schema = new Schema({
   project: {
@@ -14,5 +14,6 @@ export interface IReport extends Document {
    project: string;
 
 }
+const Report = models.Report || model<IReport>('Report', ReportSchema);
 
-export default model<IReport>('Report', ReportSchema);
+export default Report;

@@ -14,8 +14,9 @@ export default function Theme(props: Theme) {
         if (typeof window !== 'undefined' && theme === '') {
             let localStorageTheme = localStorage.getItem('report-theme');
             if (localStorageTheme === null) localStorageTheme = 'light';
-            setTheme(localStorageTheme)
+            setTheme(localStorageTheme);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

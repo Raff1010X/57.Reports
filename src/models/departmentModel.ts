@@ -1,4 +1,4 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, Schema, model, models } from 'mongoose';
 
 const DepartmentSchema: Schema = new Schema({
   name: {
@@ -11,5 +11,6 @@ const DepartmentSchema: Schema = new Schema({
 export interface IDepartment extends Document {
    name: string;
 }
+const Department = models.Department || model<IDepartment>('Department', DepartmentSchema);
 
-export default model<IDepartment>('Department', DepartmentSchema);
+export default Department;

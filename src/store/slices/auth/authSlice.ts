@@ -1,4 +1,4 @@
-import { User, UserState } from '@/types/user';
+import { IUser, TUserState } from '@/types/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
@@ -6,7 +6,7 @@ import { userLogInAsync, userLogOutAsync } from './authAPI';
 import Router from 'next/router';
 import { showMessage } from '../message/messageSlice';
 
-const initialState: UserState = {
+const initialState: TUserState = {
     status: 'idle',
     user: { project: '', email: '', department: '', role: '', isLoged: false },
     loggedOut: false,
@@ -26,7 +26,7 @@ export const authSlice = createSlice({
             .addCase(userLogInAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(userLogInAsync.fulfilled, (state, action: User | any) => {
+            .addCase(userLogInAsync.fulfilled, (state, action: IUser | any) => {
                 state.status = 'idle';
                 if (action.payload.status === 'success') {
                     state.user = { ...action.payload.user }

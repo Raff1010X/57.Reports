@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next/types';
 
-const mongoUrl =
-    'mongodb+srv://mytestuser:gXOfONBTNf6ZrHbm@cluster0.ou96zs3.mongodb.net/test?retryWrites=true&w=majority';
+const mongoUrl = process.env.mongoConnectionString;
+    // 'mongodb+srv://mytestuser:gXOfONBTNf6ZrHbm@cluster0.ou96zs3.mongodb.net/report?retryWrites=true&w=majority';
 
 const DB_OPTIONS = {
     useNewUrlParser: true,
@@ -14,14 +14,11 @@ const mongoDbMiddleware = async (
     res: NextApiResponse,
     next: NextApiHandler
 ) => {
+
     if (mongoose.connections[0].readyState) {
-        console.log('Use current DB connection'); //TODO: delete
-        return next(req, res);
+       return next(req, res);
     }
-    await mongoose
-        .connect(mongoUrl, DB_OPTIONS)
-        .then(() => console.log('DB connection successful')) //TODO: delete
-        .catch((err) => console.log(err)); //TODO: delete
+    await mongoose.connect(mongoUrl!, DB_OPTIONS)
     return next(req, res);
 };
 

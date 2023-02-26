@@ -1,11 +1,10 @@
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { createRouter } from 'next-connect';
 import { testMiddleware } from '@/middlewares/testMiddleware';
 import { testGetById } from '@/controllers/test/testController';
-import { handlerError } from '@/errors/handlerError';
+import errHandler from '@/middlewares/errorHandlerMiddleware';
+import createRouter from '@/middlewares/defaultMiddlewares/defaultMiddlewares';
 
-const router = createRouter<NextApiRequest, NextApiResponse>();
+const router = createRouter();
 
 router.use(testMiddleware).get(testGetById);
 
-export default router.handler(handlerError);
+export default router.handler(errHandler);

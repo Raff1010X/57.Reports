@@ -1,12 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { createRouter } from 'next-connect';
 import { testMiddleware } from '@/middlewares/testMiddleware';
 import { testGet } from '@/controllers/test/testController';
-import { handlerError } from '@/errors/handlerError';
-import mongoDbMiddleware from '@/db/db';
+import errHandler from '@/middlewares/errorHandlerMiddleware';
+import createRouter from '@/middlewares/defaultMiddlewares/defaultMiddlewares';
 
-const router = createRouter<NextApiRequest, NextApiResponse>();
+const router = createRouter();
 
-router.use(mongoDbMiddleware).use(testMiddleware).get(testGet);
+router.use(testMiddleware).get(testGet);
 
-export default router.handler(handlerError);
+export default router.handler(errHandler);
