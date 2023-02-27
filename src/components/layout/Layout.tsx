@@ -6,14 +6,16 @@ import BackgroundVideo from '../BackgroundVideo';
 import Message from '../message/Message';
 import Navbar from '../navbar/Navbar';
 import { fontInter } from '@/assets/fonts/fontLoader';
+import { useRouter } from 'next/router';
 
 interface Layout {
     children: ReactElement;
 }
 
 export default function Layout(props: Layout) {
+    const router = useRouter();
     const isUserLogged = useAppSelector(selectIsUserLogged);
-
+    console.log(router.pathname);
     return (
         <>
             <div className={`${fontInter.className} layout`}>
@@ -21,7 +23,9 @@ export default function Layout(props: Layout) {
                 {props.children}
                 <Message />
             </div>
-            {(!isUserLogged) && <BackgroundVideo />}
+            {(!isUserLogged && router.pathname !== '/404') && (
+                <BackgroundVideo />
+            )}
         </>
     );
 }

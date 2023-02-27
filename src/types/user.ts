@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
     project: string;
     email: string;
     password: string;
@@ -6,7 +6,7 @@ export interface User {
     department?: string; 
 }
 
-export type UserState = {
+export type TUserState = {
     status: string;
     user: {
         project: string;

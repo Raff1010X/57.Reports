@@ -1,4 +1,4 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, Schema, model, models } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 const UserSchema: Schema = new Schema({
@@ -45,7 +45,7 @@ export interface IUser extends Document {
     department?: string;
 }
 
-const User = model<IUser>('User', UserSchema);
+const User = models.User || model<IUser>('User', UserSchema);
 
 UserSchema.statics.authenticate = async function(email: string, password: string) {
     const user = await User.findOne({ email: email }).exec();

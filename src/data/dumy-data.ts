@@ -1,6 +1,6 @@
-import { User } from '@/types/user';
+import { IUser } from '@/types/user';
 
-const superUsers: User[] = [
+const superUsers: IUser[] = [
     {
         project: 'Audits',
         department: '',
@@ -17,7 +17,7 @@ const superUsers: User[] = [
     },
 ];
 
-const users: User[] = [
+const users: IUser[] = [
     {
         project: 'Audits',
         department: 'dep1',
@@ -90,7 +90,7 @@ const users: User[] = [
     },
 ];
 
-function isValidUser(userData: User, array: User[]): User | undefined {
+function isValidUser(userData: IUser, array: IUser[]): IUser | undefined {
     const isValidUser = array.find(
         (el) =>
             userData.project === el.project &&
@@ -100,7 +100,7 @@ function isValidUser(userData: User, array: User[]): User | undefined {
     return isValidUser;
 }
 
-export async function logIn(userData: User) {
+export async function logIn(userData: IUser) {
     let response = {
         status: 'rejected',
         message: 'Invalid password, user or project name!',
@@ -113,7 +113,7 @@ export async function logIn(userData: User) {
         },
     };
 
-    let user: User | undefined;
+    let user: IUser | undefined;
     let role = 'superUser';
     user = isValidUser(userData, superUsers);
     if (!user) {

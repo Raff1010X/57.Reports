@@ -16,9 +16,10 @@ export default function Reset() {
     const authStatus = useAppSelector(selectAuthStatus);
 
     // const refs = new Array<MutableRefObject<HTMLInputElement>>(3).map(() => useRef<HTMLInputElement>(null));
-    const refs = Array.from({ length: 3 }, () =>
-        useRef<HTMLInputElement>(null)
-    );
+    // const refs = Array.from({ length: 3 }, () =>
+    //     useRef<HTMLInputElement>(null)
+    // );
+    const refs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
 
     const handleLogIn = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

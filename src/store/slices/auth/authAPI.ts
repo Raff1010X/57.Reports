@@ -1,11 +1,11 @@
 import { logIn, logOut } from '@/data/dumy-data';
 
-import { User } from '@/types/user';
+import { IUser } from '@/types/user';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const userLogInAsync = createAsyncThunk(
     'auth/fetchLogIn',
-    async (data: User) => {
+    async (data: IUser) => {
         const response = await logIn(data);
         return response;
     }
