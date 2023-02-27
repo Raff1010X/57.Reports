@@ -15,7 +15,6 @@ interface Layout {
 export default function Layout(props: Layout) {
     const router = useRouter();
     const isUserLogged = useAppSelector(selectIsUserLogged);
-    console.log(router.pathname);
     return (
         <>
             <div className={`${fontInter.className} layout`}>
