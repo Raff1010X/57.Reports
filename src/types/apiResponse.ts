@@ -1,5 +1,5 @@
 export interface IApiResponse {
-    status: 'succes' | 'error';
+    status: 'succes' | 'fail' | 'error';
     message: string;
     data?: {}; 
 }
