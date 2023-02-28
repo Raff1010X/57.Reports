@@ -38,7 +38,6 @@ export const authSlice = createSlice({
             .addCase(userLogInAsync.rejected, (state) => {
                 state.status = 'failed';
                 state.user = initialState.user;
-                console.log('failed')
             })
             // log out
             .addCase(userLogOutAsync.pending, (state) => {

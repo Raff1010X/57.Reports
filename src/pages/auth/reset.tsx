@@ -24,8 +24,6 @@ export default function Reset() {
     const handleLogIn = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log(refs[0]?.current?.value);
-
         refs[0]?.current?.reportValidity();
 
         if (!refs[0]?.current?.checkValidity()) return;

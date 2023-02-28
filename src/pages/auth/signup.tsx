@@ -20,10 +20,6 @@ export default function SignIn() {
     const handleLogIn = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log(refs[0]?.current?.value);
-        console.log(refs[1]?.current?.value);
-        console.log(refs[2]?.current?.value);
-
         refs[0]?.current?.reportValidity();
         refs[1]?.current?.reportValidity();
         refs[2]?.current?.reportValidity();
