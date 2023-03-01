@@ -1,7 +1,7 @@
-import { testMiddleware } from '@/middlewares/testMiddleware';
+import { testMiddleware } from '@/middlewares/test/testMiddleware';
 import { testGetById } from '@/controllers/test/testController';
 import errHandler from '@/middlewares/errorHandlerMiddleware';
-import addDefaultMiddlewares from '@/middlewares/defaultMiddlewares/defaultMiddlewares';
+import addDefaultMiddlewares from '@/middlewares/defaultMiddlewares/addMiddlewares';
 import { createRouter } from 'next-connect';
 import { NextApiRequest, NextApiResponse } from 'next';
 

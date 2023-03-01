@@ -1,13 +1,15 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import errHandler from '@/middlewares/errorHandlerMiddleware';
+import addDefaultMiddlewares from '@/middlewares/defaultMiddlewares/addMiddlewares';
+import { createRouter } from 'next-connect';
+import { NextApiRequest, NextApiResponse } from 'next';
+import checkProject from '@/middlewares/auth/checkProject';
+import checkUser from '@/middlewares/auth/checkUser';
+import signUp from '@/controllers/auth/singUp';
 
-type Data = {
-  name: string
-}
+const router = createRouter<NextApiRequest, NextApiResponse>();
+addDefaultMiddlewares(router);
+router.use(checkProject);
+router.use(checkUser);
+router.post(signUp);
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  console.log("From endpoit: " + JSON.stringify(req.body))
-  res.status(200).json(req.body)
-}
+export default router.handler(errHandler);

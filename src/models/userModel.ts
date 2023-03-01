@@ -1,39 +1,47 @@
 import { Document, Schema, model, models } from 'mongoose';
 import bcrypt from 'bcryptjs';
+var validator = require('validator');
 
 const UserSchema: Schema = new Schema({
     project: {
         type: String,
         required: [true, 'Project is required'],
-        minlength: 3,
-        maxlength: 30,
+        minlength: [3, 'Project name shout be longer than 3 characters'],
+        maxlength: [30, 'Project name shout not be longer than 30 characters'],
     },
     email: {
         type: String,
         required: [true, 'Email is required'],
-        minlength: 5,
-        maxlength: 150,
+        validate: {
+            validator: function (email: any) {
+                return validator.isEmail(email);
+            },
+            message: '{VALUE} this is not a valid email address.',
+        },
+        minlength: [5, 'Email shout be longer than 5 characters'],
+        maxlength: [255, 'Email shout not be longer than 255 characters'],
     },
     password: {
         type: String,
         required: [true, 'Password is required'],
-        minlength: 8,
-        maxlength: 50,
         set: (val: string) => {
             return bcrypt.hashSync(val, 10);
         },
     },
     name: {
         type: String,
-        default: '',
-        minlength: 3,
-        maxlength: 20,
+        default: 'Not set',
+        minlength: [3, 'Name shout be longer than 3 characters'],
+        maxlength: [20, 'Name shout not be longer than 20 characters'],
     },
     department: {
         type: String,
-        default: '',
-        minlength: 3,
-        maxlength: 50,
+        default: 'Not set',
+        minlength: [3, 'Department name shout be longer than 3 characters'],
+        maxlength: [
+            50,
+            'Department name shout not be longer than 50 characters',
+        ],
     },
 });
 
@@ -47,7 +55,10 @@ export interface IUser extends Document {
 
 const User = models.User || model<IUser>('User', UserSchema);
 
-UserSchema.statics.authenticate = async function(email: string, password: string) {
+UserSchema.statics.authenticate = async function (
+    email: string,
+    password: string
+) {
     const user = await User.findOne({ email: email }).exec();
     const compare = await bcrypt.compare(password, user!.password);
     if (compare) return user;
