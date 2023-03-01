@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { createRouter } from 'next-connect';
 import { NodeRouter } from 'next-connect/dist/types/node';
 import mongoDb from './mongoDbMiddleware';
 import mongoSanitize from './mongoSanitize';
@@ -8,9 +7,7 @@ import helmetMiddleware from './helmetMiddleware';
 import xssHppMiddleware from './xssHppMiddleware';
 import rateMiddleware from './rateLimitMiddleware';
 
-const router = createRouter<NextApiRequest, NextApiResponse>();
-
-function createRouterWithMiddlewares() : NodeRouter<NextApiRequest, NextApiResponse> {
+function addDefaultMiddlewares(router: NodeRouter<NextApiRequest, NextApiResponse>) : NodeRouter<NextApiRequest, NextApiResponse> {
     router.use(rateMiddleware);
     router.use(xssHppMiddleware);
     router.use(mongoSanitize);
@@ -18,8 +15,7 @@ function createRouterWithMiddlewares() : NodeRouter<NextApiRequest, NextApiRespo
     router.use(helmetMiddleware);
     router.use(corsMiddleware);
 
-    
     return router
 }
 
-export default createRouterWithMiddlewares
+export default addDefaultMiddlewares

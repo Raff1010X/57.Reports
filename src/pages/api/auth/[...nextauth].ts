@@ -13,7 +13,7 @@ export const authOptions = {
             name: 'reports',
             credentials: {
                 project: {
-                    label: 'ptoject',
+                    label: 'project',
                     type: 'text',
                     placeholder: 'Project name',
                 },

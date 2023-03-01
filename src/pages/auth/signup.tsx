@@ -1,7 +1,7 @@
 import React from 'react';
 import { selectAuthStatus } from '@/store/slices/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { userLogInAsync } from '@/store/slices/auth/authAPI';
+import { userSighUpAsync } from '@/store/slices/auth/authAPI';
 import { FormEvent, useRef } from 'react';
 import style from '@/styles/pages/login.module.sass';
 import ui from '@/styles/interface/ui.module.sass';
@@ -36,7 +36,7 @@ export default function SignIn() {
         const password = refs[2]?.current?.value || '';
 
         dispatch(
-            userLogInAsync({
+            userSighUpAsync({
                 project,
                 password,
                 email,
