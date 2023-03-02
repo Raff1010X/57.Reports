@@ -43,6 +43,13 @@ const UserSchema: Schema = new Schema({
             'Department name shout not be longer than 50 characters',
         ],
     },
+    active: {
+        type: Boolean,
+        default: false,
+    },
+    activator: {
+        type: String,
+    }
 });
 
 export interface IUser extends Document {
@@ -56,13 +63,14 @@ export interface IUser extends Document {
 const User = models.User || model<IUser>('User', UserSchema);
 
 UserSchema.statics.authenticate = async function (
+    project: string,
     email: string,
     password: string
 ) {
-    const user = await User.findOne({ email: email }).exec();
-    const compare = await bcrypt.compare(password, user!.password);
-    if (compare) return user;
-    else return false;
+    const user = await User.findOne({ project, email });
+    if (!user) return false;
+    const compare = await bcrypt.compare(password, user.password);
+    return compare;
 };
 
 export default User;
