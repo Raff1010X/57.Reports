@@ -100,11 +100,11 @@ const API = {
     },
 
     makePatch: function (url, data) {
-        const putData = {
+        const patchData = {
             method: 'PATCH',
             body: JSON.stringify(data),
         }
-        const response = makeRequest(url, putData)
+        const response = makeRequest(url, patchData)
         return response
     },
 
