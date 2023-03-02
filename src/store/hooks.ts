@@ -1,12 +1,13 @@
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+
 import {
     TypedUseSelectorHook,
     useDispatch,
     useSelector,
   } from 'react-redux';
   import type {
-    AppDispatch,
-    RootState,
+    AppState,
   } from './store';
   
-  export const useAppDispatch = () => useDispatch<AppDispatch>();
-  export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+  export const useAppDispatch = () => useDispatch<Dispatch<AnyAction>>();
+  export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
