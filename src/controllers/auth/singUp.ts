@@ -1,6 +1,6 @@
 import User from '@/models/userModel';
 import bcrypt from 'bcryptjs';
-import { IApiResponse } from '@/types/apiResponse';
+import { Codes, IApiResponse } from '@/types/apiResponse';
 import AppError from '@/utils/appError';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import sendEmail from '@/utils/sendEmail';
@@ -14,19 +14,17 @@ export default async function signUp(
 
     const createUser = await User.create({ ...req.body, activator });
     if (!createUser)
-        throw new AppError(
-            500,
+        throw new AppError(Codes.InternalServerError, 
             `Internal server error. Can't create user: ${email}, project: ${project}`
         );
 
     const emailSend = await sendEmail(email, 'activateAccount' , activator);
     if (!emailSend)
-        throw new AppError(
-            500,
+        throw new AppError(Codes.InternalServerError,
             `Internal server error. Can't send account activation email.`
         );
 
-    res.status(201).json({
+    res.status(500).json({
         status: 'succes',
         message:
             'Thank you for registering with our service. Your account will be activated when you click the link sent to your email.',
