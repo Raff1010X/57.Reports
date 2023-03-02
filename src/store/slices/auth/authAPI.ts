@@ -1,20 +1,14 @@
 import { logIn, logOut } from '@/data/dumy-data';
-
 import { IUser } from '@/types/user';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import API from '@/utils/API'
 
 export const userSighUpAsync = createAsyncThunk(
     'auth/fetchSignUp',
     async (data: IUser) => {
-        const response = await fetch('/api/auth/signup', {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify(data),
-        });
-        const res = await response.json();
-        return res;
+        const response = await API.makeGet('/api/auth/signup', data)
+        return response;
     }
 );
 

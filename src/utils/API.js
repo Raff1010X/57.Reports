@@ -71,7 +71,7 @@ function makeRequest(url, body_query) {
     return response
 }
 
-export const API = {
+const API = {
     makeGet: function (url, queryParams) {
         const getData = {
             method: 'GET',
@@ -117,3 +117,5 @@ export const API = {
         return response
     },
 }
+
+export default API;
