@@ -11,7 +11,7 @@ const checkUser = async (
     const {email} = req.body;
 
     const user = await User.findOne({email});
-    if (user) throw new AppError(409, `Can't signup. Project or user already exists!`)
+    if (user) throw new AppError(409, `User already exists!`)
 
     return next(req, res);
 };

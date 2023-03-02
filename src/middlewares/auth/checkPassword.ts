@@ -1,3 +1,4 @@
+import AppError from "@/utils/appError";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next/types";
 
 const checkPassword = async (
@@ -5,9 +6,9 @@ const checkPassword = async (
     res: NextApiResponse,
     next: NextApiHandler
 ) => {
-
-    console.log("checkPassword middleware");
-
+    const {password} = req.body;
+    if (password.length < 8) throw new AppError(200, 'Password should be longer than 8 characters')
+    if (password.length > 50) throw new AppError(200, 'Password should not be longer than 50 characters')
     return next(req, res);
 };
 

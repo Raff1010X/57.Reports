@@ -11,7 +11,7 @@ const checkProject = async (
     const {project} = req.body;
 
     const checkProject = await User.findOne({project});
-    if (checkProject) throw new AppError(409, `Can't signup. Project or user already exists!`)
+    if (checkProject) throw new AppError(409, `Project already exists! Change name of project.`)
 
     return next(req, res);
 };

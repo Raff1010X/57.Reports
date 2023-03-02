@@ -5,9 +5,9 @@ var validator = require('validator');
 const UserSchema: Schema = new Schema({
     project: {
         type: String,
-        required: [true, 'Project is required'],
-        minlength: [3, 'Project name shout be longer than 3 characters'],
-        maxlength: [30, 'Project name shout not be longer than 30 characters'],
+        required: [true, 'Project is required.'],
+        minlength: [3, 'Project name should be longer than 3 characters.'],
+        maxlength: [30, 'Project name should not be longer than 30 characters.'],
     },
     email: {
         type: String,
@@ -18,8 +18,8 @@ const UserSchema: Schema = new Schema({
             },
             message: '{VALUE} this is not a valid email address.',
         },
-        minlength: [5, 'Email shout be longer than 5 characters'],
-        maxlength: [255, 'Email shout not be longer than 255 characters'],
+        minlength: [5, 'Email should be longer than 5 characters.'],
+        maxlength: [255, 'Email should not be longer than 255 characters.'],
     },
     password: {
         type: String,
@@ -31,16 +31,16 @@ const UserSchema: Schema = new Schema({
     name: {
         type: String,
         default: 'Not set',
-        minlength: [3, 'Name shout be longer than 3 characters'],
-        maxlength: [20, 'Name shout not be longer than 20 characters'],
+        minlength: [3, 'Name should be longer than 3 characters.'],
+        maxlength: [20, 'Name should not be longer than 20 characters.'],
     },
     department: {
         type: String,
         default: 'Not set',
-        minlength: [3, 'Department name shout be longer than 3 characters'],
+        minlength: [3, 'Department name should be longer than 3 characters.'],
         maxlength: [
             50,
-            'Department name shout not be longer than 50 characters',
+            'Department name should not be longer than 50 characters.',
         ],
     },
     active: {
