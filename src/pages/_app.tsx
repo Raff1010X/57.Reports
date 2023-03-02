@@ -18,8 +18,9 @@ import { Provider } from 'react-redux';
 import { store } from '../store/store';
 import type { AppProps } from 'next/app';
 import Layout from '@/components/layout/Layout';
+import withRedux from "next-redux-wrapper";
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
 
     return (
         <Provider store={store}>
@@ -29,3 +30,8 @@ export default function App({ Component, pageProps }: AppProps) {
         </Provider>
     );
 }
+
+const makeStore = () => store;
+
+//withRedux wrapper that passes the store to the App Component
+export default withRedux(makeStore)(App);
