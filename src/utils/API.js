@@ -1,9 +1,17 @@
 import { Codes } from "@/types/apiResponse";
 
+// function checkStatus(s) {
+//     return Object.values(Codes).filter((v) => !isNaN(Number(v))).some((el) => {
+//         return el === s
+//     })
+// }
 function checkStatus(s) {
-    return Object.values(Codes).filter((v) => !isNaN(Number(v))).some((el) => {
-        return el === s
-    })
+    for (const value of Object.values(Codes)) {
+        if (!isNaN(value) && value === s) {
+            return true;
+        }
+    }
+    return false;
 }
 
 const content = (res) => {
@@ -12,10 +20,10 @@ const content = (res) => {
 
 const processResponse = (res) => {
     if (checkStatus(res.status)) {
-        if (content(res) !== null) return res.json()
-        else return {}
-    } else return { status: 'error', message: 'Internal server error.' }
-}
+        return content(res) !== null ? res.json() : {};
+    } 
+    return { status: 'error', message: 'Internal server error.' };
+};
 
 const handleResponse = (res) => {
     const { status, message, data } = res //.body
@@ -61,10 +69,8 @@ function getParams(queryParams = {}) {
 function makeRequest(url, body_query) {
     const headers = getHeaders()
     const option = getDefaultOptions()
-    const init = { ...option, ...{ headers }, ...body_query } //Object.assign({}, option, { headers }, body_query)
-    const response = fetch(url, {
-        ...init,
-    })
+    const init = { ...option, ...{ headers }, ...body_query }
+    const response = fetch(url, init)
         .then((res) => processResponse(res))
         .then((res) => handleResponse(res))
         .catch((err) => handleError(err))

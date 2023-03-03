@@ -1,9 +1,10 @@
 import User from "@/models/userModel";
+import { Codes } from "@/types/apiResponse";
 import AppError from "@/utils/appError";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next/types";
 
 
-const checkUser = async (
+const existingUser = async (
     req: NextApiRequest,
     res: NextApiResponse,
     next: NextApiHandler
@@ -11,9 +12,9 @@ const checkUser = async (
     const {email} = req.body;
 
     const user = await User.findOne({email});
-    if (user) throw new AppError(409, `User already exists!`)
+    if (user) throw new AppError(Codes.Conflict, `User already exists!`)
 
     return next(req, res);
 };
 
-export default checkUser
+export default existingUser
