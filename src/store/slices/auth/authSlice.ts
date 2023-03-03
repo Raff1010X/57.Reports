@@ -1,6 +1,6 @@
 import { IUser, TUserState } from '@/types/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../store';
+import { AppState } from '../../store';
 
 import { userLogInAsync, userLogOutAsync, userSighUpAsync } from './authAPI';
 import Router from 'next/router';
@@ -73,11 +73,11 @@ export const authSlice = createSlice({
 
 export const { setLoggedOut } = authSlice.actions;
 
-export const selectAuthStatus = (state: RootState) => state.auth.status;
-export const selectIsUserLogged = (state: RootState) => state.auth.user.isLoged;
-export const selectUser = (state: RootState) => state.auth.user;
-export const selectLoggedOut = (state: RootState) => state.auth.loggedOut;
-export const selectIsSuperUser = (state: RootState) => {
+export const selectAuthStatus = (state: AppState) => state.auth.status;
+export const selectIsUserLogged = (state: AppState) => state.auth.user.isLoged;
+export const selectUser = (state: AppState) => state.auth.user;
+export const selectLoggedOut = (state: AppState) => state.auth.loggedOut;
+export const selectIsSuperUser = (state: AppState) => {
     const isSuperUser = state.auth.user.role === 'superUser' ? true : false;
     return isSuperUser;
 };

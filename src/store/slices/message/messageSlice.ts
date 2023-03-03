@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../store';
+import { AppState } from '../../store';
 
 const initialState = {
     message: '',
@@ -20,6 +20,6 @@ export const messageSlice = createSlice({
 
 export const { showMessage, hideMessage } = messageSlice.actions;
 
-export const selectMessage = (state: RootState) => state.message.message;
+export const selectMessage = (state: AppState) => state.message.message;
 
 export default messageSlice.reducer;

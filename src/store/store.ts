@@ -1,6 +1,12 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import {
+    configureStore,
+    ThunkAction,
+    Action,
+    Dispatch,
+} from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 import asyncDispatchMiddleware from './asyncDispatchMiddleware';
+
 import authReducer from './slices/auth/authSlice';
 import messageReducer from './slices/message/messageSlice';
 
@@ -15,13 +21,9 @@ const makeStore = () =>
         devTools: true,
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat(asyncDispatchMiddleware),
-            //     getDefaultMiddleware({
-            //     serializableCheck: {
-            //         ignoredActions: ['message/setMessage'],
-            //     },
-            // }).concat(asyncDispatchMiddleware),
     });
 
+export type AppDispatch = Dispatch<any>;
 export type AppStore = ReturnType<typeof makeStore>;
 export type AppState = ReturnType<AppStore['getState']>;
 export type AppThunk<ReturnType = void> = ThunkAction<
@@ -30,5 +32,10 @@ export type AppThunk<ReturnType = void> = ThunkAction<
     unknown,
     Action
 >;
-
 export const wrapper = createWrapper<AppStore>(makeStore);
+
+//     getDefaultMiddleware({
+//     serializableCheck: {
+//         ignoredActions: ['message/setMessage'],
+//     },
+// }).concat(asyncDispatchMiddleware),
