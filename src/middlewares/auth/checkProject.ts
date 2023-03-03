@@ -10,7 +10,6 @@ const checkProject = async (
 ) => {
 
     const {project} = req.body;
-
     const checkProject = await User.findOne({project});
     if (checkProject) throw new AppError(Codes.Conflict, `Project already exists! Change name of project.`)
 

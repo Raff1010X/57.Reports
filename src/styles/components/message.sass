@@ -1,62 +1,44 @@
+@import '../mixins.sass'
+    
 message-background--start
     z-index: -1
     opacity: 0
 
 .message-background
-    width: 100vw
-    height: 100vh
-    top: 0
-    left: 0
-    position: absolute
+    @include fullCover()
+    @include flexRowCenter()
     background-color: #00000065
     z-index: -1
     opacity: 0
-    display: flex
-    flex-direction: row
-    align-items: center
-    justify-content: center
     backdrop-filter: blur(3px)
-    -webkit-animation-name: hide
     animation-name: hide
-    -webkit-animation-duration: .25s
     animation-duration: .25s
-    -webkit-animation-fill-mode: forwards
     animation-fill-mode: forwards
 
 .message--visible
-    -webkit-animation-name: show
     animation-name: show
-    -webkit-animation-duration: .25s
     animation-duration: .25s
-    -webkit-animation-fill-mode: forwards
     animation-fill-mode: forwards
 
 .message-box
+    @include flexColumnCenter()
+    @include color(normal)
     width: 90%
     max-width: 500px
     height: 90%
     max-height: 300px
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
     gap: 1rem
-    background-color: var(--color-background)
     border-radius: .5rem
     border: 1ps solid var(--color-font)
 
 .message
     width: 80%
     height: 50%
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
-    font-size: 1.25rem
-    text-align: center
+    @include flexColumnCenter()
+    @include font(1.25rem)
 
 .message-button
-    font-size: 1rem
+    @include font(1rem)
     width: 70%
     padding: 1rem
     cursor: pointer

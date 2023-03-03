@@ -27,7 +27,7 @@ export default function Message() {
             <div className="message-box">
                 <div className="message">{message}</div>
 
-                <button className="message-button">Ok</button>
+                <button className="message-button" tabIndex={-1}>Ok</button>
             </div>
         </div>
     );

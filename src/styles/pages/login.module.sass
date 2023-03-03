@@ -1,12 +1,11 @@
+@import '../mixins.sass'
+
 .loginform
+    @include flexColumnCenter()
     height: 90%
     max-height: 500px
     width: 90%
     max-width: 500px
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
     gap: 1rem
 
     @media screen and (max-height: 770px)
@@ -15,7 +14,6 @@
         gap: 0.25rem
     
 .title
+    @include font(2rem, 1)
     width: 100%
-    text-align: center
-    font-size: 2rem
     margin: 1rem 0 1rem 0

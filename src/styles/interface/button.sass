@@ -1,17 +1,18 @@
+@import '../mixins.sass'
+
 .button
-    font-size: 1.5rem
+    @include font(1.5rem)
     width: 100%
+    max-width: 700px
+    height: 3.75rem
+    max-height: 3.75rem    
     padding: 1rem
     margin: 2rem 0 2rem 0
     cursor: pointer
     background-color: inherit
     color: inherit
     border: 2px solid var(--color-font)
-    text-align: center
-    text-decoration: none
-    max-width: 700px
 
 .button:hover
     transition: 0.5s
     color: var(--color-link-hover)
-

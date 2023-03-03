@@ -1,5 +1,7 @@
+@import '../mixins.sass'
+
 // Navbar
-.navbar 
+.navbar
     display: flex
     flex-direction: row
     justify-content: flex-start
@@ -9,8 +11,7 @@
     background-color: var(--color-navbar)
     box-shadow: 0 0 5rem rgba(0, 0, 0, 0.25)
 
-
-.burger 
+.burger
     display: none
     position: absolute
     top: 1rem
@@ -19,21 +20,17 @@
     height: 3rem
     color: var(--color-link)
 
-
-.burger-menu 
+.burger-menu
     position: relative
     display: flex
     flex-direction: row
     gap: 2rem
     width: 100%
 
-
-.link 
+.link
     position: relative
-    display: flex
-    flex-direction: row
-    align-items: center
-    justify-content: center
+    @include flexRowCenter()
+
     gap: 0.5rem
     text-decoration: none
     white-space: nowrap
@@ -41,16 +38,13 @@
     cursor: pointer
     transition: 0.25s
 
-
-.link:hover 
+.link:hover
     color: var(--color-link-hover)
 
-
-.link--active 
+.link--active
     color: var(--color-link-hover)
 
-
-.link--active:before 
+.link--active:before
     position: absolute
     content: ''
     width: 100%
@@ -58,27 +52,22 @@
     top: 100%
     background-color: var(--color-link-hover)
     opacity: 0
-    -webkit-animation-name: opacity
     animation-name: opacity1
-    -webkit-animation-duration: 1s
     animation-duration: 1s
-    -webkit-animation-fill-mode: forwards
     animation-fill-mode: forwards
 
-.font-xl 
-    font-size: 1.5rem
+.font-xl
+    @include font(1.5rem)
 
-
-.flex-right 
+.flex-right
     margin-left: auto
     margin-right: 1rem
 
-
-@media screen and (max-width: 819px) 
-    .burger 
+@media screen and (max-width: 819px)
+    .burger
         display: flex
-    
-    .burger-menu 
+
+    .burger-menu
         position: absolute
         flex-direction: column
         justify-content: center
@@ -90,34 +79,25 @@
         height: calc(100% - 5rem)
         background-color: var(--color-navbar)
         display: none
-    
 
-    .burger-menu--active 
+    .burger-menu--active
         display: flex
         opacity: 0
         transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg)
-        -webkit-animation-name: slideDown
         animation-name: slideDown
-        -webkit-animation-duration: 0.5s
         animation-duration: 0.5s
-        -webkit-animation-fill-mode: forwards
         animation-fill-mode: forwards
         z-index: 1
 
-    .burger-menu--inactive 
+    .burger-menu--inactive
         display: flex
-        opacity: 0
-        transform: translateX(-60%)
-        -webkit-animation-name: slideUp
+        opacity: 1
+        transform: translateX(0)
         animation-name: slideUp
-        -webkit-animation-duration: 0.5s
-        animation-duration: 0.5s
-        -webkit-animation-fill-mode: forwards
+        animation-duration: .5s
         animation-fill-mode: forwards
-        z-index: -1
-        
-    .flex-right 
+        z-index: 1
+
+    .flex-right
         margin-left: 0
         margin-right: 0
-    
-
