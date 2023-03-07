@@ -23,12 +23,12 @@ export default function Message() {
     const classname = (message !== "") ? "message-background" : "message-background--start"
 
     return (
-        <div className={classname} ref={reff} onClick={handleClick}>
+        (message && <div className={classname} ref={reff} onClick={handleClick}>
             <div className="message-box">
                 <div className="message">{message}</div>
 
-                <button className="message-button" tabIndex={-1}>Ok</button>
+                <button className="message-button">Ok</button>
             </div>
-        </div>
+        </div>)
     );
 }
