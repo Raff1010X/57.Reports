@@ -1,6 +1,6 @@
 import { Codes } from '../types/apiResponse';
 
-export function checkStatus(s: string | number) {
+export function checkStatus(s) {
     return Object.values(Codes)
         .filter((v) => !isNaN(Number(v)))
         .some((el) => {
@@ -8,18 +8,18 @@ export function checkStatus(s: string | number) {
         });
 }
 
-const content = (res: { headers: { get: (arg0: string) => any; }; }) => {
+const content = (res) => {
     return res.headers.get('content-type');
 };
 
-const processResponse = (res: Response) => {
+const processResponse = (res) => {
     if (checkStatus(res.status)) {
         return content(res) !== null ? res.json() : {};
     }
     return { status: 'error', message: 'Internal server error.' };
 };
 
-const handleResponse = (res: { status: any; message: any; data: any; }) => {
+const handleResponse = (res) => {
     const { status, message, data } = res; //.body
     const response = {
         status,
@@ -29,7 +29,7 @@ const handleResponse = (res: { status: any; message: any; data: any; }) => {
     return response;
 };
 
-const handleError = (err: any) => {
+const handleError = (err) => {
     return { status: 'error', message: `Application error: ${err}` };
 };
 
@@ -73,11 +73,11 @@ function getParams(queryParams = {} ){
 //     return queryString ? `?${queryString}` : '';
 // }
 
-function makeRequest(url: RequestInfo | URL, body_query: { method: string; query?: string; body?: string; }) {
+function makeRequest(url, body_query) {
     const headers = getHeaders();
     const option = getDefaultOptions();
     const init = { ...option, ...{ headers }, ...body_query };
-    const response = fetch(url, init as any)
+    const response = fetch(url, init)
         .then((res) => processResponse(res))
         .then((res) => handleResponse(res))
         .catch((err) => handleError(err));
@@ -85,7 +85,7 @@ function makeRequest(url: RequestInfo | URL, body_query: { method: string; query
 }
 
 const API = {
-    makeGet: function (url: any, queryParams: {} | undefined) {
+    makeGet: function (url, queryParams) {
         const getData = {
             method: 'GET',
             query: getParams(queryParams),
@@ -94,7 +94,7 @@ const API = {
         return response;
     },
 
-    makePost: function (url: any, data: any) {
+    makePost: function (url, data) {
         const postData = {
             method: 'POST',
             body: JSON.stringify(data),
@@ -103,7 +103,7 @@ const API = {
         return response;
     },
 
-    makePut: function (url: any, data: any) {
+    makePut: function (url, data) {
         const putData = {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -112,7 +112,7 @@ const API = {
         return response;
     },
 
-    makePatch: function (url: any, data: any) {
+    makePatch: function (url, data) {
         const patchData = {
             method: 'PATCH',
             body: JSON.stringify(data),
@@ -121,7 +121,7 @@ const API = {
         return response;
     },
 
-    makeDelete: function (url: any, queryParams: {} | undefined) {
+    makeDelete: function (url, queryParams) {
         const deleteData = {
             method: 'DELETE',
             query: getParams(queryParams),
