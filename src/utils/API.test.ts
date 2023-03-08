@@ -1,5 +1,5 @@
-import { Codes } from '../types/apiResponse';
-import { checkStatus } from './API.js';
+const { Codes } = require('../types/apiResponse');
+import { checkStatus } from './API';
 
 describe('checkStatus', () => {
   it('returns true when given an existing status code', () => {

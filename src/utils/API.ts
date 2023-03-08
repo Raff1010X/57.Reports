@@ -1,6 +1,6 @@
-import { Codes } from '@/types/apiResponse';
+import { Codes } from '../types/apiResponse';
 
-export function checkStatus(s) {
+export function checkStatus(s: string | number) {
     return Object.values(Codes)
         .filter((v) => !isNaN(Number(v)))
         .some((el) => {
@@ -8,18 +8,18 @@ export function checkStatus(s) {
         });
 }
 
-const content = (res) => {
+const content = (res: { headers: { get: (arg0: string) => any; }; }) => {
     return res.headers.get('content-type');
 };
 
-const processResponse = (res) => {
+const processResponse = (res: Response) => {
     if (checkStatus(res.status)) {
         return content(res) !== null ? res.json() : {};
     }
     return { status: 'error', message: 'Internal server error.' };
 };
 
-const handleResponse = (res) => {
+const handleResponse = (res: { status: any; message: any; data: any; }) => {
     const { status, message, data } = res; //.body
     const response = {
         status,
@@ -29,7 +29,7 @@ const handleResponse = (res) => {
     return response;
 };
 
-const handleError = (err) => {
+const handleError = (err: any) => {
     return { status: 'error', message: `Application error: ${err}` };
 };
 
@@ -50,25 +50,34 @@ function getDefaultOptions() {
     };
 }
 
-function getParams(queryParams = {}) {
+function getParams(queryParams = {} ){
     let queryString = Object.keys(queryParams)
-        .map((key) => {
+        .map((key, value) => {
             return (
                 encodeURIComponent(key) +
                 '=' +
-                encodeURIComponent(queryParams[key])
+                encodeURIComponent(value)
             );
         })
         .join('&');
     if (queryString) queryString = `?${queryString}`;
     return queryString;
+
 }
 
-function makeRequest(url, body_query) {
+// function getParams(queryParams: Record<string, string | number> = {}): string {
+//     const queryString = Object.entries(queryParams)
+//         .filter(([_, value]) => value !== undefined && value !== null)
+//         .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+//         .join('&');
+//     return queryString ? `?${queryString}` : '';
+// }
+
+function makeRequest(url: RequestInfo | URL, body_query: { method: string; query?: string; body?: string; }) {
     const headers = getHeaders();
     const option = getDefaultOptions();
     const init = { ...option, ...{ headers }, ...body_query };
-    const response = fetch(url, init)
+    const response = fetch(url, init as any)
         .then((res) => processResponse(res))
         .then((res) => handleResponse(res))
         .catch((err) => handleError(err));
@@ -76,7 +85,7 @@ function makeRequest(url, body_query) {
 }
 
 const API = {
-    makeGet: function (url, queryParams) {
+    makeGet: function (url: any, queryParams: {} | undefined) {
         const getData = {
             method: 'GET',
             query: getParams(queryParams),
@@ -85,7 +94,7 @@ const API = {
         return response;
     },
 
-    makePost: function (url, data) {
+    makePost: function (url: any, data: any) {
         const postData = {
             method: 'POST',
             body: JSON.stringify(data),
@@ -94,7 +103,7 @@ const API = {
         return response;
     },
 
-    makePut: function (url, data) {
+    makePut: function (url: any, data: any) {
         const putData = {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -103,7 +112,7 @@ const API = {
         return response;
     },
 
-    makePatch: function (url, data) {
+    makePatch: function (url: any, data: any) {
         const patchData = {
             method: 'PATCH',
             body: JSON.stringify(data),
@@ -112,7 +121,7 @@ const API = {
         return response;
     },
 
-    makeDelete: function (url, queryParams) {
+    makeDelete: function (url: any, queryParams: {} | undefined) {
         const deleteData = {
             method: 'DELETE',
             query: getParams(queryParams),
