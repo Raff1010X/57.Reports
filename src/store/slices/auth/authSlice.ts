@@ -1,4 +1,4 @@
-import { IUser, TUserState } from '@/types/user';
+import { TUserState } from '@/types/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppState } from '../../store';
 
@@ -26,21 +26,21 @@ export const authSlice = createSlice({
             .addCase(userSighUpAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(userSighUpAsync.fulfilled, (state, action) => {
+            .addCase(userSighUpAsync.fulfilled, (state, action: any) => {
                 state.status = 'idle';
-                console.log("action.payload")
-                console.log(action.payload)
+                action.asyncDispatch(showMessage(action.payload.message))
             })
-            .addCase(userSighUpAsync.rejected, (state) => {
+            .addCase(userSighUpAsync.rejected, (state, action: any) => {
                 state.status = 'failed';
                 state.user = initialState.user;
+                action.asyncDispatch(showMessage(action.payload.message))
             })
             
             // log in
             .addCase(userLogInAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(userLogInAsync.fulfilled, (state, action: IUser | any) => {
+            .addCase(userLogInAsync.fulfilled, (state, action: any) => {
                 state.status = 'idle';
                 if (action.payload.status === 'success') {
                     state.user = { ...action.payload.user };

@@ -2,6 +2,7 @@ import { IApiResponse } from '@/types/apiResponse';
 import mongoose, { MongooseError } from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
 import AppError from '@/utils/appError';
+import { Codes } from '@/types/apiResponse';
 
 export const errorHandlerMiddleware = {
     onError: (
@@ -32,7 +33,7 @@ function handleMongooseErrors(
     req: NextApiRequest,
     res: NextApiResponse<IApiResponse>
 ) {
-    res.status(400).json({
+    res.status(Codes.BadRequest).json({
         status: 'error',
         message: err.message,
     });
@@ -54,14 +55,14 @@ function handleRestOfErrors(
     req: NextApiRequest,
     res: NextApiResponse<IApiResponse>
 ) {
-    res.status(500).json({
+    res.status(Codes.InternalServerError).json({
         status: 'error',
         message: 'Internal server error',
     });
 }
 
 function noMatchError(req: NextApiRequest, res: NextApiResponse<IApiResponse>) {
-    res.status(404).json({
+    res.status(Codes.NotFound).json({
         status: 'error',
         message: 'Not found',
     });

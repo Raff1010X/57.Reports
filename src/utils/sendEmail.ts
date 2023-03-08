@@ -52,12 +52,12 @@ function sendActivationEmail(to: string, activator: string) {
         to,
         subject: 'PDF Reports - Your account activation link',
         text: `Hi there,
-                Thank you for registering with our service. Your account will be activated when you click the link below:
-                ${activator}
-                We look forward to providing you with a great experience and hope that you enjoy using our services.
-                Thanks again for signing up!
-                Regards,
-                PDF Report Team`,
+Thank you for registering with our service. Your account will be activated when you click the link below:
+${activator}
+We look forward to providing you with a great experience and hope that you enjoy using our services.
+Thanks again for signing up!
+Regards,
+PDF Report Team`,
     };
 }
 // TODO: create route to activate account
@@ -68,9 +68,9 @@ function sendWelcomeEmail(to: string) {
         to,
         subject: 'PDF Reports - Your account has been activated',
         text: `Congratulations! 
-                Your account has been successfully activated. 
-                You can now log into your account and start using it. 
-                Thank you for using our service.`,
+Your account has been successfully activated. 
+You can now log into your account and start using it. 
+Thank you for using our service.`,
     };
 }
 
@@ -84,12 +84,12 @@ function sendChangePasswordEmail(
         to,
         subject: 'PDF Reports - Your account new password',
         text: `Hi there,
-        Your project name is: ${project}
-        You can change Your password by clicking the link below:
-        ${activator}
-        We look forward to providing you with a great experience and hope that you enjoy using our services.
-        Regards,
-        PDF Report Team`,
+Your project name is: ${project}
+You can change Your password by clicking the link below:
+${activator}
+We look forward to providing you with a great experience and hope that you enjoy using our services.
+Regards,
+PDF Report Team`,
     };
 }
 

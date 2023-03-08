@@ -24,7 +24,7 @@ export default async function signUp(
             `Internal server error. Can't send account activation email.`
         );
 
-    res.status(500).json({
+    res.status(Codes.Created).json({
         status: 'succes',
         message:
             'Thank you for registering with our service. Your account will be activated when you click the link sent to your email.',
