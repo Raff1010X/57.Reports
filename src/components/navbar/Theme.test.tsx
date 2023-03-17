@@ -10,6 +10,7 @@ describe('Theme', () => {
 
     // Check initial theme state
     expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+    expect(localStorage.getItem('report-theme')).toBe('light')
 
     fireEvent.click(iconSun);
 
@@ -18,6 +19,7 @@ describe('Theme', () => {
 
     // Check updated theme state after click
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    expect(localStorage.getItem('report-theme')).toBe('dark')
 
     const iconMoon = getByTestId('theme-icon');
     fireEvent.click(iconMoon);
@@ -27,5 +29,6 @@ describe('Theme', () => {
 
     // Check updated theme state after second click
     expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+    expect(localStorage.getItem('report-theme')).toBe('light')
   });
 });
