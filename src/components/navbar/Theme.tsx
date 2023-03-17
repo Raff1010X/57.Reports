@@ -1,6 +1,6 @@
 // Theme icon in Navbar.tsx
-import IconMoon from '@/assets/icons/IconMoon';
-import IconSun from '@/assets/icons/IconSun';
+import IconMoon from '../../assets/icons/IconMoon';
+import IconSun from '../../assets/icons/IconSun';
 import { useEffect, useState } from 'react';
 
 interface Theme {
@@ -43,6 +43,7 @@ export default function Theme(props: Theme) {
                     height="2rem"
                     className="link"
                     onClick={handleThemeChange}
+                    data-testid="theme-icon"
                 />
             )}
 
@@ -52,6 +53,7 @@ export default function Theme(props: Theme) {
                     height="2rem"
                     className="link"
                     onClick={handleThemeChange}
+                    data-testid="theme-icon"
                 />
             )}
         </>

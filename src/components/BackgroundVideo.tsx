@@ -1,9 +1,9 @@
-import ui from '@/styles/interface/ui.module.sass';
-import { fontInter } from '@/assets/fonts/fontLoader';
-import IconFiletypePdf from '@/assets/icons/IconFiletypePdf';
+import ui from '../styles/interface/ui.module.sass';
+import { fontInter } from '../assets/fonts/fontLoader';
+import IconFiletypePdf from '../assets/icons/IconFiletypePdf';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import { selectLoggedOut } from '@/store/slices/auth/authSlice';
+import { selectLoggedOut } from '../store/slices/auth/authSlice';
 
 export default function BackgroundVideo() {
     

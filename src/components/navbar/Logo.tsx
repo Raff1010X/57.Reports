@@ -1,7 +1,7 @@
 // Logo in Navbar.tsx
-import IconFiletypePdf from '@/assets/icons/IconFiletypePdf';
-import { useAppSelector } from '@/store/hooks';
-import { selectIsUserLogged } from '@/store/slices/auth/authSlice';
+import IconFiletypePdf from '../../assets/icons/IconFiletypePdf';
+import { useAppSelector } from '../../store/hooks';
+import { selectIsUserLogged } from '../../store/slices/auth/authSlice';
 import Link from 'next/link';
 
 interface Logo {
@@ -23,7 +23,7 @@ export default function Logo(props: Logo) {
                 href={isUserLogged ? '/' : '/auth/login'}
                 onClick={handleClick}
             >
-                <IconFiletypePdf width="2rem" height="2rem" />
+                <IconFiletypePdf data-testid="pdf-icon" width="2rem" height="2rem" />
                 Report creator
             </Link>
         </>

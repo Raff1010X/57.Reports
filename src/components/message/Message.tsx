@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
     hideMessage,
     selectMessage,
-} from '@/store/slices/message/messageSlice';
+} from '../../store/slices/message/messageSlice';
 import { useEffect, useRef } from 'react';
 
 // global message in Layout.tsx

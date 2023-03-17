@@ -1,8 +1,8 @@
-import { logIn, logOut } from '@/utils/data/dumy-data';
-import { IUser } from '@/types/user';
+import { logIn, logOut } from '../../../utils/data/dumy-data';
+import { IUser } from '../../../types/user';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import API from '@/utils/API'
+import API from '../../../utils/API'
 
 export const userSighUpAsync = createAsyncThunk(
     'auth/fetchSignUp',

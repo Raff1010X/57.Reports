@@ -1,11 +1,11 @@
 // Links in Navbar.tsx
-import IconDocumentsOutline from '@/assets/icons/IconDocumentsOutline';
-import IconFolderAdd from '@/assets/icons/IconFolderAdd';
-import IconLoginBoxLine from '@/assets/icons/IconLoginBoxLine';
-import IconLogoutBoxLine from '@/assets/icons/IconLogoutBoxLine';
-import IconUser from '@/assets/icons/IconUser';
-import { useAppSelector } from '@/store/hooks';
-import { selectIsSuperUser, selectIsUserLogged } from '@/store/slices/auth/authSlice';
+import IconDocumentsOutline from '../../assets/icons/IconDocumentsOutline';
+import IconFolderAdd from '../../assets/icons/IconFolderAdd';
+import IconLoginBoxLine from '../../assets/icons/IconLoginBoxLine';
+import IconLogoutBoxLine from '../../assets/icons/IconLogoutBoxLine';
+import IconUser from '../../assets/icons/IconUser';
+import { useAppSelector } from '../../store/hooks';
+import { selectIsSuperUser, selectIsUserLogged } from '../../store/slices/auth/authSlice';
 
 import NavLink from './NavLink';
 
