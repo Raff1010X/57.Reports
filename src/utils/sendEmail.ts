@@ -6,8 +6,8 @@ function createTransporter() {
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
         auth: {
-          user: "671d929e58b445",
-          pass: "a16a94a65469af"
+          user: "6f25ca3ea05729",
+          pass: "b5ecc4e813c0a9"
         }
     });
 
