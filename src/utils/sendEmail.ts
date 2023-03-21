@@ -2,12 +2,20 @@ import nodemailer from 'nodemailer';
 import { TMailSubject } from '@/types/email';
 
 function createTransporter() {
+    // const transporter = nodemailer.createTransport({
+    //     host: "sandbox.smtp.mailtrap.io",
+    //     port: 2525,
+    //     auth: {
+    //       user: "6f25ca3ea05729",
+    //       pass: "b5ecc4e813c0a9"
+    //     }
+    // });
     const transporter = nodemailer.createTransport({
-        host: "sandbox.smtp.mailtrap.io",
-        port: 2525,
+        host: "mail0.small.pl",
+        port: 25,
         auth: {
-          user: "6f25ca3ea05729",
-          pass: "b5ecc4e813c0a9"
+          user: "webdev@webdev.smallhost.pl",
+          pass: "]L8mpLiwBn'0Wk8^58gZ_341EN.mb5"
         }
     });
 
@@ -48,7 +56,7 @@ export default async function sendEmail(
 
 function sendActivationEmail(to: string, activator: string) {
     return {
-        from: 'reports@test.com',
+        from: 'webdev@webdev.smallhost.pl',
         to,
         subject: 'PDF Reports - Your account activation link',
         text: `Hi there,
@@ -64,7 +72,7 @@ PDF Report Team`,
 
 function sendWelcomeEmail(to: string) {
     return {
-        from: 'reports@test.com',
+        from: 'webdev@webdev.smallhost.pl',
         to,
         subject: 'PDF Reports - Your account has been activated',
         text: `Congratulations! 
@@ -80,7 +88,7 @@ function sendChangePasswordEmail(
     activator: string
 ) {
     return {
-        from: 'reports@test.com',
+        from: 'webdev@webdev.smallhost.pl',
         to,
         subject: 'PDF Reports - Your account new password',
         text: `Hi there,
