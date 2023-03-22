@@ -10,13 +10,18 @@ function createTransporter() {
     //       pass: "b5ecc4e813c0a9"
     //     }
     // });
+
     const transporter = nodemailer.createTransport({
-        host: "mail0.small.pl",
-        port: 25,
+        host: 'mail0.small.pl',
+        port: 465,
+        secure: true, // true for 465, false for 25 or other ports
         auth: {
-          user: "webdev@webdev.smallhost.pl",
-          pass: "]L8mpLiwBn'0Wk8^58gZ_341EN.mb5"
-        }
+            user: 'webdev@webdev.smallhost.pl',
+            pass: "]L8mpLiwBn'0Wk8^58gZ_341EN.mb5",
+        },
+        tls: {
+            rejectUnauthorized: false, // do not fail on invalid certs
+        },
     });
 
     // const transporter = nodemailer.createTransport({
@@ -32,6 +37,7 @@ function createTransporter() {
     //         accessToken: process.env.EMAIL_accessToken,
     //     },
     // });
+    
     return transporter;
 }
 
@@ -49,7 +55,7 @@ export default async function sendEmail(
         mailOptions = sendChangePasswordEmail(to, project!, activator!);
     const transporter = createTransporter();
     const info = await transporter.sendMail(mailOptions);
-    console.log('Message sent: %s', info.response);
+    if (process.env.NODE_ENV === 'development') console.log('Message sent: %s', info.response);
     if (info) return true;
     return false;
 }
