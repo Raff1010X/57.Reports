@@ -26,7 +26,7 @@ export default function Message() {
         message !== '' ? 'message-background' : 'message-background--start';
 
     return message ? (
-        <div className={classname} ref={reff} onClick={handleClick}>
+        <div className={classname} ref={reff} onClick={handleClick} data-testid="messagebox">
             <div className="message-box">
                 <div className="message">{message}</div>
 
