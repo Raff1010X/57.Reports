@@ -17,18 +17,21 @@ export default function Message() {
 
     function handleClick() {
         reff?.current?.classList.remove('message--visible');
-        setTimeout(()=>{dispatch(hideMessage())}, 300);
+        setTimeout(() => {
+            dispatch(hideMessage());
+        }, 300);
     }
 
-    const classname = (message !== "") ? "message-background" : "message-background--start"
+    const classname =
+        message !== '' ? 'message-background' : 'message-background--start';
 
-    return (
-        (message ? <div className={classname} ref={reff} onClick={handleClick}>
+    return message ? (
+        <div className={classname} ref={reff} onClick={handleClick}>
             <div className="message-box">
                 <div className="message">{message}</div>
 
                 <button className="message-button">Ok</button>
             </div>
-        </div> : null)
-    );
+        </div>
+    ) : null;
 }
