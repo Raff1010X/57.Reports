@@ -1,7 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next/types';
 import mongoDbConnect from '@/utils/mongoDbConnect';
-import AppError from '@/utils/appError';
-import { Codes } from '@/types/apiResponse';
 
 const mongoDbMiddleware = async (
     req: NextApiRequest,
