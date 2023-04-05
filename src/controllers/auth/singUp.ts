@@ -1,4 +1,4 @@
-import User from '@/models/userModel';
+import { SuperUser } from '@/models/userModel';
 import bcrypt from 'bcryptjs';
 import { Codes, IApiResponse } from '@/types/apiResponse';
 import AppError from '@/utils/appError';
@@ -12,15 +12,17 @@ export default async function signUp(
     const { project, email } = req.body;
     const activator = bcrypt.hashSync(Date.now().toString(), 10);
 
-    const createUser = await User.create({ ...req.body, activator });
+    const createUser = await SuperUser.create({ ...req.body, activator });
     if (!createUser)
-        throw new AppError(Codes.InternalServerError, 
+        throw new AppError(
+            Codes.InternalServerError,
             `Internal server error. Can't create user: ${email}, project: ${project}`
         );
 
-    const emailSend = await sendEmail(email, 'activateAccount' , activator);
+    const emailSend = await sendEmail(email, 'activateAccount', activator);
     if (!emailSend)
-        throw new AppError(Codes.InternalServerError,
+        throw new AppError(
+            Codes.InternalServerError,
             `Internal server error. Can't send account activation email.`
         );
 

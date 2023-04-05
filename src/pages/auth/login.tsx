@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { userLogInAsync } from '@/store/slices/auth/authAPI';
 import { FormEvent, useRef } from 'react';
 import { selectAuthStatus } from '@/store/slices/auth/authSlice';
 import style from '@/styles/pages/login.module.sass';
@@ -11,21 +10,25 @@ import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import IconUser from '@/assets/icons/IconUser';
 import Loader from '@/assets/icons/Loader';
 
-import { signIn } from "next-auth/react"
+import { signIn, getSession } from 'next-auth/react';
+import { getToken } from "next-auth/jwt"
 
 export default function Login() {
     const dispatch = useAppDispatch();
     const authStatus = useAppSelector(selectAuthStatus);
 
-
     useEffect(() => {
-        const element = document.getElementById("background-video");
-        element?.classList.add("bgvideo_hidden")
-    }, [])
+        const element = document.getElementById('background-video');
+        element?.classList.add('bgvideo_hidden');
+    }, []);
 
-    const refs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
+    const refs = [
+        useRef<HTMLInputElement>(null),
+        useRef<HTMLInputElement>(null),
+        useRef<HTMLInputElement>(null),
+    ];
 
-    const handleLogIn = (e: FormEvent<HTMLFormElement>) => {
+    const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         refs[0]?.current?.reportValidity();
@@ -43,14 +46,31 @@ export default function Login() {
         const email = refs[1]?.current?.value || '';
         const password = refs[2]?.current?.value || '';
 
-        signIn('credentials', { redirect: false},{ project, email, password })
-        // dispatch(
-        //     userLogInAsync({
-        //         project,
-        //         password,
-        //         email,
-        //     })
-        // );
+        const signInResult = await signIn('credentials', {
+            redirect: false,
+            project,
+            email,
+            password,
+        });
+
+        
+
+        if (!signInResult?.ok && signInResult?.error) {
+            // TODO: show message box
+            console.log(signInResult.error);
+        } else {
+            getSession().then((sesion) => {
+                console.log(sesion)
+            });
+            //TODO: dispatch user accesToken
+            // dispatch(
+            //     userLogInAsync({
+            //         project,
+            //         password,
+            //         email,
+            //     })
+            // );
+        }
     };
 
     return (

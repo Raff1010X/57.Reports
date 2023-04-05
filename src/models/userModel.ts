@@ -13,7 +13,11 @@ export interface IUser {
 }
 
 interface IUserMethods {
-    authenticate(project: string, email: string, password: string): Promise<boolean>
+    authenticate(
+        project: string,
+        email: string,
+        password: string
+    ): boolean;
 }
 
 type UserModel = Model<IUser, {}, IUserMethods>;
@@ -71,17 +75,14 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
     },
 });
 
-UserSchema.methods.authenticate = async function authenticate(
-    project: string,
-    email: string,
+UserSchema.methods.authenticate =  function authenticate(
     password: string
 ) {
-    const user = await this.findOne({ project, email });
-    if (!user) return false;
-    const compare = await bcrypt.compare(password, user.password);
+    const compare = bcrypt.compareSync(password, this.password);
     return compare;
-  };
+};
 
 const User = models.User || model<IUser, UserModel>('User', UserSchema);
+export const SuperUser = models.SuperUser || model<IUser, UserModel>('SuperUser', UserSchema);
 
 export default User;
