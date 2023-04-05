@@ -1,13 +1,32 @@
-import { Document, Schema, model, models } from 'mongoose';
+import { Document, Schema, Model, model, models } from 'mongoose';
 import bcrypt from 'bcryptjs';
 var validator = require('validator');
 
-const UserSchema: Schema = new Schema({
+export interface IUser {
+    project: string;
+    email: string;
+    password: string;
+    name?: string;
+    department?: string;
+    active?: boolean;
+    activator?: string;
+}
+
+interface IUserMethods {
+    authenticate(project: string, email: string, password: string): Promise<boolean>
+}
+
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
     project: {
         type: String,
         required: [true, 'Project is required.'],
         minlength: [3, 'Project name should be longer than 3 characters.'],
-        maxlength: [30, 'Project name should not be longer than 30 characters.'],
+        maxlength: [
+            30,
+            'Project name should not be longer than 30 characters.',
+        ],
     },
     email: {
         type: String,
@@ -49,28 +68,20 @@ const UserSchema: Schema = new Schema({
     },
     activator: {
         type: String,
-    }
+    },
 });
 
-export interface IUser extends Document {
-    project: string;
-    email: string;
-    password: string;
-    name?: string;
-    department?: string;
-}
-
-const User = models.User || model<IUser>('User', UserSchema);
-
-UserSchema.statics.authenticate = async function (
+UserSchema.methods.authenticate = async function authenticate(
     project: string,
     email: string,
     password: string
 ) {
-    const user = await User.findOne({ project, email });
+    const user = await this.findOne({ project, email });
     if (!user) return false;
     const compare = await bcrypt.compare(password, user.password);
     return compare;
-};
+  };
+
+const User = models.User || model<IUser, UserModel>('User', UserSchema);
 
 export default User;

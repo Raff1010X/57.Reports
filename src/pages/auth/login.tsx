@@ -11,6 +11,8 @@ import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import IconUser from '@/assets/icons/IconUser';
 import Loader from '@/assets/icons/Loader';
 
+import { signIn } from "next-auth/react"
+
 export default function Login() {
     const dispatch = useAppDispatch();
     const authStatus = useAppSelector(selectAuthStatus);
@@ -41,13 +43,14 @@ export default function Login() {
         const email = refs[1]?.current?.value || '';
         const password = refs[2]?.current?.value || '';
 
-        dispatch(
-            userLogInAsync({
-                project,
-                password,
-                email,
-            })
-        );
+        signIn('credentials', { redirect: false},{ project, email, password })
+        // dispatch(
+        //     userLogInAsync({
+        //         project,
+        //         password,
+        //         email,
+        //     })
+        // );
     };
 
     return (

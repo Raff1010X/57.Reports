@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth';
+import User from "@/models/userModel";
 
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -13,19 +14,13 @@ export const authOptions = {
             name: 'reports',
             credentials: {
                 project: {
-                    label: 'project',
                     type: 'text',
-                    placeholder: 'Project name',
                 },
                 email: {
-                    label: 'email',
                     type: 'email',
-                    placeholder: 'jsmith@example.com',
                 },
                 password: {
-                    label: 'Password',
                     type: 'password',
-                    placeholder: 'Password',
                 },
             },
             async authorize(credentials, req) {
@@ -34,26 +29,7 @@ export const authOptions = {
                     email: credentials?.email,
                     password: credentials?.password,
                 };
-
-                const res = await fetch(
-                    'https://cloudcoders.azurewebsites.net/api/tokens',
-                    {
-                        method: 'POST',
-                        body: JSON.stringify(payload),
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                );
-
-                const user = await res.json();
-                if (!res.ok) {
-                    throw new Error(user.message);
-                }
-                // If no error and we have user data, return it
-                if (res.ok && user) {
-                    return user;
-                }
+                const user = await (User as any).authenticate(payload)
 
                 // Return null if user data could not be retrieved
                 return null;
