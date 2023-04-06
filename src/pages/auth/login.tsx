@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { FormEvent, useRef } from 'react';
-import { selectAuthStatus } from '@/store/slices/auth/authSlice';
+import { selectAuthStatus, userSignIn } from '@/store/slices/auth/authSlice';
 import style from '@/styles/pages/login.module.sass';
 import ui from '@/styles/interface/ui.module.sass';
 import Link from 'next/link';
@@ -11,11 +11,11 @@ import IconUser from '@/assets/icons/IconUser';
 import Loader from '@/assets/icons/Loader';
 
 import { signIn, getSession } from 'next-auth/react';
-import { getToken } from "next-auth/jwt"
+import { showMessage } from '@/store/slices/message/messageSlice';
 
-export default function Login() {
+export default function LogIn() {
     const dispatch = useAppDispatch();
-    const authStatus = useAppSelector(selectAuthStatus);
+    let [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const element = document.getElementById('background-video');
@@ -46,6 +46,7 @@ export default function Login() {
         const email = refs[1]?.current?.value || '';
         const password = refs[2]?.current?.value || '';
 
+        setLoading(true);
         const signInResult = await signIn('credentials', {
             redirect: false,
             project,
@@ -53,24 +54,13 @@ export default function Login() {
             password,
         });
 
-        
-
         if (!signInResult?.ok && signInResult?.error) {
-            // TODO: show message box
-            console.log(signInResult.error);
+            dispatch(showMessage(signInResult.error));
         } else {
-            getSession().then((sesion) => {
-                console.log(sesion)
-            });
-            //TODO: dispatch user accesToken
-            // dispatch(
-            //     userLogInAsync({
-            //         project,
-            //         password,
-            //         email,
-            //     })
-            // );
+            const sesion = await getSession();
+            dispatch(userSignIn(sesion?.user));
         }
+        setLoading(false);
     };
 
     return (
@@ -80,7 +70,7 @@ export default function Login() {
                     <p className={style.title}>
                         <IconUser width={'2.5rem'} height={'2.5rem'} />
                         <br />
-                        Log in!
+                        Login!
                     </p>
                     <label className={ui.label} htmlFor="fproject">
                         Project name:
@@ -131,7 +121,7 @@ export default function Login() {
                         }}
                     />
                     <button className={ui.button} type="submit">
-                        {authStatus === 'idle' ? 'Log in!' : <Loader />}
+                        {!loading ? 'Log in!' : <Loader />}
                     </button>
 
                     <Link className={ui.link} href={'/auth/signup'}>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { selectAuthStatus } from '@/store/slices/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { userLogInAsync } from '@/store/slices/auth/authAPI';
 import { FormEvent, useRef } from 'react';
 import style from '@/styles/pages/login.module.sass';
 import ui from '@/styles/interface/ui.module.sass';
@@ -65,7 +64,7 @@ export default function Reset() {
                     </button>
                     <Link className={ui.link} href={'/auth/login'}>
                         <IconUser width={'2rem'} height={'2rem'} />
-                        Log in!
+                        Login!
                     </Link>
                     <Link className={ui.link} href={'/auth/signup'}>
                         <IconBxUserPlus width={'2rem'} height={'2rem'} />

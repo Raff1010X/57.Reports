@@ -1,24 +1,37 @@
-import { TUserState } from '@/types/user';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { AppState } from '../../store';
 
-import { userLogInAsync, userLogOutAsync, userSighUpAsync } from './authAPI';
+import { userSighUpAsync } from './authAPI';
 import Router from 'next/router';
 import { showMessage } from '../message/messageSlice';
+
+export type TUserState = {
+    status: string;
+    user: {
+        project: string;
+        email: string;
+        department: string;
+        isLoged: boolean;
+        role: string;
+    };
+};
 
 const initialState: TUserState = {
     status: 'idle',
     user: { project: '', email: '', department: '', role: '', isLoged: false },
-    loggedOut: false,
 };
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setLoggedOut: (state) => {
-            state.loggedOut = true;
+        userSignOut: (state) => {
+            state.user = { ...initialState.user };
         },
+        userSignIn: (state, action) => {
+            state.user = { ...action.payload };
+            Router.push('/');
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -35,48 +48,14 @@ export const authSlice = createSlice({
                 state.user = initialState.user;
                 action.asyncDispatch(showMessage(action.payload.message))
             })
-            
-            // log in
-            .addCase(userLogInAsync.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(userLogInAsync.fulfilled, (state, action: any) => {
-                state.status = 'idle';
-                if (action.payload.status === 'success') {
-                    state.user = { ...action.payload.user };
-                    Router.push('/');
-                } else {
-                    action.asyncDispatch(showMessage(action.payload.message));
-                }
-            })
-            .addCase(userLogInAsync.rejected, (state) => {
-                state.status = 'failed';
-                state.user = initialState.user;
-            })
-
-            // log out
-            .addCase(userLogOutAsync.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(userLogOutAsync.fulfilled, (state, action) => {
-                state.status = 'idle';
-                if (action.payload.status === 'success') {
-                    state.user = { ...action.payload.user };
-                }
-            })
-            .addCase(userLogOutAsync.rejected, (state) => {
-                state.status = 'failed';
-                state.user = initialState.user;
-            });
     },
 });
 
-export const { setLoggedOut } = authSlice.actions;
+export const { userSignOut, userSignIn } = authSlice.actions;
 
 export const selectAuthStatus = (state: AppState) => state.auth.status;
 export const selectIsUserLogged = (state: AppState) => state.auth.user.isLoged;
 export const selectUser = (state: AppState) => state.auth.user;
-export const selectLoggedOut = (state: AppState) => state.auth.loggedOut;
 export const selectIsSuperUser = (state: AppState) => {
     const isSuperUser = state.auth.user.role === 'superUser' ? true : false;
     return isSuperUser;

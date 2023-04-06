@@ -9,8 +9,8 @@ const DB_OPTIONS = {
 } as mongoose.ConnectOptions;
 
 async function mongoDbConnect() {
-    mongoose.set('strictQuery', false);
     if (mongoose.connections[0].readyState) return;
+    mongoose.set('strictQuery', false);
     await mongoose.connect(mongoUrl!, DB_OPTIONS).catch((err) => {
         throw new AppError(
             Codes.InternalServerError,

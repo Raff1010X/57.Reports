@@ -106,7 +106,7 @@ export default function SignIn() {
 
                     <Link className={ui.link} href={'/auth/login'}>
                         <IconUser width={'2rem'} height={'2rem'} />
-                        Log in!
+                        Login!
                     </Link>
                     <Link className={ui.link} href={'/auth/reset'}>
                         <IconHeadQuestionOutline

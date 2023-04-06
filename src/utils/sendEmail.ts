@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
-import { TMailSubject } from '@/types/email';
+
+type TMailSubject = 'activateAccount' | 'welcome' | 'changePassword'
 
 function createTransporter() {
     // const transporter = nodemailer.createTransport({

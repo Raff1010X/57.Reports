@@ -41,7 +41,7 @@ export const authOptions = {
                     role = 'superUser';
                 }
                 if (!user) {
-                    throw new Error('No user found!');
+                    throw new Error('No project or user found!');
                 }
                 const authenticated = await user.authenticate(
                     credentials?.password
@@ -61,30 +61,22 @@ export const authOptions = {
     ],
     pages: {
         signIn: '/auth/login',
-        signOut: '/auth/logout',
+        signOut: '/',
         error: '/auth/error', // Error code passed in query string as ?error=
         verifyRequest: '/auth/verify-request', // (used for check email message)
         newUser: '/auth/new-user', // New users will be directed here on first sign in (leave the property out if not of interest)
     },
     callbacks: {
         async jwt({ token, user, account }: any) {
-            if (account && user) { 
+            if (account && user) {
                 return {
-                    ...token,
-                    accessToken: user,
-                    refreshToken: user.refreshToken,
+                    user,
                 };
             }
-
             return token;
         },
-        // async signIn({ user, account, profile, email, credentials } : any) {
-        //     return true
-        //   },
         async session({ session, token }: any) {
-            session.user.accessToken = token.accessToken;
-            session.user.refreshToken = token.refreshToken;
-            session.user.accessTokenExpires = token.accessTokenExpires;
+            session.user = token.user;
             return session;
         },
     },

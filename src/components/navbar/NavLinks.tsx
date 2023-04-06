@@ -1,11 +1,16 @@
 // Links in Navbar.tsx
+import { signOut } from 'next-auth/react';
 import IconDocumentsOutline from '../../assets/icons/IconDocumentsOutline';
 import IconFolderAdd from '../../assets/icons/IconFolderAdd';
 import IconLoginBoxLine from '../../assets/icons/IconLoginBoxLine';
 import IconLogoutBoxLine from '../../assets/icons/IconLogoutBoxLine';
 import IconUser from '../../assets/icons/IconUser';
-import { useAppSelector } from '../../store/hooks';
-import { selectIsSuperUser, selectIsUserLogged } from '../../store/slices/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import {
+    selectIsSuperUser,
+    selectIsUserLogged,
+    userSignOut,
+} from '../../store/slices/auth/authSlice';
 
 import NavLink from './NavLink';
 
@@ -14,41 +19,44 @@ interface NavLinks {
 }
 
 export default function NavLinks(props: NavLinks) {
+    const dispatch = useAppDispatch();
     const isUserLogged = useAppSelector(selectIsUserLogged);
     const isSuperUser = useAppSelector(selectIsSuperUser);
 
-    function handleClickLogIn() {
-        props.handleClick();
-    }
-
     function handleClickLogOut() {
+        dispatch(userSignOut());
         props.handleClick();
+        signOut({redirect: false});
     }
 
     return (
         <>
             {isUserLogged && (
                 <>
-                    {isSuperUser && <NavLink
-                        linkTo={'/newreport'}
-                        text={'New report'}
-                        icon={IconFolderAdd}
-                        handleClick={props.handleClick}
-                    />}
+                    {isSuperUser && (
+                        <NavLink
+                            linkTo={'/newreport'}
+                            text={'New report'}
+                            icon={IconFolderAdd}
+                            handleClick={props.handleClick}
+                        />
+                    )}
                     <NavLink
                         linkTo={'/reports'}
                         text={'Reports'}
                         icon={IconDocumentsOutline}
                         handleClick={props.handleClick}
                     />
-                    {isSuperUser && <NavLink
-                        linkTo={'/user'}
-                        text={'User'}
-                        icon={IconUser}
-                        handleClick={props.handleClick}
-                    />}
+                    {isSuperUser && (
+                        <NavLink
+                            linkTo={'/user'}
+                            text={'User'}
+                            icon={IconUser}
+                            handleClick={props.handleClick}
+                        />
+                    )}
                     <NavLink
-                        linkTo={'/auth/logout'}
+                        linkTo={'/'}
                         className={'link flex-right'}
                         text={'Logout'}
                         icon={IconLogoutBoxLine}
@@ -63,7 +71,7 @@ export default function NavLinks(props: NavLinks) {
                     className={'link flex-right'}
                     text={'Login'}
                     icon={IconLoginBoxLine}
-                    handleClick={handleClickLogIn}
+                    handleClick={props.handleClick}
                 />
             )}
         </>
