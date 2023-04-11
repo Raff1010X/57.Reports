@@ -4,6 +4,7 @@ import IconFiletypePdf from '../assets/icons/IconFiletypePdf';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { selectIsUserLogged } from '../store/slices/auth/authSlice';
+import { useEffect } from 'react';
 
 export default function BackgroundVideo() {
     const router = useRouter();

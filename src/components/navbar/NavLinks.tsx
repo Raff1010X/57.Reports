@@ -26,7 +26,7 @@ export default function NavLinks(props: NavLinks) {
     function handleClickLogOut() {
         dispatch(userSignOut());
         props.handleClick();
-        signOut({redirect: false});
+        signOut({ redirect: false });
     }
 
     return (

@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth';
 import mongoDbConnect from '@/utils/mongoDbConnect';
-import { SuperUser } from '@/models/userModel';
+import SuperUser from '@/models/superUserModel';
 import User from '@/models/userModel';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
