@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model, models } from 'mongoose';
+import { Schema, Model, model, models } from 'mongoose';
 import bcrypt from 'bcryptjs';
 var validator = require('validator');
 
@@ -20,9 +20,9 @@ interface IUserMethods {
     ): boolean;
 }
 
-type UserModel = Model<IUser, {}, IUserMethods>;
+export type UserModel = Model<IUser, {}, IUserMethods>;
 
-const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
+export const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
     project: {
         type: String,
         required: [true, 'Project is required.'],
@@ -83,6 +83,5 @@ UserSchema.methods.authenticate =  function authenticate(
 };
 
 const User = models.User || model<IUser, UserModel>('User', UserSchema);
-export const SuperUser = models.SuperUser || model<IUser, UserModel>('SuperUser', UserSchema);
 
 export default User;

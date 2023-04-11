@@ -1,4 +1,4 @@
-import { SuperUser } from '@/models/userModel';
+import SuperUser from '@/models/superUserModel';
 import { Codes } from '@/types/apiResponse';
 import AppError from '@/utils/appError';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next/types';

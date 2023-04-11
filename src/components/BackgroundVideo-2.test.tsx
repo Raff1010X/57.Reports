@@ -12,6 +12,7 @@ jest.mock('next/router', () => ({
 // mock the useSelector hook
 jest.mock('react-redux', () => ({
     useSelector: jest.fn(() => true),
+    useDispatch: jest.fn(() => {return}),
 }));
 
 describe('BackgroundVideo component when user is logged', () => {

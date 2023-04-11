@@ -1,4 +1,4 @@
-import { SuperUser } from '@/models/userModel';
+import SuperUser from '@/models/superUserModel';
 import AppError from '@/utils/appError';
 import existingProject from './existingProject';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next/types';
@@ -9,7 +9,7 @@ const mockUser = {
     project: 'existing-project',
 };
 
-jest.mock('@/models/userModel', () => ({
+jest.mock('@/models/superUserModel', () => ({
     findOne: jest.fn(),
 }));
 
