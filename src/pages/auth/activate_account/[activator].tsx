@@ -59,5 +59,5 @@ export async function getServerSideProps(context: { query: any }) {
 
 async function activateAccount(activator: string): Promise<IActivation> {
     // TODO: complete account activation and active user login with next auth
-    return { activated: false, error: 'error mesage' };
+    return { activated: true, error: 'error mesage' };
 }

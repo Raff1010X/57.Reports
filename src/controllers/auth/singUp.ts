@@ -1,4 +1,4 @@
-import { SuperUser } from '@/models/userModel';
+import SuperUser from '@/models/superUserModel';
 import bcrypt from 'bcryptjs';
 import { Codes, IApiResponse } from '@/types/apiResponse';
 import AppError from '@/utils/appError';
