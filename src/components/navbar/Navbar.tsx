@@ -3,7 +3,9 @@ import Burger from './Burger';
 import NavLinks from './NavLinks';
 import Logo from './Logo';
 import Theme from './Theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '@/store/hooks';
+import { selectIsUserLogged } from '@/store/slices/auth/authSlice';
 
 interface MenuActive {
     menuActive: boolean;
@@ -17,6 +19,16 @@ const initialMenuActive = {
 
 export default function Navbar() {
     const [menuActive, setMenuActive] = useState(initialMenuActive);
+    const isUserLoged = useAppSelector(selectIsUserLogged);
+
+    useEffect(() => {
+        setMenuActive(() => {
+            return {
+                menuActive: false,
+                className: 'burger-menu',
+            };
+        });
+    }, [isUserLoged]);
 
     function handleClickBurger() {
         setMenuActive((prevState: MenuActive) => {
@@ -25,11 +37,22 @@ export default function Navbar() {
                 : 'burger-menu burger-menu--active';
             return { menuActive: !prevState.menuActive, className };
         });
+        if (menuActive.className === 'burger-menu burger-menu--active') setTimeout(()=>{
+            setMenuActive(() => {
+                return {
+                    menuActive: false,
+                    className: 'burger-menu',
+                };
+            });
+        },700)
     }
 
     return (
         <nav className="navbar">
-            <Logo handleClick={handleClickBurger} menuActive={menuActive.menuActive}/>
+            <Logo
+                handleClick={handleClickBurger}
+                menuActive={menuActive.menuActive}
+            />
             <div className={menuActive.className}>
                 <NavLinks handleClick={handleClickBurger} />
                 <Theme handleClick={handleClickBurger} />
