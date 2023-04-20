@@ -83,7 +83,6 @@ PDF Report Team`,
         <p>PDF Report Team</p>`,
     };
 }
-// TODO: create route to activate account
 
 function sendWelcomeEmail(to: string) {
     return {
@@ -109,7 +108,7 @@ function sendChangePasswordEmail(
         text: `Hi there,
 Your project name is: ${project}
 You can change Your password by clicking the link below:
-${process.env.NEXTAUTH_URL}//TODO: add path/${activator}
+${process.env.NEXTAUTH_URL}//TODO: add path to change pssword /${activator}
 We look forward to providing you with a great experience and hope that you enjoy using our services.
 Regards,
 PDF Report Team`,

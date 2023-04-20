@@ -20,14 +20,16 @@ export default function SignIn() {
     const handleLogIn = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        refs[0]?.current?.reportValidity();
-        refs[1]?.current?.reportValidity();
-        refs[2]?.current?.reportValidity();
+        refs.forEach(el => el.current?.reportValidity());
+        // refs[0]?.current?.reportValidity();
+        // refs[1]?.current?.reportValidity();
+        // refs[2]?.current?.reportValidity();
 
         if (
-            !refs[0]?.current?.checkValidity() ||
-            !refs[1]?.current?.checkValidity() ||
-            !refs[2]?.current?.checkValidity()
+            refs.some(el=>!el.current?.checkValidity)
+            // !refs[0]?.current?.checkValidity() ||
+            // !refs[1]?.current?.checkValidity() ||
+            // !refs[2]?.current?.checkValidity()
         )
             return;
 

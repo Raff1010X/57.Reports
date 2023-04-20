@@ -11,6 +11,7 @@ export default async function signUp(
 ) {
     const { project, email } = req.body;
     const activator = bcrypt.hashSync(Date.now().toString(), 10);
+    //TODO: delete "/" an other from activator
 
     const createUser = await SuperUser.create({ ...req.body, activator });
     if (!createUser)

@@ -33,7 +33,7 @@ export const authOptions = {
                     email,
                 };
                 let role = 'user';
-
+// TODO: complete account activation
                 await mongoDbConnect();
                 let user = await User.findOne(payload);
                 if (!user) {

@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import ui from '@/styles/interface/ui.module.sass';
 import IconLoginBoxLine from '@/assets/icons/IconLoginBoxLine';
 
+import mongoDbConnect from '@/utils/mongoDbConnect';
+import SuperUser from '@/models/superUserModel';
+
 interface IActivation {
     activated: boolean;
     error: string;
@@ -51,13 +54,21 @@ export default function ActivateAccount(props: IActivation) {
 }
 
 export async function getServerSideProps(context: { query: any }) {
-    const activated = activateAccount(context.query);
+    const activated = activateAccount(context.query.activator);
     return {
         props: activated,
     };
 }
 
 async function activateAccount(activator: string): Promise<IActivation> {
-    // TODO: complete account activation and active user login with next auth
-    return { activated: true, error: 'error mesage' };
+    await mongoDbConnect();
+    let activation = await SuperUser.findOneAndUpdate(
+        { activator },
+        { active: true, activator: '' }
+    );
+    if (!activation) {
+        return { activated: false, error: 'Error during account acivation.' };
+    }
+
+    return { activated: true, error: '' };
 }

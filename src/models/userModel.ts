@@ -72,6 +72,7 @@ export const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
     },
     activator: {
         type: String,
+        default: ''
     },
 });
 
