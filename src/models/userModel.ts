@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 var validator = require('validator');
 
 export interface IUser {
-    project: string;
+    project?: string;
     email: string;
     password: string;
     name?: string;
@@ -75,7 +75,7 @@ export const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
         default: ''
     },
 });
-
+ // TODO: change password, 
 UserSchema.methods.authenticate =  function authenticate(
     password: string
 ) {

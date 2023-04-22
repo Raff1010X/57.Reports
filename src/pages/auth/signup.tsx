@@ -15,28 +15,19 @@ export default function SignIn() {
     const dispatch = useAppDispatch();
     const authStatus = useAppSelector(selectAuthStatus);
 
-    const refs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
+    const refs = [
+        useRef<HTMLInputElement>(null),
+        useRef<HTMLInputElement>(null),
+        useRef<HTMLInputElement>(null),
+    ];
 
     const handleLogIn = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        refs.forEach(el => el.current?.reportValidity());
-        // refs[0]?.current?.reportValidity();
-        // refs[1]?.current?.reportValidity();
-        // refs[2]?.current?.reportValidity();
-
-        if (
-            refs.some(el=>!el.current?.checkValidity)
-            // !refs[0]?.current?.checkValidity() ||
-            // !refs[1]?.current?.checkValidity() ||
-            // !refs[2]?.current?.checkValidity()
-        )
-            return;
-
+        refs.forEach((el) => el.current?.reportValidity());
+        if (refs.some((el) => !el.current?.checkValidity)) return;
         const project = refs[0]?.current?.value || '';
         const email = refs[1]?.current?.value || '';
         const password = refs[2]?.current?.value || '';
-
         dispatch(
             userSighUpAsync({
                 project,
@@ -50,7 +41,11 @@ export default function SignIn() {
         <div className="page">
             <div className="page-content">
                 <form className={style.loginform} onSubmit={handleLogIn}>
-                    <p className={style.title}><IconBxUserPlus width={'2.5rem'} height={'2.5rem'} /><br/>Sign up!</p>
+                    <p className={style.title}>
+                        <IconBxUserPlus width={'2.5rem'} height={'2.5rem'} />
+                        <br />
+                        Sign up!
+                    </p>
                     <label className={ui.label} htmlFor="fproject">
                         Project name:
                     </label>
@@ -99,18 +94,15 @@ export default function SignIn() {
                             refs[2]?.current?.setCustomValidity('');
                         }}
                     />
-                    <button
-                        className={ui.button}
-                        type="submit"
-                    >
-                        {(authStatus==="idle") ? "Sign up!" : <Loader/>}
+                    <button className={ui.button} type="submit">
+                        {authStatus === 'idle' ? 'Sign up!' : <Loader />}
                     </button>
 
                     <Link className={ui.link} href={'/auth/login'}>
                         <IconUser width={'2rem'} height={'2rem'} />
                         Login!
                     </Link>
-                    <Link className={ui.link} href={'/auth/reset'}>
+                    <Link className={ui.link} href={'/auth/changePassword'}>
                         <IconHeadQuestionOutline
                             width={'2rem'}
                             height={'2rem'}

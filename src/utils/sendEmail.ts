@@ -46,7 +46,8 @@ export default async function sendEmail(
     to: string,
     subject: TMailSubject,
     activator?: string,
-    project?: string
+    project?: string,
+    password?: string,
 ) {
     let mailOptions = {};
     if (subject === 'activateAccount')
@@ -55,7 +56,7 @@ export default async function sendEmail(
     if (subject === 'welcome') mailOptions = sendWelcomeEmail(to);
 
     if (subject === 'changePassword')
-        mailOptions = sendChangePasswordEmail(to, project!, activator!);
+        mailOptions = sendChangePasswordEmail(to, project!, activator!, password!);
     
     const transporter = createTransporter();
     const info = await transporter.sendMail(mailOptions);
@@ -103,10 +104,12 @@ Thank you for using our service.`,
     };
 }
 
+ // TODO: change password, 
 function sendChangePasswordEmail(
     to: string,
     project: string,
-    activator: string
+    activator: string,
+    password: string,
 ) {
     return {
         from: 'webdev@webdev.smallhost.pl',
@@ -115,11 +118,14 @@ function sendChangePasswordEmail(
         text: `Hi there,
 Your project name is: ${project}
 You can change Your password by clicking the link below:
-${process.env.NEXTAUTH_URL}//TODO: add path to change pssword /${activator}
-We look forward to providing you with a great experience and hope that you enjoy using our services.
+${process.env.NEXTAUTH_URL}/auth/change_password/${activator}/${password}
 Regards,
 PDF Report Team`,
+        html: `<h1>Hi there</h1>,
+        <p>Your project name is: ${project}</p>
+        <p>You can change Your password by clicking the link below:</p>
+        <a href="${process.env.NEXTAUTH_URL}/auth/change_password/${activator}/${password}" target="_blank">Link to activate your new password</a>
+        <p>Regards,</p>
+        <p>PDF Report Team</p>`,
     };
 }
-
-// TODO: create route to change password

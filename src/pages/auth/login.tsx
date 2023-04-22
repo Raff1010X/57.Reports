@@ -129,7 +129,7 @@ export default function LogIn() {
                         <IconBxUserPlus width={'2rem'} height={'2rem'} />
                         Sign up!
                     </Link>
-                    <Link className={ui.link} href={'/auth/reset'}>
+                    <Link className={ui.link} href={'/auth/changePassword'}>
                         <IconHeadQuestionOutline
                             width={'2rem'}
                             height={'2rem'}

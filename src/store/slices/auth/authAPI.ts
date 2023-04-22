@@ -11,3 +11,11 @@ export const userSighUpAsync = createAsyncThunk(
         return response;
     }
 );
+
+export const sendChangePasswordLink = createAsyncThunk(
+    'auth/fetchSendChangePasswordLink',
+    async (data: IUser) => {
+        const response = await API.makePost('/api/auth/changePassword', data)
+        return response;
+    }
+);
