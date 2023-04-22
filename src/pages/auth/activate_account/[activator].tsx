@@ -6,6 +6,9 @@ import IconLoginBoxLine from '@/assets/icons/IconLoginBoxLine';
 import mongoDbConnect from '@/utils/mongoDbConnect';
 import SuperUser from '@/models/superUserModel';
 
+import sendEmail from '@/utils/sendEmail';
+
+
 interface IActivation {
     activated: boolean;
     error: string;
@@ -54,7 +57,7 @@ export default function ActivateAccount(props: IActivation) {
 }
 
 export async function getServerSideProps(context: { query: any }) {
-    const activated = await activateAccount(context.query.activator.split('=')[1]);
+    const activated = await activateAccount(context.query.activator);
     return {
         props: activated,
     };
@@ -67,8 +70,10 @@ async function activateAccount(activator: string): Promise<IActivation> {
         { active: true, activator: '' }
     );
     if (!activation) {
-        return { activated: false, error: 'Error during account acivation.' };
+        return { activated: false, error: 'This link is no longer active.' };
     }
+    const emailSend = await sendEmail(activation.email, 'welcome');
+    if (!emailSend) console.log(`Internal server error. Can't send account activation email.`)
 
     return { activated: true, error: '' };
 }

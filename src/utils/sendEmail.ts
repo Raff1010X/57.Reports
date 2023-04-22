@@ -51,9 +51,12 @@ export default async function sendEmail(
     let mailOptions = {};
     if (subject === 'activateAccount')
         mailOptions = sendActivationEmail(to, activator!);
+
     if (subject === 'welcome') mailOptions = sendWelcomeEmail(to);
+
     if (subject === 'changePassword')
         mailOptions = sendChangePasswordEmail(to, project!, activator!);
+    
     const transporter = createTransporter();
     const info = await transporter.sendMail(mailOptions);
     if (process.env.NODE_ENV === 'development')
@@ -69,14 +72,14 @@ function sendActivationEmail(to: string, activator: string) {
         subject: 'PDF Reports - Your account activation link',
         text: `Hi there,
 Thank you for registering with our service. Your account will be activated when you click the link below:
-${process.env.NEXTAUTH_URL}/auth/activate_account/activator=${activator}
+${process.env.NEXTAUTH_URL}/auth/activate_account/${activator}
 We look forward to providing you with a great experience and hope that you enjoy using our services.
 Thanks again for signing up!
 Regards,
 PDF Report Team`,
         html: `<h1>Hi there</h1>,
         <p>Thank you for registering with our service. Your account will be activated when you click the link below:</p>
-        <a href="${process.env.NEXTAUTH_URL}/auth/activate_account/activator=${activator}" target="_blank">Link to activate your account</a>
+        <a href="${process.env.NEXTAUTH_URL}/auth/activate_account/${activator}" target="_blank">Link to activate your account</a>
         <p>We look forward to providing you with a great experience and hope that you enjoy using our services.</p>
         <p>Thanks again for signing up!</p>
         <p>Regards,</p>
@@ -93,6 +96,10 @@ function sendWelcomeEmail(to: string) {
 Your account has been successfully activated. 
 You can now log into your account and start using it. 
 Thank you for using our service.`,
+        html: `<h1>Congratulations!</h1> 
+        <p>Your account has been successfully activated. </p>
+        <p>You can now log into your account and start using it.</p> 
+        <p>Thank you for using our service.</p>`,
     };
 }
 
