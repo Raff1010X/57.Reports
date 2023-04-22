@@ -69,14 +69,14 @@ function sendActivationEmail(to: string, activator: string) {
         subject: 'PDF Reports - Your account activation link',
         text: `Hi there,
 Thank you for registering with our service. Your account will be activated when you click the link below:
-${process.env.NEXTAUTH_URL}/auth/activate_account/${activator}
+${process.env.NEXTAUTH_URL}/auth/activate_account/activator=${activator}
 We look forward to providing you with a great experience and hope that you enjoy using our services.
 Thanks again for signing up!
 Regards,
 PDF Report Team`,
         html: `<h1>Hi there</h1>,
         <p>Thank you for registering with our service. Your account will be activated when you click the link below:</p>
-        <a href="${process.env.NEXTAUTH_URL}/auth/activate_account/${activator}" target="_blank">Link to activate your account</a>
+        <a href="${process.env.NEXTAUTH_URL}/auth/activate_account/activator=${activator}" target="_blank">Link to activate your account</a>
         <p>We look forward to providing you with a great experience and hope that you enjoy using our services.</p>
         <p>Thanks again for signing up!</p>
         <p>Regards,</p>

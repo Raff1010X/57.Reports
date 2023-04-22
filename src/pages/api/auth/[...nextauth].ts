@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import mongoDbConnect from '@/utils/mongoDbConnect';
 import SuperUser from '@/models/superUserModel';
-import User from '@/models/userModel';
+import User, { IUser } from '@/models/userModel';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -28,20 +28,25 @@ export const authOptions = {
             async authorize(credentials, req): Promise<any> {
                 const project = credentials?.project;
                 const email = credentials?.email;
-                const payload = {
+                const userQuery = {
                     project,
                     email,
                 };
                 let role = 'user';
-// TODO: complete account activation
+
                 await mongoDbConnect();
-                let user = await User.findOne(payload);
+                let user = await User.findOne(userQuery);
                 if (!user) {
-                    user = await SuperUser.findOne(payload);
+                    user = await SuperUser.findOne(userQuery);
                     role = 'superUser';
                 }
                 if (!user) {
                     throw new Error('No project or user found!');
+                }
+                if (!user.active) {
+                    throw new Error(
+                        'Activate Your account! An email has been sent to your email address containing an activation link. Please click on the link to activate your account.'
+                    );
                 }
                 const authenticated = await user.authenticate(
                     credentials?.password

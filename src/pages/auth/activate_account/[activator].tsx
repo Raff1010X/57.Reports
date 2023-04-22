@@ -54,7 +54,7 @@ export default function ActivateAccount(props: IActivation) {
 }
 
 export async function getServerSideProps(context: { query: any }) {
-    const activated = activateAccount(context.query.activator);
+    const activated = await activateAccount(context.query.activator.split('=')[1]);
     return {
         props: activated,
     };
