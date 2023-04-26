@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-type TMailSubject = 'activateAccount' | 'welcome' | 'changePassword';
+type TMailSubject = 'activateAccount' | 'welcome' | 'changePassword' | 'changePasswordConfirm';
 
 function createTransporter() {
     // const transporter = nodemailer.createTransport({
@@ -57,6 +57,9 @@ export default async function sendEmail(
 
     if (subject === 'changePassword')
         mailOptions = sendChangePasswordEmail(to, project!, activator!, password!);
+
+    // if (subject === 'changePasswordConfirm')
+    //     mailOptions = sendChangePasswordConfirm(to);
     
     const transporter = createTransporter();
     const info = await transporter.sendMail(mailOptions);
@@ -72,14 +75,14 @@ function sendActivationEmail(to: string, activator: string) {
         to,
         subject: 'PDF Reports - Your account activation link',
         text: `Hi there,
-Thank you for registering with our service. Your account will be activated when you click the link below:
+Thank you for registering with our service. Your account will be activated when you copy and paste this link into a browser address bar:
 ${process.env.NEXTAUTH_URL}/auth/activate_account/${activator}
 We look forward to providing you with a great experience and hope that you enjoy using our services.
 Thanks again for signing up!
 Regards,
 PDF Report Team`,
-        html: `<h1>Hi there</h1>,
-        <p>Thank you for registering with our service. Your account will be activated when you click the link below:</p>
+        html: `<h1>Hi there,</h1>
+        <p>Thank you for registering with our service. Your account will be activated when You click the link below:</p>
         <a href="${process.env.NEXTAUTH_URL}/auth/activate_account/${activator}" target="_blank">Link to activate your account</a>
         <p>We look forward to providing you with a great experience and hope that you enjoy using our services.</p>
         <p>Thanks again for signing up!</p>
@@ -104,7 +107,7 @@ Thank you for using our service.`,
     };
 }
 
- // TODO: change password, 
+
 function sendChangePasswordEmail(
     to: string,
     project: string,
@@ -116,16 +119,36 @@ function sendChangePasswordEmail(
         to,
         subject: 'PDF Reports - Your account new password',
         text: `Hi there,
-Your project name is: ${project}
-You can change Your password by clicking the link below:
+Your project(s): ${project}
+You can change your password when You copy and paste this link into a browser address bar:
 ${process.env.NEXTAUTH_URL}/auth/change_password/${activator}/${password}
 Regards,
 PDF Report Team`,
-        html: `<h1>Hi there</h1>,
-        <p>Your project name is: ${project}</p>
-        <p>You can change Your password by clicking the link below:</p>
+        html: `<h1>Hi there,</h1>
+        <p>Your project(s): ${project}</p>
+        <p>You can change your password by clicking the link below:</p>
         <a href="${process.env.NEXTAUTH_URL}/auth/change_password/${activator}/${password}" target="_blank">Link to activate your new password</a>
         <p>Regards,</p>
         <p>PDF Report Team</p>`,
     };
 }
+
+ // TODO: change password, 
+ 
+// function sendChangePasswordConfirm(
+//     to: string,
+// ) {
+//     return {
+//         from: 'webdev@webdev.smallhost.pl',
+//         to,
+//         subject: 'PDF Reports - Your account new password',
+//         text: `Hi there,
+// Your password was changed.
+// Regards,
+// PDF Report Team`,
+//         html: `<h1>Hi there,</h1>
+//         <p>Your password was changed.</p>
+//         <p>Regards,</p>
+//         <p>PDF Report Team</p>`,
+//     };
+// }

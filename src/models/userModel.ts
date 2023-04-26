@@ -48,7 +48,8 @@ export const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
         type: String,
         required: [true, 'Password is required'],
         set: (val: string) => {
-            return bcrypt.hashSync(val, 10);
+            if (val.startsWith('$2a$10$',0)) return val
+            else return bcrypt.hashSync(val, 10);
         },
     },
     name: {
@@ -75,7 +76,7 @@ export const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
         default: ''
     },
 });
- // TODO: change password, 
+
 UserSchema.methods.authenticate =  function authenticate(
     password: string
 ) {
