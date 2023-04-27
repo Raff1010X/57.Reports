@@ -48,12 +48,15 @@ export const authSlice = createSlice({
                 state.user = initialState.user;
                 action.asyncDispatch(showMessage(action.payload.message))
             })
+
+            // TODO: add status for change password async thunk
     },
 });
 
 export const { userSignOut, userSignIn } = authSlice.actions;
 
 export const selectAuthStatus = (state: AppState) => state.auth.status;
+// TODO: add status selector for change password
 export const selectIsUserLogged = (state: AppState) => state.auth.user.isLoged;
 export const selectUser = (state: AppState) => state.auth.user;
 export const selectIsSuperUser = (state: AppState) => {

@@ -81,9 +81,9 @@ async function changePassword(
         { activator: '', password }
     );
 
-    if (activationSuperUser.modifiedCount === 0 && activationUser.modifiedCount === 0) {
-        return { changed: false, error: 'This link is no longer active.' };
-    }
- // TODO: change password, - remove button blink, add loading button... send email
+    // if (activationSuperUser.modifiedCount === 0 && activationUser.modifiedCount === 0) {
+    //     return { changed: false, error: 'This link is no longer active.' };
+    // }
+ // TODO: change password, - add loading button... send email
     return { changed: true, error: '' };
 }
