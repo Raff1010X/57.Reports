@@ -58,8 +58,8 @@ export default async function sendEmail(
     if (subject === 'changePassword')
         mailOptions = sendChangePasswordEmail(to, project!, activator!, password!);
 
-    // if (subject === 'changePasswordConfirm')
-    //     mailOptions = sendChangePasswordConfirm(to);
+    if (subject === 'changePasswordConfirm')
+        mailOptions = sendChangePasswordConfirm(to);
     
     const transporter = createTransporter();
     const info = await transporter.sendMail(mailOptions);
@@ -133,22 +133,21 @@ PDF Report Team`,
     };
 }
 
- // TODO: change password, 
- 
-// function sendChangePasswordConfirm(
-//     to: string,
-// ) {
-//     return {
-//         from: 'webdev@webdev.smallhost.pl',
-//         to,
-//         subject: 'PDF Reports - Your account new password',
-//         text: `Hi there,
-// Your password was changed.
-// Regards,
-// PDF Report Team`,
-//         html: `<h1>Hi there,</h1>
-//         <p>Your password was changed.</p>
-//         <p>Regards,</p>
-//         <p>PDF Report Team</p>`,
-//     };
-// }
+
+function sendChangePasswordConfirm(
+    to: string,
+) {
+    return {
+        from: 'webdev@webdev.smallhost.pl',
+        to,
+        subject: 'PDF Reports - Your account new password',
+        text: `Hi there,
+Your password was changed.
+Regards,
+PDF Report Team`,
+        html: `<h1>Hi there,</h1>
+        <p>Your password was changed.</p>
+        <p>Regards,</p>
+        <p>PDF Report Team</p>`,
+    };
+}

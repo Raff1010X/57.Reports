@@ -8,6 +8,8 @@ import SuperUser from '@/models/superUserModel';
 
 import sendEmail from '@/utils/sendEmail';
 import User from '@/models/userModel';
+import AppError from '@/utils/appError';
+import { Codes } from '@/types/apiResponse';
 
 interface IChanged {
     changed: boolean;
@@ -70,8 +72,14 @@ async function changePassword(
     activator: string,
     password: string
 ): Promise<IChanged> {
-    console.log(activator,' x ', password)
+
     await mongoDbConnect();
+    let user = await SuperUser.findOne({activator})
+    if (!user) user = await User.findOne({activator})
+    if (!user) {
+        return { changed: false, error: 'This link is no longer active.' };
+    }
+
     const activationSuperUser = await SuperUser.updateMany(
         { activator },
         { activator: '', password }
@@ -81,9 +89,18 @@ async function changePassword(
         { activator: '', password }
     );
 
-    // if (activationSuperUser.modifiedCount === 0 && activationUser.modifiedCount === 0) {
-    //     return { changed: false, error: 'This link is no longer active.' };
-    // }
- // TODO: change password, - add loading button... send email
+    if (activationSuperUser.modifiedCount != 0 || activationUser.modifiedCount != 0) {
+        
+        const emailSend = await sendEmail(
+            user.email,
+            'changePasswordConfirm',
+        );
+        if (!emailSend)
+        throw new AppError(
+            Codes.InternalServerError,
+            `Internal server error. Can't send new password activation email.`
+        );
+    }
+
     return { changed: true, error: '' };
 }

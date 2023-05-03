@@ -13,7 +13,7 @@ import { sendChangePasswordLink } from '@/store/slices/auth/authAPI';
 
 export default function ChangePassword() {
     const dispatch = useAppDispatch();
-    const authStatus = useAppSelector(selectAuthStatus);// TODO: change status selector to change password async thunk
+    const authStatus = useAppSelector(selectAuthStatus);
 
     const refs = [
         useRef<HTMLInputElement>(null),

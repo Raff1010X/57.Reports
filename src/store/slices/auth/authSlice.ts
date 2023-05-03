@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppState } from '../../store';
 
-import { userSighUpAsync } from './authAPI';
+import { userSighUpAsync, sendChangePasswordLink } from './authAPI';
 import Router from 'next/router';
 import { showMessage } from '../message/messageSlice';
 
@@ -48,15 +48,25 @@ export const authSlice = createSlice({
                 state.user = initialState.user;
                 action.asyncDispatch(showMessage(action.payload.message))
             })
-
-            // TODO: add status for change password async thunk
+            // change password
+            .addCase(sendChangePasswordLink.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(sendChangePasswordLink.fulfilled, (state, action: any) => {
+                state.status = 'idle';
+                action.asyncDispatch(showMessage(action.payload.message))
+            })
+            .addCase(sendChangePasswordLink.rejected, (state, action: any) => {
+                state.status = 'failed';
+                state.user = initialState.user;
+                action.asyncDispatch(showMessage(action.payload.message))
+            })
     },
 });
 
 export const { userSignOut, userSignIn } = authSlice.actions;
 
 export const selectAuthStatus = (state: AppState) => state.auth.status;
-// TODO: add status selector for change password
 export const selectIsUserLogged = (state: AppState) => state.auth.user.isLoged;
 export const selectUser = (state: AppState) => state.auth.user;
 export const selectIsSuperUser = (state: AppState) => {
