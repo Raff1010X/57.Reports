@@ -7,7 +7,7 @@ jest.mock('next/router', () => ({
     useRouter: () => ({ pathname: '/current/path' }),
 }));
 
-// mock the useSelector hook
+// mock the useAppSelector hook
 jest.mock('react-redux', () => ({
     useSelector: jest.fn(() => true),
     useDispatch: jest.fn(() => {return}),

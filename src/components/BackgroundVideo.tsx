@@ -2,9 +2,9 @@ import ui from '../styles/interface/ui.module.sass';
 import { fontInter } from '../assets/fonts/fontLoader';
 import IconFiletypePdf from '../assets/icons/IconFiletypePdf';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
 import { selectIsUserLogged } from '../store/slices/auth/authSlice';
 import { useEffect } from 'react';
+import { useAppSelector } from '@/store/hooks';
 
 export default function BackgroundVideo() {
     const router = useRouter();
@@ -13,7 +13,7 @@ export default function BackgroundVideo() {
         router.replace('/auth/login');
     }
 
-    const isUserLogged = useSelector(selectIsUserLogged);
+    const isUserLogged = useAppSelector(selectIsUserLogged);
 
     return (
         <>
