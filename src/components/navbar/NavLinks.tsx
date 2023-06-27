@@ -56,7 +56,7 @@ export default function NavLinks(props: NavLinks) {
                         />
                     )}
                     <NavLink
-                        linkTo={'/'}
+                        linkTo={'/logout'}
                         className={'link flex-right'}
                         text={'Logout'}
                         icon={IconLogoutBoxLine}

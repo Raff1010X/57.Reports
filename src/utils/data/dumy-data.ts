@@ -1,4 +1,4 @@
-import { IUser } from '@/types/user';
+import { IUser } from '../../models/userModel';
 
 const superUsers: IUser[] = [
     {
@@ -100,41 +100,41 @@ function isValidUser(userData: IUser, array: IUser[]): IUser | undefined {
     return isValidUser;
 }
 
-export async function logIn(userData: IUser) {
-    let response = {
-        status: 'rejected',
-        message: 'Invalid password, user or project name!',
-        user: {
-            project: '',
-            email: '',
-            department: '',
-            isLoged: false,
-            role: '',
-        },
-    };
+// export async function logIn(userData: IUser) {
+//     let response = {
+//         status: 'rejected',
+//         message: 'Invalid password, user or project name!',
+//         user: {
+//             project: '',
+//             email: '',
+//             department: '',
+//             isLoged: false,
+//             role: '',
+//         },
+//     };
 
-    let user: IUser | undefined;
-    let role = 'superUser';
-    user = isValidUser(userData, superUsers);
-    if (!user) {
-        user = isValidUser(userData, users);
-        role = 'user';
-    }
-    if (user) {
-        response = {
-            status: 'success',
-            message: 'Welcome back!',
-            user: {
-                project: user.project,
-                email: user.email,
-                department: user.department!,
-                isLoged: true,
-                role,
-            },
-        };
-    }
-    return response;
-}
+//     let user: IUser | undefined;
+//     let role = 'superUser';
+//     user = isValidUser(userData, superUsers);
+//     if (!user) {
+//         user = isValidUser(userData, users);
+//         role = 'user';
+//     }
+//     if (user) {
+//         response = {
+//             status: 'success',
+//             message: 'Welcome back!',
+//             user: {
+//                 project: user.project,
+//                 email: user.email,
+//                 department: user.department!,
+//                 isLoged: true,
+//                 role,
+//             },
+//         };
+//     }
+//     return response;
+// }
 
 export async function logOut() {
     const response = {

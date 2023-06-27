@@ -1,4 +1,3 @@
-import { logIn, logOut } from '../../../utils/data/dumy-data';
 import { IUser } from '../../../models/userModel';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 

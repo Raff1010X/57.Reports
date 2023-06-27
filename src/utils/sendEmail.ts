@@ -25,20 +25,6 @@ function createTransporter() {
         },
     });
 
-    // const transporter = nodemailer.createTransport({
-    //     host: process.env.EMAIL_HOST,
-    //     port: 465,
-    //     secure: true,
-    //     auth: {
-    //         type: 'OAuth2',
-    //         user: process.env.EMAIL_USER,
-    //         clientId: process.env.EMAIL_clientId,
-    //         clientSecret: process.env.EMAIL_clientSecret,
-    //         refreshToken: process.env.EMAIL_refreshToken,
-    //         accessToken: process.env.EMAIL_accessToken,
-    //     },
-    // });
-
     return transporter;
 }
 
