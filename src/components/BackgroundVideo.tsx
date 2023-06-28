@@ -10,50 +10,52 @@ export default function BackgroundVideo() {
     const router = useRouter();
 
     function handleClick() {
+        if (navigator.maxTouchPoints > 0)
+            setTimeout(() => navigateToLogin(), 900);
+        else navigateToLogin();
+    }
+
+    function navigateToLogin() {
         router.replace('/auth/login');
     }
 
     const isUserLogged = useAppSelector(selectIsUserLogged);
 
     return (
-        <>
-            {!isUserLogged && (
-                <div className="bgvideo" id="background-video">
-                    <video
-                        data-testid="video"
-                        className="video"
-                        playsInline
-                        autoPlay
-                        loop
-                        muted
-                        preload="auto"
-                    >
-                        <source
-                            src="/pexels-koolshooters-6980918.webm"
-                            type="video/webm"
-                        />
-                    </video>
-                    <div className={`bgvideo-content ${fontInter.className}`}>
-                        <IconFiletypePdf
-                            data-testid="icon"
-                            width="10rem"
-                            height="10rem"
-                            className="icon-shadow"
-                        />
-                        <p className="bgvideo-title">Report creator</p>
-                        <p className="bgvideo-text">
-                            Create audit reports <br />
-                            and share them whith your team
-                        </p>
-                        <button
-                            className={`${ui.button} bgvideo-button`}
-                            onClick={handleClick}
-                        >
-                            Login
-                        </button>
-                    </div>
-                </div>
-            )}
-        </>
+        <div className="bgvideo" id="background-video">
+            <video
+                data-testid="video"
+                className="video"
+                playsInline
+                autoPlay
+                loop
+                muted
+                preload="auto"
+            >
+                <source
+                    src="/pexels-koolshooters-6980918.webm"
+                    type="video/webm"
+                />
+            </video>
+            <div className={`bgvideo-content ${fontInter.className}`}>
+                <IconFiletypePdf
+                    data-testid="icon"
+                    width="10rem"
+                    height="10rem"
+                    className="icon-shadow"
+                />
+                <p className="bgvideo-title">Report creator</p>
+                <p className="bgvideo-text">
+                    Create audit reports <br />
+                    and share them whith your team
+                </p>
+                <button
+                    className={`${ui.button} bgvideo-button`}
+                    onClick={handleClick}
+                >
+                    Login
+                </button>
+            </div>
+        </div>
     );
 }

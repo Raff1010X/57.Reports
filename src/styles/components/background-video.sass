@@ -5,9 +5,10 @@
     @include flexRowCenter()
     overflow: hidden
     background-color: white
-    // background-image: url('./pexels-koolshooters-6980918.webp')
     background-position: center
     background-size: cover
+    pointer-events: none
+    transition: 1s, filter .5s
 
 .bgvideo-no_animation
     animation: none
@@ -21,7 +22,7 @@
 .bgvideo_show
     opacity: 0
     animation-name: show
-    animation-duration: .25s
+    animation-duration: 5s
     animation-fill-mode: forwards
 
 .video
@@ -34,7 +35,6 @@
     position: absolute
     width: 80%
     height: 80%
-
     gap: 2.5rem
     color: white
     text-shadow: 0 0 5px black
@@ -43,6 +43,21 @@
     border: 1px solid white !important
     color: white
     background: #00000033 !important
+    pointer-events: auto
+    transition: .25s
+
+
+.bgvideo:hover
+    scale: 1.1
+    filter: saturate(50) sepia(100%)
+
+
+.bgvideo-button:hover
+    scale: 3
+    border-color: transparent !important
+    background-color: transparent !important
+    color: white !important
+
 
 .bgvideo-title
     @include font(4rem)

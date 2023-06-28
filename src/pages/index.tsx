@@ -18,6 +18,7 @@ export default function Home() {
             </Head>
             <main className="page">
                 <div className="page-content">
+                    Main Page
                 </div>
             </main>
         </>

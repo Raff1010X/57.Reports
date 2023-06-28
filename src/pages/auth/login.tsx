@@ -20,6 +20,7 @@ export default function LogIn() {
     useEffect(() => {
         const element = document.getElementById('background-video');
         element?.classList.add('bgvideo_hidden');
+        element?.classList.remove('bgvideo_show');
     }, []);
 
     const refs = [
