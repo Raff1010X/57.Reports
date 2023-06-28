@@ -87,11 +87,11 @@ export default function ChangePassword() {
                             <Loader />
                         )}
                     </button>
-                    <Link className={ui.link} href={'/auth/login'}>
+                    <Link className={`${ui.link} ${ui.link_custom}`} href={'/auth/login'}>
                         <IconUser width={'2rem'} height={'2rem'} />
                         Login!
                     </Link>
-                    <Link className={ui.link} href={'/auth/signup'}>
+                    <Link className={`${ui.link} ${ui.link_custom}`} href={'/auth/signup'}>
                         <IconBxUserPlus width={'2rem'} height={'2rem'} />
                         Sign up!
                     </Link>

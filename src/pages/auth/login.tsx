@@ -126,11 +126,11 @@ export default function LogIn() {
                         {!loading ? 'Log in!' : <Loader />}
                     </button>
 
-                    <Link className={ui.link} href={'/auth/signup'}>
+                    <Link className={`${ui.link} ${ui.link_custom}`} href={'/auth/signup'}>
                         <IconBxUserPlus width={'2rem'} height={'2rem'} />
                         Sign up!
                     </Link>
-                    <Link className={ui.link} href={'/auth/changePassword'}>
+                    <Link className={`${ui.link} ${ui.link_custom}`} href={'/auth/changePassword'}>
                         <IconHeadQuestionOutline
                             width={'2rem'}
                             height={'2rem'}

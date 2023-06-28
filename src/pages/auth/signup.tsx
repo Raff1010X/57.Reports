@@ -98,11 +98,11 @@ export default function SignIn() {
                         {authStatus === 'idle' ? 'Sign up!' : <Loader />}
                     </button>
 
-                    <Link className={ui.link} href={'/auth/login'}>
+                    <Link className={`${ui.link} ${ui.link_custom}`} href={'/auth/login'}>
                         <IconUser width={'2rem'} height={'2rem'} />
                         Login!
                     </Link>
-                    <Link className={ui.link} href={'/auth/changePassword'}>
+                    <Link className={`${ui.link} ${ui.link_custom}`} href={'/auth/changePassword'}>
                         <IconHeadQuestionOutline
                             width={'2rem'}
                             height={'2rem'}
