@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { FormEvent, useRef } from 'react';
 import { selectAuthStatus, userSignIn } from '@/store/slices/auth/authSlice';
-import style from '@/styles/pages/login.module.sass';
-import ui from '@/styles/interface/ui.module.sass';
+import ui from '@/styles/ui.module.sass';
 import Link from 'next/link';
 import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
@@ -68,8 +67,8 @@ export default function LogIn() {
     return (
         <div className="page">
             <div className="page-content">
-                <form className={style.loginform} onSubmit={handleLogIn}>
-                    <p className={style.title}>
+                <form className="loginform" onSubmit={handleLogIn}>
+                    <p className="title">
                         <IconUser width={'2.5rem'} height={'2.5rem'} />
                         <br />
                         Login!

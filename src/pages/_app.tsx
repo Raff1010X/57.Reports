@@ -1,17 +1,4 @@
-import '@/styles/global/reset.sass';
-import '@/styles/global/colors.sass';
-import '@/styles/global/globals.sass';
-import '@/styles/animations.sass';
-
-import '@/styles/components/layout.sass';
-import '@/styles/components/navbar.sass';
-import '@/styles/components/message.sass';
-import '@/styles/components/background-video.sass';
-
-import '@/styles/pages/page.sass';
-
-import '@/styles/interface/scroll-bar.sass';
-import '@/styles/interface/ms-icons.sass';
+import '@/styles/index.sass';
 
 import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';

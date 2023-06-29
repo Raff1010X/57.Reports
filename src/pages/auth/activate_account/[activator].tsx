@@ -1,6 +1,6 @@
 import router from 'next/router';
 import { useEffect } from 'react';
-import ui from '@/styles/interface/ui.module.sass';
+import ui from '@/styles/ui.module.sass';
 import IconLoginBoxLine from '@/assets/icons/IconLoginBoxLine';
 
 import mongoDbConnect from '@/utils/mongoDbConnect';

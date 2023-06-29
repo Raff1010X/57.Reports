@@ -1,4 +1,4 @@
-import ui from '../styles/interface/ui.module.sass';
+import ui from '../styles/ui.module.sass';
 import { fontInter } from '../assets/fonts/fontLoader';
 import IconFiletypePdf from '../assets/icons/IconFiletypePdf';
 import { useRouter } from 'next/router';

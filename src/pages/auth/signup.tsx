@@ -3,8 +3,7 @@ import { selectAuthStatus } from '@/store/slices/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { userSighUpAsync } from '@/store/slices/auth/authAPI';
 import { FormEvent, useRef } from 'react';
-import style from '@/styles/pages/login.module.sass';
-import ui from '@/styles/interface/ui.module.sass';
+import ui from '@/styles/ui.module.sass';
 import Link from 'next/link';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import IconUser from '@/assets/icons/IconUser';
@@ -40,8 +39,8 @@ export default function SignIn() {
     return (
         <div className="page">
             <div className="page-content">
-                <form className={style.loginform} onSubmit={handleLogIn}>
-                    <p className={style.title}>
+                <form className="loginform" onSubmit={handleLogIn}>
+                    <p className="title">
                         <IconBxUserPlus width={'2.5rem'} height={'2.5rem'} />
                         <br />
                         Sign up!
