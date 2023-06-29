@@ -8,6 +8,7 @@ import { useAppSelector } from '@/store/hooks';
 
 export default function BackgroundVideo() {
     const router = useRouter();
+    const isUserLogged = useAppSelector(selectIsUserLogged);
 
     function handleClick() {
         if (navigator.maxTouchPoints > 0)
@@ -16,13 +17,18 @@ export default function BackgroundVideo() {
     }
 
     function navigateToLogin() {
-        router.replace('/auth/login');
+        if (isUserLogged) {
+            const element = document.getElementById('background-video');
+            element?.classList.add('bgvideo_hidden');
+            element?.classList.remove('bgvideo_show');
+        } else router.replace('/auth/login');
     }
 
-    const isUserLogged = useAppSelector(selectIsUserLogged);
+    let login = "Login"
+    if (isUserLogged) login= "Enter"
 
     return (
-        <div className="bgvideo" id="background-video">
+        <div className={`bgvideo`} id="background-video">
             <video
                 data-testid="video"
                 className="video"
@@ -53,7 +59,7 @@ export default function BackgroundVideo() {
                     className={`${ui.button} bgvideo-button`}
                     onClick={handleClick}
                 >
-                    Login
+                    {login}
                 </button>
             </div>
         </div>
