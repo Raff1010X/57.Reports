@@ -1,0 +1,19 @@
+.link
+    width: 100%
+    @include flexRowCenter()
+    @include font(1.25rem)
+    color: var(--color-link)
+    transition: 0.5s
+    margin: .5rem 0 .5rem 0
+    gap: 1rem
+    white-space: nowrap
+
+.link:hover
+    transition: 0.5s
+    color: var(--color-link-hover)
+
+.link_custom
+    color: var(--color-link-hover) !important
+
+.link_custom:hover
+    color: var(--color-link) !important
