@@ -6,6 +6,7 @@
     background-position: center
     background-size: cover
     pointer-events: none
+    filter: saturate(0) sepia(100%) grayscale(0%)
     transition: 1s, filter .5s, width 0s, height 0s
 
 .bgvideo-no_animation
@@ -38,8 +39,8 @@
     text-shadow: 0 0 5px black
 
 .bgvideo-button
-    border: 1px solid white !important
-    color: white
+    border: 3px solid white !important
+    color: white !important
     background: #00000033 !important
     pointer-events: auto
     transition: .25s
@@ -47,7 +48,7 @@
 
 .bgvideo:hover
     scale: 1.1
-    filter: saturate(50) sepia(100%)
+    filter: saturate(50) sepia(100%) grayscale(100%)
 
 
 .bgvideo-button:hover
