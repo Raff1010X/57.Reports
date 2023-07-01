@@ -21,6 +21,18 @@ export default function Layout(props: Layout) {
         });
     }, [dispatch]);
 
+    useEffect(() => {
+        addEventListener('resize', () => {
+            document.documentElement.style.setProperty(
+                '--vh',
+                `${window.innerHeight}px`
+            );
+        });
+        return () => {
+            removeEventListener('resize', () => {});
+        };
+    }, []);
+
     return (
         <>
             <div className={`${fontInter.className} layout`}>

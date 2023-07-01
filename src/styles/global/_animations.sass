@@ -27,16 +27,17 @@
 @keyframes slideDown 
     0% 
         opacity: 0
-        transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg)
+        // transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg)
+        transform: translateX(100%) scaleX(0)
     100% 
         opacity: 1
-        transform: translateY(0) scale(1) rotateY(0) rotateX(0)
+        transform: translateX(0) scaleX(100%)
 
 // --------------------------
 @keyframes slideUp 
     0% 
         opacity: 1
-        transform: translateX(0)
+        transform: translateX(0) scaleX(100%)
     100% 
         opacity: 0
-        transform: translateX(-100%)
+        transform: translateX(-100%) scaleX(0)

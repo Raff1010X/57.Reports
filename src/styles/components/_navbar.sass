@@ -73,14 +73,15 @@
         left: 0
         top: 5rem
         width: 100%
-        height: calc(100% - 5rem)
+        height: calc(var(--vh, 100vh) - 5rem)
         background-color: var(--color-navbar)
         display: none
 
     .burger-menu--active
         display: flex
         opacity: 0
-        transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg)
+        // transform: translateY(-60%) scale(0) rotateY(-90deg) rotateX(90deg)
+        transform: translateX(-100%)
         animation-name: slideDown
         animation-duration: 0.5s
         animation-fill-mode: forwards
