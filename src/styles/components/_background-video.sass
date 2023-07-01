@@ -7,18 +7,21 @@
     background-size: cover
     pointer-events: none
     filter: saturate(0) sepia(100%) grayscale(0%)
+    scale: 1
     transition: 1s, filter .5s, width 0s, height 0s
 
 .bgvideo-no_animation
     animation: none
 
 .bgvideo_hidden
+    scale: 1 !important
     opacity: 0
     animation-name: hide
     animation-duration: .25s
     animation-fill-mode: forwards
 
 .bgvideo_show
+    scale: 1 !important
     opacity: 0
     animation-name: show
     animation-duration: 5s
