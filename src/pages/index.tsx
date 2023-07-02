@@ -8,7 +8,7 @@ export default function Home() {
                 <meta name="description" content="PDF Report creator" />
                 <meta
                     name="viewport"
-                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
                 />
                 <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png"/>
                 <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png"/>
