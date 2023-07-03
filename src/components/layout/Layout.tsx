@@ -16,9 +16,10 @@ export default function Layout(props: Layout) {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        getSession().then((sesion) => {
-            if (sesion) dispatch(userSignIn(sesion?.user));
-        });
+        getSession()
+            .then((sesion) => {
+                if (sesion) dispatch(userSignIn(sesion?.user));
+            })
     }, [dispatch]);
 
     useEffect(() => {

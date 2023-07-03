@@ -55,8 +55,9 @@ export default function LogIn() {
             password,
         });
 
-        if (!signInResult?.ok && signInResult?.error) {
-            dispatch(showMessage(signInResult.error));
+        if (!signInResult?.ok) {
+            if (signInResult?.error) dispatch(showMessage(signInResult.error));
+            else dispatch(showMessage("Log in in unexpected error!"));
         } else {
             const sesion = await getSession();
             dispatch(userSignIn(sesion?.user));

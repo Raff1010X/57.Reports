@@ -41,6 +41,8 @@ export const authSlice = createSlice({
             })
             .addCase(userSighUpAsync.fulfilled, (state, action: any) => {
                 state.status = 'idle';
+                if(action.payload.message.indexOf("error")>0) action.asyncDispatch(showMessage('Sign up unexpeted error!'))
+                else
                 action.asyncDispatch(showMessage(action.payload.message))
             })
             .addCase(userSighUpAsync.rejected, (state, action: any) => {
@@ -54,6 +56,8 @@ export const authSlice = createSlice({
             })
             .addCase(sendChangePasswordLink.fulfilled, (state, action: any) => {
                 state.status = 'idle';
+                if(action.payload.message.indexOf("error")>0) action.asyncDispatch(showMessage('Change password unexpeted error!'))
+                else
                 action.asyncDispatch(showMessage(action.payload.message))
             })
             .addCase(sendChangePasswordLink.rejected, (state, action: any) => {

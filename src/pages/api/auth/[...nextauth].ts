@@ -8,6 +8,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 export const authOptions = {
     jwt: {
         maxAge: 40 * 60 * 60 * 24,
+        keepAlive: 5
     },
     secret: process.env.JWT_SECRET,
     providers: [
@@ -92,7 +93,9 @@ export const authOptions = {
             httpOnly: true,
             sameSite: 'lax',
             path: '/',
-            secure: true
+            secure: true,
+            // maxAge: 40 * 60 * 60 * 24,
+            // keepAlive: 5
           }
         },
         callbackUrl: {
@@ -101,7 +104,9 @@ export const authOptions = {
             httpOnly: true,
             sameSite: 'lax',
             path: '/',
-            secure: true
+            secure: true,
+            // maxAge: 40 * 60 * 60 * 24,
+            // keepAlive: 5
           }
         },
         csrfToken: {
@@ -110,7 +115,9 @@ export const authOptions = {
             httpOnly: true,
             sameSite: 'lax',
             path: '/',
-            secure: true
+            secure: true,
+            // maxAge: 40 * 60 * 60 * 24,
+            // keepAlive: 5
           }
         },
       }
