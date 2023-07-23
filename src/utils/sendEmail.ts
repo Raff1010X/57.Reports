@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer, { SentMessageInfo, TransportOptions } from 'nodemailer';
 
 type TMailSubject = 'activateAccount' | 'welcome' | 'changePassword' | 'changePasswordConfirm';
 
@@ -13,17 +13,17 @@ function createTransporter() {
     // });
 
     const transporter = nodemailer.createTransport({
-        host: 'mail0.small.pl',
-        port: 465,
+        host: process.env.email_host,
+        port: process.env.email_port,
         secure: true, // true for 465, false for 25 or other ports
         auth: {
-            user: 'webdev@webdev.smallhost.pl',
-            pass: "]L8mpLiwBn'0Wk8^58gZ_341EN.mb5",
+            user: process.env.email_user,
+            pass: process.env.email_pass,
         },
         tls: {
             rejectUnauthorized: false, // do not fail on invalid certs
         },
-    });
+    } as TransportOptions);
 
     return transporter;
 }
@@ -48,9 +48,9 @@ export default async function sendEmail(
         mailOptions = sendChangePasswordConfirm(to);
     
     const transporter = createTransporter();
-    const info = await transporter.sendMail(mailOptions);
+    const info: SentMessageInfo = await transporter.sendMail(mailOptions);
     if (process.env.NODE_ENV === 'development')
-        console.log('Message sent: %s', info.response);
+        console.log('Message sent: %s', info.response as string);
     if (info) return true;
     return false;
 }
