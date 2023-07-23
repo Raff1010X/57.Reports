@@ -1,38 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PDF-Reports (Starter temlate)
 
-## Getting Started
+Demo: https://reports.webdev.priv.pl/
 
-First, run the development server:
+To login use:
+- project: Trans 
+- email: kowalczyk77@o2.pl
+- password: test1234
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+My git repo: https://github.com/Raff1010X/01.Roadmap
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologie
+Typescript, NEXT.JS, SASS, React, Redux, Redux-Thunk, MONGO, NEXT-AUTH, NEXT-CONNECT...
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+##
+<p align="center">
+<img src="./images/1.png" alt="example image" width="80%">
+</p>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+<p align="center">
+<img src="./images/2.png" alt="example image" width="80%">
+</p>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<p align="center">
+<img src="./images/3.png" alt="example image" width="50%">
+</p>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<p align="center">
+<img src="./images/4.png" alt="example image" width="50%">
+</p>
 
-## Learn More
+<p align="center">
+<img src="./images/5.png" alt="example image" width="80%">
+</p>
 
-To learn more about Next.js, take a look at the following resources:
+<p align="center">
+<img src="./images/6.png" alt="example image" width="80%">
+</p>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<p align="center">
+<img src="./images/7.png" alt="example image" width="30%">
+</p>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<p align="center">
+<img src="./images/8.png" alt="example image" width="50%">
+</p>
 
-## Deploy on Vercel
+<p align="center">
+<img src="./images/9.png" alt="example image" width="50%">
+</p>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<p align="center">
+<img src="./images/10.png" alt="example image" width="80%">
+</p>
