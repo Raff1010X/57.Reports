@@ -1,4 +1,4 @@
-# PDF-Reports (Starter temlate)
+# PDF-Reports (Starter template)
 
 Demo: https://reports.webdev.priv.pl/
 
