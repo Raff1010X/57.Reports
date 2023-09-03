@@ -60,6 +60,7 @@ export default function LogIn() {
             else dispatch(showMessage("Log in in unexpected error!"));
         } else {
             const sesion = await getSession();
+            localStorage.setItem('user', JSON.stringify(sesion?.user));
             dispatch(userSignIn(sesion?.user));
         }
         setLoading(false);

@@ -13,20 +13,31 @@ import {
 } from '../../store/slices/auth/authSlice';
 
 import NavLink from './NavLink';
+import { useRouter } from 'next/router'
 
 interface NavLinks {
     handleClick: () => void;
 }
 
 export default function NavLinks(props: NavLinks) {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const isUserLogged = useAppSelector(selectIsUserLogged);
     const isSuperUser = useAppSelector(selectIsSuperUser);
 
     function handleClickLogOut() {
-        dispatch(userSignOut());
-        props.handleClick();
-        signOut({ redirect: false });
+
+        signOut({ redirect: false })
+            .then(() => {
+                localStorage.removeItem('user');
+                dispatch(userSignOut());
+                props.handleClick();
+            })
+            .catch((err) => {
+                router.push('/');
+                console.log(err);
+            });
+
     }
 
     return (

@@ -9,6 +9,7 @@ const withPWA = require('next-pwa')({
     skipWaiting: true,
     // scope: '/app',
     // sw: 'service-worker.js',
+    mode: 'production',
 });
 
 const nextConfig = {
