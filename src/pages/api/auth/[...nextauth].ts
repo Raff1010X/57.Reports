@@ -57,7 +57,6 @@ export const authOptions = {
                 return {
                     project,
                     email,
-                    department: user.department,
                     role,
                     isLoged: true,
                 };

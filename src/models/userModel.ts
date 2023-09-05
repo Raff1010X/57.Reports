@@ -3,19 +3,16 @@ import bcrypt from 'bcryptjs';
 var validator = require('validator');
 
 export interface IUser {
-    project?: string;
+    project: Schema.Types.ObjectId;
     email: string;
     password: string;
     name?: string;
-    department?: string;
     active?: boolean;
     activator?: string;
 }
 
 interface IUserMethods {
     authenticate(
-        project: string,
-        email: string,
         password: string
     ): boolean;
 }
@@ -24,13 +21,9 @@ export type UserModel = Model<IUser, {}, IUserMethods>;
 
 export const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
     project: {
-        type: String,
-        required: [true, 'Project is required.'],
-        minlength: [3, 'Project name should be longer than 3 characters.'],
-        maxlength: [
-            30,
-            'Project name should not be longer than 30 characters.',
-        ],
+        type: Schema.Types.ObjectId,
+        ref: 'Project',
+        required: [true, 'Project is required'],
     },
     email: {
         type: String,
@@ -48,7 +41,7 @@ export const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
         type: String,
         required: [true, 'Password is required'],
         set: (val: string) => {
-            if (val.startsWith('$2a$10$',0)) return val
+            if (val.startsWith('$2a$10$', 0)) return val
             else return bcrypt.hashSync(val, 10);
         },
     },
@@ -57,15 +50,6 @@ export const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
         default: 'Not set',
         minlength: [3, 'Name should be longer than 3 characters.'],
         maxlength: [20, 'Name should not be longer than 20 characters.'],
-    },
-    department: {
-        type: String,
-        default: 'Not set',
-        minlength: [3, 'Department name should be longer than 3 characters.'],
-        maxlength: [
-            50,
-            'Department name should not be longer than 50 characters.',
-        ],
     },
     active: {
         type: Boolean,
@@ -77,9 +61,27 @@ export const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
     },
 });
 
-UserSchema.methods.authenticate =  function authenticate(
-    password: string
-) {
+UserSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret._id;
+        delete ret.__v;
+        delete ret.password;
+    },
+});
+
+UserSchema.set('toObject', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret._id;
+        delete ret.__v;
+        delete ret.password;
+    }
+});
+
+UserSchema.methods.authenticate = function authenticate(password: string) {
     const compare = bcrypt.compareSync(password, this.password);
     return compare;
 };

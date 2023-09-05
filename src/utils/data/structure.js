@@ -1,14 +1,10 @@
 const user = {
     project: '',
-    department: '',
     email: '',
     name: '',
     password: '',
 };
 
-const department = {
-    name: '',
-};
 
 const report = {
     header: '',
@@ -25,10 +21,8 @@ const report = {
 const page = {
     report_number: '',
     date_audit: '',
-    department: '',
     place: '',
     description: '',
-    type: '',
     foto_1: '',
     foto_2: '',
     foto_3: '',

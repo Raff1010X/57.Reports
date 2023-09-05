@@ -10,7 +10,6 @@ export type TUserState = {
     user: {
         project: string;
         email: string;
-        department: string;
         isLoged: boolean;
         role: string;
     };
@@ -18,7 +17,7 @@ export type TUserState = {
 
 const initialState: TUserState = {
     status: 'idle',
-    user: { project: '', email: '', department: '', role: '', isLoged: false },
+    user: { project: '', email: '', role: '', isLoged: false },
 };
 
 export const authSlice = createSlice({
