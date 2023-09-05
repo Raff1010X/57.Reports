@@ -1,4 +1,5 @@
-// Controller factory functions
+// Factory function for creating controllers for CRUD operations on a model
+
 import mongoose from "mongoose";
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { mongoWorker } from './mongoWorker';
@@ -16,12 +17,11 @@ export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, 
         get: async (req, res) => {
             if (req.query?.[reqID as string]) {
                 req.query.id = req.query?.[reqID as string];
-                await mongoWorker(model).getOne(req, res);
+                mongoWorker(model).getOne(req, res);
             } else {
-                await mongoWorker(model).getAll(req, res);
+                mongoWorker(model).getAll(req, res);
             }
-        }
-        ,
+        },
         create: async (req, res) => {
             if (req.query?.[reqID as string]) {
                 res.status(200).json({
@@ -31,17 +31,15 @@ export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, 
                 });
                 return;
             }
-            await mongoWorker(model).create(req, res);
-        }
-        ,
+            mongoWorker(model).create(req, res);
+        },
         update: async (req, res) => {
             req.query.id = req.query?.[reqID as string];
-            await mongoWorker(model).update(req, res);
-        }
-        ,
+            mongoWorker(model).update(req, res);
+        },
         delete: async (req, res) => {
             req.query.id = req.query?.[reqID as string];
-            await mongoWorker(model).delete(req, res);
+            mongoWorker(model).delete(req, res);
         }
     }
 
