@@ -9,9 +9,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 addDefaultMiddlewares(router);
-router.get(pageController.getPage);
-router.put(pageController.updatePage);
-router.delete(pageController.deletePage);
-router.post(pageController.createPage);
+router.get(pageController.get);
+router.put(pageController.update);
+router.delete(pageController.delete);
+router.post(pageController.create);
 
 export default router.handler(errHandler);

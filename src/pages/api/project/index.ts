@@ -9,7 +9,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 addDefaultMiddlewares(router);
-router.get(projectController.getProject);
-router.post(projectController.createProject);
+router.get(projectController.get);
+router.post(projectController.create);
 
 export default router.handler(errHandler);
