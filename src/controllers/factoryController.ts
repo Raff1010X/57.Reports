@@ -19,7 +19,6 @@ export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, 
                 const document = await model.findOne({ _id: req.query.id });
                 sendResponse(res, document, 'retrieved');
             } else {
-                // await mongoWorker(model).getAll(req, res);
                 const documents = await model.find();
                 sendResponse(res, documents, 'retrieved');
             }
@@ -56,15 +55,14 @@ export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, 
 // catchAsync is a helper function that wraps an async function and catches any errors
 function catchAsync(fn: (req: NextApiRequest, res: NextApiResponse<IApiResponse>) => Promise<void>) {
     return async (req: NextApiRequest, res: NextApiResponse<IApiResponse>) => {
-      try {
-        await fn(req, res);
-      } catch (err: any) {
-        res.status(Codes.BadRequest).json({
-          status: 'error',
-          message: err.message,
-          data: undefined,
-        });
-      }
+        await fn(req, res)
+            .catch((err) => {
+                res.status(Codes.BadRequest).json({
+                    status: 'error',
+                    message: 'Error processing document(s) request',
+                    data: undefined,
+                });
+            });
     };
   }
 
