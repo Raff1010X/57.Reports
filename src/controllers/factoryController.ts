@@ -2,8 +2,7 @@
 
 import mongoose from "mongoose";
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { mongoWorker } from './mongoWorker';
-import { IApiResponse } from '@/types/apiResponse';
+import { Codes, IApiResponse } from '@/types/apiResponse';
 
 interface IFactoryController {
     get: (req: NextApiRequest, res: NextApiResponse<IApiResponse>) => Promise<void>;
@@ -14,15 +13,18 @@ interface IFactoryController {
 
 export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, reqID: string): IFactoryController => {
     return {
-        get: async (req, res) => {
+        get: catchAsync(async (req, res) => {
             if (req.query?.[reqID as string]) {
                 req.query.id = req.query?.[reqID as string];
-                mongoWorker(model).getOne(req, res);
+                const document = await model.findOne({ _id: req.query.id });
+                sendResponse(res, document, 'retrieved');
             } else {
-                mongoWorker(model).getAll(req, res);
+                // await mongoWorker(model).getAll(req, res);
+                const documents = await model.find();
+                sendResponse(res, documents, 'retrieved');
             }
-        },
-        create: async (req, res) => {
+        }),
+        create: catchAsync(async (req, res) => {
             if (req.query?.[reqID as string]) {
                 res.status(200).json({
                     status: 'error',
@@ -31,16 +33,54 @@ export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, 
                 });
                 return;
             }
-            mongoWorker(model).create(req, res);
-        },
-        update: async (req, res) => {
+            const document = await model.create(req.body)
+            sendResponse(res, document, 'created');
+        }),
+        update: catchAsync(async (req, res) => {
             req.query.id = req.query?.[reqID as string];
-            mongoWorker(model).update(req, res);
-        },
-        delete: async (req, res) => {
+            const document = await model.findByIdAndUpdate(req.query.id, req.body, {
+                new: true,
+                runValidators: true,
+            });
+            sendResponse(res, document, 'updated');
+        }),
+        delete: catchAsync(async (req, res) => {
             req.query.id = req.query?.[reqID as string];
-            mongoWorker(model).delete(req, res);
-        }
+            const document = await model.findByIdAndDelete(req.query.id);
+            sendResponse(res, document, 'deleted');
+        }),
     }
 
+};
+
+// catchAsync is a helper function that wraps an async function and catches any errors
+function catchAsync(fn: (req: NextApiRequest, res: NextApiResponse<IApiResponse>) => Promise<void>) {
+    return async (req: NextApiRequest, res: NextApiResponse<IApiResponse>) => {
+      try {
+        await fn(req, res);
+      } catch (err: any) {
+        res.status(Codes.BadRequest).json({
+          status: 'error',
+          message: err.message,
+          data: undefined,
+        });
+      }
+    };
+  }
+
+// sendResponse is a helper function that sends a response
+const sendResponse = (res: NextApiResponse<IApiResponse>, documents: any, message: string) => {
+    if (!documents) {
+        res.status(Codes.NotFound).json({
+            status: 'error',
+            message: 'Document(s) not found',
+            data: undefined,
+        });
+        return;
+    }
+    res.status(Codes.OK).json({
+        status: 'success',
+        message: `Document(s) ${message} successfully`,
+        data: documents,
+    });
 };
