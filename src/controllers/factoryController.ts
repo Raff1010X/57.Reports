@@ -66,12 +66,7 @@ function catchAsync(fn: (req: NextApiRequest, res: NextApiResponse<IApiResponse>
 // sendResponse is a helper function that sends a response
 const sendResponse = (res: NextApiResponse<IApiResponse>, documents: any, message: string) => {
     if (!documents) {
-        res.status(Codes.NotFound).json({
-            status: 'error',
-            message: 'Document(s) not found',
-            data: undefined,
-        });
-        return;
+        throw new AppError(Codes.NotFound, `No document(s) found`);
     }
     res.status(Codes.OK).json({
         status: 'success',
