@@ -3,6 +3,7 @@
 import mongoose from "mongoose";
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Codes, IApiResponse } from '@/types/apiResponse';
+import AppError from "@/utils/appError";
 
 interface IFactoryController {
     get: (req: NextApiRequest, res: NextApiResponse<IApiResponse>) => Promise<void>;
@@ -57,11 +58,7 @@ function catchAsync(fn: (req: NextApiRequest, res: NextApiResponse<IApiResponse>
     return async (req: NextApiRequest, res: NextApiResponse<IApiResponse>) => {
         await fn(req, res)
             .catch((err) => {
-                res.status(Codes.BadRequest).json({
-                    status: 'error',
-                    message: 'Error processing document(s) request',
-                    data: undefined,
-                });
+                throw new AppError(Codes.InternalServerError, 'Error occurred while processing document(s) request');
             });
     };
   }
