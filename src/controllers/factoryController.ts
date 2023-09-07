@@ -20,7 +20,7 @@ export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, 
                 const document = await model.findOne({ _id: req.query.id });
                 sendResponse(res, document, 'retrieved');
             } else {
-                const documents = await model.find();
+                const documents = await processDocuments(req, model);
                 sendResponse(res, documents, 'retrieved');
             }
         }),
@@ -74,3 +74,43 @@ const sendResponse = (res: NextApiResponse<IApiResponse>, documents: any, messag
         data: documents,
     });
 };
+
+// processDocuments is a helper function that filter, sort, limit, and paginate documents [GPT-3.5]
+// example of full query: /api/page?sort=-createdAt&fields=description,status&page=2&limit=10
+async function processDocuments(req: NextApiRequest, model: mongoose.Model<mongoose.Document, {}>) {
+    // 1) Filtering
+    const queryObj = { ...req.query };
+    const excludedFields = ['sort', 'page', 'limit', 'fields'];
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    // 2) Advanced filtering
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+
+    let query = model.find(JSON.parse(queryStr));
+
+    // 3) Sorting
+    if (req.query.sort) {
+        const sortBy = (req.query.sort as string).split(',').join(' ');
+        query = query.sort(sortBy);
+    } else {
+        query = query.sort('-createdAt');
+    }
+
+    // 4) Field limiting
+    if (req.query.fields) {
+        const fields = (req.query.fields as string).split(',').join(' ');
+        query = query.select(fields);
+    }
+
+    // 5) Pagination
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const limit = parseInt(req.query.limit as string, 10) || 100;
+    const skip = (page - 1) * limit;
+
+    query = query.skip(skip).limit(limit);
+
+    const documents = await query;
+
+    return documents;
+}
