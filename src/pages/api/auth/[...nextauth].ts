@@ -4,6 +4,7 @@ import SuperUser from '@/models/superUserModel';
 import User, { IUser } from '@/models/userModel';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
+import Project from '@/models/projectModel';
 
 export const authOptions = {
     jwt: {
@@ -28,13 +29,20 @@ export const authOptions = {
             async authorize(credentials, req): Promise<any> {
                 const project = credentials?.project;
                 const email = credentials?.email;
-                const userQuery = {
+                let userQuery = {
                     project,
                     email,
                 };
                 let role = 'user';
 
                 await mongoDbConnect();
+
+                let projectDB = await Project.findOne({ name: credentials?.project });
+                if (!projectDB) {
+                    throw new Error('No project or user found!');
+                }
+                userQuery.project = projectDB.id;
+
                 let user = await User.findOne(userQuery);
                 if (!user) {
                     user = await SuperUser.findOne(userQuery);

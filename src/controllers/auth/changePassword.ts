@@ -5,6 +5,7 @@ import AppError from '@/utils/appError';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import sendEmail from '@/utils/sendEmail';
 import User from '@/models/userModel';
+import Project from '@/models/projectModel';
 
 export default async function changePassword(
     req: NextApiRequest,
@@ -26,11 +27,13 @@ export default async function changePassword(
 
     const superUserProjects = await SuperUser.find({ email });
     const userProjects = await User.find({ email });
-    const projects = [...superUserProjects, ...userProjects]
-        .map((el, index) => {
-            return `<br>${index + 1}: ${el.project}`;
-        })
-        .toString();
+
+    const projectIds = [...superUserProjects, ...userProjects].map((el) => el.project);
+    const projects = await Project.find({ _id: { $in: projectIds } });
+    
+    const projectList = projects
+      .map((project, index) => `<br>${index + 1}: ${project.name}`)
+      .toString();
 
     const passwordHash = bcrypt.hashSync(password, 10);
 
@@ -38,7 +41,7 @@ export default async function changePassword(
         email,
         'changePassword',
         encodeURIComponent(activator),
-        projects,
+        projectList,
         encodeURIComponent(passwordHash)
     );
 
@@ -49,7 +52,7 @@ export default async function changePassword(
         );
 
     res.status(Codes.OK).json({
-        status: 'succes',
+        status: 'success',
         message:
             'Your new password will be activated when you click the link sent to your email.',
     });

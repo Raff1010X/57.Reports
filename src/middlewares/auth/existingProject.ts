@@ -1,4 +1,4 @@
-import SuperUser from '@/models/superUserModel';
+import Project from '@/models/projectModel';
 import { Codes } from '@/types/apiResponse';
 import AppError from '@/utils/appError';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next/types';
@@ -9,8 +9,8 @@ const existingProject = async (
     next: NextApiHandler
 ) => {
     const { project } = req.body;
-    const existingProject = await SuperUser.findOne({ project });
-    if (existingProject)
+    const existingProject = await Project.find( { name: project });
+    if (existingProject.length > 0)
         throw new AppError(
             Codes.Conflict,
             `Project already exists! Change name of project.`

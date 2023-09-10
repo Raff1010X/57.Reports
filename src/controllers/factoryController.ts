@@ -75,7 +75,7 @@ const sendResponse = (res: NextApiResponse<IApiResponse>, documents: any, messag
     });
 };
 
-// processDocuments is a helper function that filter, sort, limit, and paginate documents [GPT-3.5]
+// processDocuments is a helper function that filter, sort, limit, and paginate documents [copilot]
 // example of full query: /api/page?sort=-createdAt&fields=description,status&page=2&limit=10
 async function processDocuments(req: NextApiRequest, model: mongoose.Model<mongoose.Document, {}>) {
     // 1) Filtering
