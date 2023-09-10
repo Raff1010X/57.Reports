@@ -1,16 +1,11 @@
-import SuperUser from '@/models/superUserModel';
 import AppError from '@/utils/appError';
 import existingProject from './existingProject';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next/types';
 import { Codes } from '@/types/apiResponse';
+import Project from '@/models/projectModel';
 
-const mockUser = {
-    _id: 'abc123',
-    project: 'existing-project',
-};
-
-jest.mock('@/models/superUserModel', () => ({
-    findOne: jest.fn(),
+jest.mock('@/models/projectModel', () => ({
+    find: jest.fn(),
 }));
 
 describe('existingProject middleware', () => {
@@ -26,7 +21,7 @@ describe('existingProject middleware', () => {
     });
 
     it('should call next if project does not exist in database', async () => {
-        (SuperUser.findOne as jest.Mock).mockResolvedValue(null);
+        (Project.find as jest.Mock).mockResolvedValue(null);
         await existingProject(
             req as NextApiRequest,
             res as NextApiResponse,
@@ -36,7 +31,7 @@ describe('existingProject middleware', () => {
     });
 
     it('should throw AppError with conflict code if project already exists in database', async () => {
-        (SuperUser.findOne as jest.Mock).mockResolvedValue(mockUser);
+        (Project.find as jest.Mock).mockResolvedValue('existing-project');
         await expect(
             existingProject(req as NextApiRequest, res as NextApiResponse, next)
         ).rejects.toEqual(

@@ -10,7 +10,7 @@ const existingProject = async (
 ) => {
     const { project } = req.body;
     const existingProject = await Project.find( { name: project });
-    if (existingProject.length > 0)
+    if (existingProject?.length > 0)
         throw new AppError(
             Codes.Conflict,
             `Project already exists! Change name of project.`
