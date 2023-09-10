@@ -1,6 +1,20 @@
 import * as mongoose from 'mongoose';
 import AppError from './appError';
 import { Codes } from '@/types/apiResponse';
+
+// initialize models
+import { Model } from 'mongoose';
+import Report, { IReport } from '../models/reportModel';
+import User, { IUser } from '../models/userModel';
+import SuperUser, { ISuperUser } from '../models/superUserModel';
+import Page, { IPage } from '@/models/pageModel';
+
+const ReportModel: Model<IReport> = Report;
+const UserModel: Model<IUser> = User;
+const SuperUserModel: Model<ISuperUser> = SuperUser;
+const PageModel: Model<IPage> = Page;
+// end initialize models
+
 const mongoUrl = process.env.mongoConnectionString;
 
 const DB_OPTIONS = {
