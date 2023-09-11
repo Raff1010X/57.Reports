@@ -58,7 +58,7 @@ function catchAsync(fn: (req: NextApiRequest, res: NextApiResponse<IApiResponse>
     return async (req: NextApiRequest, res: NextApiResponse<IApiResponse>) => {
         await fn(req, res)
             .catch((err) => {
-                throw new AppError(Codes.InternalServerError, 'Error occurred while processing document(s) request');
+                throw new AppError(Codes.NotFound, 'Error occurred while processing document(s) request');
             });
     };
   }
