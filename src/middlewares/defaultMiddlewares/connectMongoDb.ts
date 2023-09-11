@@ -7,9 +7,6 @@ const mongoDbMiddleware = async (
     next: NextApiHandler
 ) => {
     await mongoDbConnect();
-    
-    //TODO: remove logger
-    console.log(req.query);
     return next(req, res);
 };
 
