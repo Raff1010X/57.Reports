@@ -31,16 +31,8 @@ export default function LogIn() {
     const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         refs.forEach(el => el.current?.reportValidity());
-        // refs[0]?.current?.reportValidity();
-        // refs[1]?.current?.reportValidity();
-        // refs[2]?.current?.reportValidity();
 
-        if (
-            refs.some(el=>!el.current?.checkValidity)
-            // !refs[0]?.current?.checkValidity() ||
-            // !refs[1]?.current?.checkValidity() ||
-            // !refs[2]?.current?.checkValidity()
-        )
+        if (refs.some(el=>!el.current?.checkValidity))
             return;
 
         const project = refs[0]?.current?.value || '';

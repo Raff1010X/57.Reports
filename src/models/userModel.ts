@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 var validator = require('validator');
 
 export interface IUser {
-    project: Schema.Types.ObjectId;
+    project?: Schema.Types.ObjectId;
     email: string;
     password: string;
     name?: string;
