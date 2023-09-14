@@ -6,15 +6,16 @@ import User from '@/models/userModel';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Project from '@/models/projectModel';
 import { NextAuthOptions } from 'next-auth';
+import { Roles } from '@/middlewares/defaultMiddlewares/protectRoute';
 
 export interface CustomSession extends Session {
     user: {
-        project?: string | null | undefined;
-        isLoged?: boolean | null | undefined;
+        project: string; 
+        email: string;
+        isLoged: boolean; 
+        role: Roles | null | undefined;
         name?: string | null | undefined;
-        email?: string | null | undefined;
         image?: string | null | undefined;
-        role?: string | null | undefined;
     };
 }
 
@@ -42,11 +43,27 @@ export const nextAuthOptions: NextAuthOptions = {
             async authorize(credentials): Promise<any> {
                 const project = credentials?.project;
                 const email = credentials?.email;
+                const password = credentials?.password;
+
+                // admin login
+                if (
+                    project === process.env.ADMIN_PROJECT &&
+                    email === process.env.ADMIN_EMAIL &&
+                    password === process.env.ADMIN_PASSWORD
+                ) {
+                    return {
+                        project,
+                        email,
+                        role: 'admin',
+                        isLoged: true,
+                    };
+                }
+
                 let userQuery = {
                     project,
                     email,
                 };
-                let role = 'user';
+                let role: Roles = 'user';
 
                 await mongoDbConnect();
 

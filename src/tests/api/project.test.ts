@@ -17,6 +17,7 @@ function instanceOf(response: any) {
     expect(response.body.data).toBeInstanceOf(Object);
     expect(response.body.data).toHaveProperty('name');
     expect(response.body.data).toHaveProperty('id');
+    
 }
 
 // login
@@ -50,7 +51,6 @@ describe('Test the project api', () => {
     // send a POST request to the api/project route
     let id = 1;
     test('POST /api/project', (done) => {
-        console.log(cookies);
         request(app)
             .post('/api/project')
             .set('Cookie', cookies)
