@@ -1,5 +1,4 @@
 import { IApiResponse } from '@/types/apiResponse';
-import mongoose, { MongooseError } from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
 import AppError from '@/utils/appError';
 import { Codes } from '@/types/apiResponse';
@@ -11,13 +10,16 @@ export const errorHandlerMiddleware = {
         res: NextApiResponse<IApiResponse>
     ) => {
         
-        if (process.env.NODE_ENV === 'development') console.log(err);
+        if (process.env.NODE_ENV === 'development') {
+            console.log(err?.constructor.name);
+            console.log(err);
+        }
 
         if (err instanceof AppError) {
             handleAppErrors(err, req, res);
             return;
         }
-        if (err instanceof mongoose.Error) {
+        if (err?.constructor.name === 'MongoServerError') {
             handleMongooseErrors(err, req, res);
             return;
         }
@@ -29,7 +31,7 @@ export const errorHandlerMiddleware = {
 };
 
 function handleMongooseErrors(
-    err: MongooseError,
+    err: any,
     req: NextApiRequest,
     res: NextApiResponse<IApiResponse>
 ) {

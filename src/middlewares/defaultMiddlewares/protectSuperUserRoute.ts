@@ -1,7 +1,8 @@
 import { Codes } from '@/types/apiResponse';
 import AppError from '@/utils/appError';
-import { getSession } from 'next-auth/react';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next/types';
+import { getServerSession } from 'next-auth/next';
+import { nextAuthOptions, CustomSession } from '@/pages/api/auth/[...nextauth]';
 
 const protectSuperUserRoute = async (
     req: NextApiRequest,
@@ -9,12 +10,12 @@ const protectSuperUserRoute = async (
     next: NextApiHandler
 ) => {
 
-    const session = await getSession({ req }) as any;
+    const session = await getServerSession(req, res, nextAuthOptions) as CustomSession | null;
     const role = session?.user?.role;
-    if (!session || role !== 'superUser') {
+    if (role !== 'superUser') {
         throw new AppError(Codes.Unauthorized, 'You are not authorized to access this route');
     }
-    
+
     return next(req, res);
 };
 

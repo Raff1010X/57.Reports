@@ -1,12 +1,25 @@
-import NextAuth from 'next-auth';
+import NextAuth, { Session } from 'next-auth';
 import mongoDbConnect from '@/utils/mongoDbConnect';
 import SuperUser from '@/models/superUserModel';
-import User, { IUser } from '@/models/userModel';
+import User from '@/models/userModel';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Project from '@/models/projectModel';
+import { NextAuthOptions } from 'next-auth';
 
-export const authOptions = {
+export interface CustomSession extends Session {
+    user: {
+        project?: string | null | undefined;
+        isLoged?: boolean | null | undefined;
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+        role?: string | null | undefined;
+    };
+}
+
+export const nextAuthOptions: NextAuthOptions = {
+
     jwt: {
         maxAge: 40 * 60 * 60 * 24
     },
@@ -26,7 +39,7 @@ export const authOptions = {
                     type: 'password',
                 },
             },
-            async authorize(credentials, req): Promise<any> {
+            async authorize(credentials): Promise<any> {
                 const project = credentials?.project;
                 const email = credentials?.email;
                 let userQuery = {
@@ -89,38 +102,41 @@ export const authOptions = {
         },
         async session({ session, token }: any) {
             session.user = token.user;
+            // session.accessToken = token.accessToken
+            // session.refreshToken = token.refreshToken
             return session;
         },
     },
     cookies: {
         sessionToken: {
-          name: `next-auth.session-token`,
-          options: {
-            httpOnly: true,
-            sameSite: 'lax',
-            path: '/',
-            secure: true
-          }
+            name: `next-auth.session-token`,
+            options: {
+                httpOnly: true,
+                sameSite: 'lax',
+                path: '/',
+                secure: true
+            }
         },
         callbackUrl: {
-          name: `next-auth.callback-url`,
-          options: {
-            httpOnly: true,
-            sameSite: 'lax',
-            path: '/',
-            secure: true
-          }
+            name: `next-auth.callback-url`,
+            options: {
+                httpOnly: true,
+                sameSite: 'lax',
+                path: '/',
+                secure: true
+            }
         },
         csrfToken: {
-          name: `next-auth.csrf-token`,
-          options: {
-            httpOnly: true,
-            sameSite: 'lax',
-            path: '/',
-            secure: true
-          }
+            name: `next-auth.csrf-token`,
+            options: {
+                httpOnly: true,
+                sameSite: 'lax',
+                path: '/',
+                secure: true
+            }
         },
-      }
+    }
 };
 
-export default NextAuth(authOptions);
+
+export default NextAuth(nextAuthOptions);
