@@ -14,7 +14,7 @@ export const protectionLevels: Record<string, string[]> = {
     admin: ['admin'],
 };
 
-const protectRoute = (level: Roles) => async (
+const protectRoute = (level: Roles, protectProjects = false) => async (
     req: NextApiRequest,
     res: NextApiResponse,
     next: NextApiHandler
@@ -25,29 +25,28 @@ const protectRoute = (level: Roles) => async (
     const email = session?.user?.email;
     let user;
 
-    if (!session || !role || !roles.includes(role)) {
+    if (!session || !role || !roles.includes(role))
         throw new AppError(Codes.Unauthorized, 'You are not authorized to access this content');
-    }
 
-    if (role === 'admin') {
+    if (role === 'admin')
         return next(req, res);
-    } else {
-        
-        if (role === 'superUser') {
-            user = await SuperUser.find({ email });
-        }
-        if (role === 'user') {
-            user = await User.find({ email });
-            console.log(user)
-        }
-        const allProjects = user?.map((user) => user.project.toString());
 
-        console.log(allProjects)
-        console.log(req.query)
-        // TODO: check if the user has access to the project
+    if (role === 'superUser')
+        user = await SuperUser.find({ email });
+    else
+        user = await User.find({ email });
 
+    if (!protectProjects)
         return next(req, res);
-    }
+
+    const allProjects = user?.map((user) => user.project.toString());
+    const project = req.query.projectId || req.body.project;
+
+    if (!allProjects?.includes(project))
+        throw new AppError(Codes.Unauthorized, 'You are not authorized to access this content');
+
+    return next(req, res);
+
 };
 
 export default protectRoute;

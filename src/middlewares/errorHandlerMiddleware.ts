@@ -9,9 +9,9 @@ export const errorHandlerMiddleware = {
         req: NextApiRequest,
         res: NextApiResponse<IApiResponse>
     ) => {
-        
+
         if (process.env.NODE_ENV === 'development') {
-            console.log(err?.constructor.name);
+            console.log((err as Error)?.constructor.name);
             console.log(err);
         }
 
@@ -19,27 +19,13 @@ export const errorHandlerMiddleware = {
             handleAppErrors(err, req, res);
             return;
         }
-        if (err?.constructor.name === 'MongoServerError') {
-            handleMongooseErrors(err, req, res);
-            return;
-        }
+
         handleRestOfErrors(err, req, res);
     },
 
     onNoMatch: (req: NextApiRequest, res: NextApiResponse<IApiResponse>) =>
         noMatchError(req, res),
 };
-
-function handleMongooseErrors(
-    err: any,
-    req: NextApiRequest,
-    res: NextApiResponse<IApiResponse>
-) {
-    res.status(Codes.BadRequest).json({
-        status: 'error',
-        message: err.message,
-    });
-}
 
 function handleAppErrors(
     err: AppError,

@@ -14,7 +14,7 @@ interface IFactoryController {
 
 export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, reqID: string): IFactoryController => {
     return {
-        get: async (req, res) => {
+        get: catchAsync(async (req, res) => {
             if (req.query?.[reqID as string]) {
                 req.query.id = req.query?.[reqID as string];
                 const document = await model.findOne({ _id: req.query.id });
@@ -23,8 +23,8 @@ export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, 
                 const documents = await processDocuments(req, model);
                 sendResponse(res, documents, 'retrieved');
             }
-        },
-        create: async (req, res) => {
+        }),
+        create: catchAsync(async (req, res) => {
             if (req.query?.[reqID as string]) {
                 res.status(200).json({
                     status: 'error',
@@ -35,20 +35,20 @@ export const factoryController = (model: mongoose.Model<mongoose.Document, {}>, 
             }
             const document = await model.create(req.body)
             sendResponse(res, document, 'created');
-        },
-        update: async (req, res) => {
+        }),
+        update: catchAsync(async (req, res) => {
             req.query.id = req.query?.[reqID as string];
             const document = await model.findByIdAndUpdate(req.query.id, req.body, {
                 new: true,
                 runValidators: true,
             });
             sendResponse(res, document, 'updated');
-        },
-        delete: async (req, res) => {
+        }),
+        delete: catchAsync(async (req, res) => {
             req.query.id = req.query?.[reqID as string];
             const document = await model.findByIdAndDelete(req.query.id);
             sendResponse(res, document, 'deleted');
-        },
+        }),
     }
 
 };
@@ -58,7 +58,7 @@ function catchAsync(fn: (req: NextApiRequest, res: NextApiResponse<IApiResponse>
     return async (req: NextApiRequest, res: NextApiResponse<IApiResponse>) => {
         await fn(req, res)
             .catch((err) => {
-                throw new AppError(Codes.BadRequest, 'Error occurred while processing document(s) request.');
+                throw new AppError(Codes.BadRequest, err.message ?? 'Bad request');
             });
     };
   }

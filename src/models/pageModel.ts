@@ -1,6 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 export interface IPage extends Document {
+    project: Schema.Types.ObjectId;
     report: Schema.Types.ObjectId;
     number: number;
     date: Date;
@@ -12,6 +13,11 @@ export interface IPage extends Document {
 }
 
 const PageSchema = new Schema({
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Project',
+        required: [true, 'Project is required'],
+      },
     report: {
         type: Schema.Types.ObjectId,
         ref: 'Report',

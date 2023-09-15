@@ -7,12 +7,14 @@ import addDefaultMiddlewares from '@/middlewares/defaultMiddlewares/addMiddlewar
 import { createRouter } from 'next-connect';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { pageController } from '@/controllers/pageController';
+import protectRoute from '@/middlewares/defaultMiddlewares/protectRoute';
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 addDefaultMiddlewares(router);
-router.get(reportController.get);
-router.post(pageController.create);
-router.put(reportController.update);
-router.delete(reportController.delete);
+router
+    .get(protectRoute('user', true), reportController.get)
+    .post(protectRoute('superUser'), pageController.create)
+    .put(protectRoute('superUser'), reportController.update)
+    .delete(protectRoute('superUser'), reportController.delete);
 
 export default router.handler(errHandler);

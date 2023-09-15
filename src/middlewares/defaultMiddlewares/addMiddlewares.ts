@@ -6,18 +6,14 @@ import corsMiddleware from './cors';
 import helmetMiddleware from './helmet';
 import xssHppMiddleware from './xssHpp';
 import rateMiddleware from './rateLimit';
-import protectRoute,{ protectionLevels }  from './protectRoute';
 
-
-function addDefaultMiddlewares(router: NodeRouter<NextApiRequest, NextApiResponse>) : NodeRouter<NextApiRequest, NextApiResponse> {
+function addDefaultMiddlewares(router: NodeRouter<NextApiRequest, NextApiResponse>): NodeRouter<NextApiRequest, NextApiResponse> {
     router.use(rateMiddleware);
     router.use(xssHppMiddleware);
     router.use(helmetMiddleware);
     router.use(corsMiddleware);
     router.use(mongoSanitize);
-    router.use(mongoDb);    
-    
-    router.use(protectRoute('user'));// TODO: remove this middleware
+    router.use(mongoDb);
 
     return router
 }
