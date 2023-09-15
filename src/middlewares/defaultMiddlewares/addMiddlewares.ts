@@ -12,10 +12,10 @@ import protectRoute,{ protectionLevels }  from './protectRoute';
 function addDefaultMiddlewares(router: NodeRouter<NextApiRequest, NextApiResponse>) : NodeRouter<NextApiRequest, NextApiResponse> {
     router.use(rateMiddleware);
     router.use(xssHppMiddleware);
-    router.use(mongoSanitize);
-    router.use(mongoDb);
     router.use(helmetMiddleware);
     router.use(corsMiddleware);
+    router.use(mongoSanitize);
+    router.use(mongoDb);    
     
     router.use(protectRoute('user'));// TODO: remove this middleware
 

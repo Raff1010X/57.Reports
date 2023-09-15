@@ -3,13 +3,15 @@ import AppError from '@/utils/appError';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next/types';
 import { getServerSession } from 'next-auth/next';
 import { nextAuthOptions, CustomSession } from '@/pages/api/auth/[...nextauth]';
+import SuperUser from '@/models/superUserModel';
+import User from '@/models/userModel';
 
 export type Roles = 'user' | 'superUser' | 'admin';
 
 export const protectionLevels: Record<string, string[]> = {
-  user: ['superUser', 'admin', 'user'],
-  superUser: ['superUser', 'admin'],
-  admin: ['admin'],
+    user: ['superUser', 'admin', 'user'],
+    superUser: ['superUser', 'admin'],
+    admin: ['admin'],
 };
 
 const protectRoute = (level: Roles) => async (
@@ -20,11 +22,32 @@ const protectRoute = (level: Roles) => async (
     const roles = protectionLevels[level];
     const session = (await getServerSession(req, res, nextAuthOptions)) as CustomSession | null;
     const role = session?.user?.role;
+    const email = session?.user?.email;
+    let user;
+
     if (!session || !role || !roles.includes(role)) {
-        throw new AppError(Codes.Unauthorized, 'You are not authorized to access this route');
+        throw new AppError(Codes.Unauthorized, 'You are not authorized to access this content');
     }
 
-    return next(req, res);
+    if (role === 'admin') {
+        return next(req, res);
+    } else {
+        
+        if (role === 'superUser') {
+            user = await SuperUser.find({ email });
+        }
+        if (role === 'user') {
+            user = await User.find({ email });
+            console.log(user)
+        }
+        const allProjects = user?.map((user) => user.project.toString());
+
+        console.log(allProjects)
+        console.log(req.query)
+        // TODO: check if the user has access to the project
+
+        return next(req, res);
+    }
 };
 
 export default protectRoute;
