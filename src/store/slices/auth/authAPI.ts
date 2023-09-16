@@ -5,7 +5,7 @@ import API from '../../../utils/API'
 
 export const userSighUpAsync = createAsyncThunk(
     'auth/fetchSignUp',
-    async (data: IUser) => {
+    async (data: any) => {
         const response = await API.makePost('/api/auth/signup', data)
         return response;
     }

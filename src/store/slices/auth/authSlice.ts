@@ -10,14 +10,13 @@ export type TUserState = {
     user: {
         project: string;
         email: string;
-        isLoged: boolean;
         role: string;
     };
 };
 
 const initialState: TUserState = {
     status: 'idle',
-    user: { project: '', email: '', role: '', isLoged: false },
+    user: { project: '', email: '', role: ''},
 };
 
 export const authSlice = createSlice({
@@ -70,7 +69,7 @@ export const authSlice = createSlice({
 export const { userSignOut, userSignIn } = authSlice.actions;
 
 export const selectAuthStatus = (state: AppState) => state.auth.status;
-export const selectIsUserLogged = (state: AppState) => state.auth.user.isLoged;
+export const selectIsUserLogged = (state: AppState) => state.auth.user.email !== '' ? true : false;
 export const selectUser = (state: AppState) => state.auth.user;
 export const selectIsSuperUser = (state: AppState) => {
     const isSuperUser = state.auth.user.role === 'superUser' ? true : false;

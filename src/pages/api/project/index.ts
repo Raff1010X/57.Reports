@@ -12,6 +12,6 @@ const router = createRouter<NextApiRequest, NextApiResponse>();
 addDefaultMiddlewares(router);
 router
     .get(protectRoute('user', true), projectController.get)
-    .post(protectRoute('superUser'), projectController.create);
+    .post(protectRoute('superUser', true), projectController.create);
 
 export default router.handler(errHandler);

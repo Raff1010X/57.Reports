@@ -12,7 +12,7 @@ const router = createRouter<NextApiRequest, NextApiResponse>();
 addDefaultMiddlewares(router);
 router
     .get(protectRoute('user', true), firstPageController.get)
-    .post(protectRoute('superUser'), firstPageController.create)
-    .put(protectRoute('superUser'), firstPageController.update);
+    .post(protectRoute('superUser', true), firstPageController.create)
+    .put(protectRoute('superUser', true), firstPageController.update);
 
 export default router.handler(errHandler);

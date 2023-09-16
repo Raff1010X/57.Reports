@@ -13,8 +13,8 @@ const router = createRouter<NextApiRequest, NextApiResponse>();
 addDefaultMiddlewares(router);
 router
     .get(protectRoute('user', true), reportController.get)
-    .post(protectRoute('superUser'), pageController.create)
-    .put(protectRoute('superUser'), reportController.update)
-    .delete(protectRoute('superUser'), reportController.delete);
+    .post(protectRoute('superUser', true), pageController.create)
+    .put(protectRoute('superUser', true), reportController.update)
+    .delete(protectRoute('superUser', true), reportController.delete);
 
 export default router.handler(errHandler);

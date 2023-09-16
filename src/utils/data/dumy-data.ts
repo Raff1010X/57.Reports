@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { IUser } from '../../models/userModel';
 
 const superUsers: IUser[] = [
@@ -108,7 +110,7 @@ function isValidUser(userData: IUser, array: IUser[]): IUser | undefined {
 //             project: '',
 //             email: '',
 //             department: '',
-//             isLoged: false,
+//             isLogged: false,
 //             role: '',
 //         },
 //     };
@@ -128,7 +130,7 @@ function isValidUser(userData: IUser, array: IUser[]): IUser | undefined {
 //                 project: user.project,
 //                 email: user.email,
 //                 department: user.department!,
-//                 isLoged: true,
+//                 isLogged: true,
 //                 role,
 //             },
 //         };

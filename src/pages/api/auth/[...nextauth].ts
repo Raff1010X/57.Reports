@@ -10,9 +10,9 @@ import { Roles } from '@/middlewares/defaultMiddlewares/protectRoute';
 
 export interface CustomSession extends Session {
     user: {
-        project: string; 
+        project: string;
+        projectID: string; 
         email: string;
-        isLoged: boolean; 
         role: Roles | null | undefined;
         name?: string | null | undefined;
         image?: string | null | undefined;
@@ -53,9 +53,9 @@ export const nextAuthOptions: NextAuthOptions = {
                 ) {
                     return {
                         project,
+                        projectID: "admin",
                         email,
-                        role: 'admin',
-                        isLoged: true,
+                        role: 'admin'
                     };
                 }
 
@@ -71,7 +71,8 @@ export const nextAuthOptions: NextAuthOptions = {
                 if (!projectDB) {
                     throw new Error('No project or user found!');
                 }
-                userQuery.project = projectDB.id;
+                const projectID = projectDB.id;
+                userQuery.project = projectID;
 
                 let user = await User.findOne(userQuery);
                 if (!user) {
@@ -94,9 +95,9 @@ export const nextAuthOptions: NextAuthOptions = {
                 }
                 return {
                     project,
+                    projectID,
                     email,
-                    role,
-                    isLoged: true,
+                    role
                 };
             },
         }),

@@ -11,7 +11,7 @@ import protectRoute from '@/middlewares/defaultMiddlewares/protectRoute';
 const router = createRouter<NextApiRequest, NextApiResponse>();
 addDefaultMiddlewares(router);
 router.get(protectRoute('user', true), pageController.get);
-router.put(protectRoute('superUser'), pageController.update);
-router.delete(protectRoute('superUser'), pageController.delete);
+router.put(protectRoute('superUser', true), pageController.update);
+router.delete(protectRoute('superUser', true), pageController.delete);
 
 export default router.handler(errHandler);

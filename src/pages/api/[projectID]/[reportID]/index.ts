@@ -12,9 +12,9 @@ import protectRoute from '@/middlewares/defaultMiddlewares/protectRoute';
 const router = createRouter<NextApiRequest, NextApiResponse>();
 addDefaultMiddlewares(router);
 router.get(protectRoute('user', true), reportController.get);
-router.post(protectRoute('superUser'), pageController.create);
-router.put(protectRoute('superUser'), reportController.update);
-router.delete(protectRoute('superUser'), reportController.delete);
+router.post(protectRoute('superUser', true), pageController.create);
+router.put(protectRoute('superUser', true), reportController.update);
+router.delete(protectRoute('superUser', true), reportController.delete);
 
 
 export default router.handler(errHandler);

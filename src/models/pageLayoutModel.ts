@@ -1,26 +1,30 @@
-// page layout mongoose model (project, header, bottom)
+// page layout mongoose model (project, header, footer)
 import page from "@/pages/api/page";
 import { Schema, model, models } from "mongoose";
 
 export interface IPageLayout extends Document {
     project: Schema.Types.ObjectId;
     header: string;
-    bottom: string;
+    footer: string;
 }
 
 const pageLayoutSchema = new Schema({
     project: {
         type: Schema.Types.ObjectId,
         ref: 'Project',
-        required: true
+        required: [true, 'Project is required']
     },
     header: {
         type: String,
-        maxLength: [1000, 'Header cannot be more than 1000 characters']
+        maxLength: [1000, 'Header cannot be more than 1000 characters'],
+        required: [true, 'Header is required'],
+        default: ''
     },
-    bottom: {
+    footer: {
         type: String,
-        maxLength: [1000, 'Bottom cannot be more than 1000 characters']
+        maxLength: [1000, 'Footer cannot be more than 1000 characters'],
+        required: [true, 'Footer is required'],
+        default: ''
     }
 });
 
@@ -33,6 +37,6 @@ pageLayoutSchema.set('toJSON', {
     }
 });
 
-const PageLayout = models.PageLayout || model<IPageLayout>('Page', pageLayoutSchema);
+const PageLayout = models.PageLayout || model<IPageLayout>('PageLayout', pageLayoutSchema);
 
 export default PageLayout;
