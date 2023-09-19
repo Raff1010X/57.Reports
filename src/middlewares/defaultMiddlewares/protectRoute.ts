@@ -40,7 +40,7 @@ const protectRoute = (level: Roles, protectProjects = false) => async (
         return next(req, res);
 
     const allProjects = user?.map((user) => user.project.toString());
-    const project = req.query.projectId || req.body.project;
+    const project = session?.user?.projectID;
 
     if (!allProjects?.includes(project))
         throw new AppError(Codes.Unauthorized, 'You are not authorized to access this content');

@@ -52,20 +52,28 @@ export default function LogIn() {
         if (!signInResult?.ok) {
             if (signInResult?.error) dispatch(showMessage(signInResult.error));
             else {
-                dispatch(showMessage("Log in in unexpected error!"))
                 // check if user is in local storage
                 const localUser = localStorage.getItem('user');
                 if (localUser) {
                     // get user from local storage
                     const hashedUser = JSON.parse(localUser);
-                    // get user from redux store
-                    const user = useAppSelector(selectAuthStatus);
-                    // compare user from local storage and redux store
-                    const isUser = await bcrypt.compare(JSON.stringify(user), hashedUser);
-                    // if user is the same
-                    if (isUser) {
+                    // compare user email, password, project name and projectID using bcrypt.js
+                    const matchEmail = await bcrypt.compare(email, hashedUser.email);
+                    const matchPassword = await bcrypt.compare(password, hashedUser.password);
+                    const matchProject = await bcrypt.compare(project, hashedUser.project);
+                    // if all matches
+                    if (matchEmail && matchPassword && matchProject) {
+                        const user = {
+                            email,
+                            project,
+                            projectID: hashedUser.projectID,
+                            role: hashedUser.role
+                        }
                         // save user in redux store
                         dispatch(userSignIn(user));
+                    } else {
+                        // if not all matches
+                        dispatch(showMessage("Log in in unexpected error!"))
                     }
                 }
             };
@@ -77,14 +85,14 @@ export default function LogIn() {
                 const hashedPassword = await bcrypt.hash(password, 10);
                 const hashedEmail = await bcrypt.hash(email, 10);
                 const hashedProject = await bcrypt.hash(project, 10);
-                const hashedProjectID = sesion?.user?.projectID;
-                const hashedUserRole = sesion?.user?.role;
+                const projectID = sesion?.user?.projectID;
+                const role = sesion?.user?.role;
                 hashedUser = {
                     email: hashedEmail,
                     password: hashedPassword,
                     project: hashedProject,
-                    projectID: hashedProjectID,
-                    role: hashedUserRole,
+                    projectID,
+                    role
                 }
             }
             // save hashed user in local storage

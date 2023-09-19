@@ -167,7 +167,7 @@ describe('Test the project api', () => {
                 expect(response.body).toHaveProperty('status');
                 expect(response.body).toHaveProperty('message');
                 expect(response.body).not.toHaveProperty('data');
-                expect(response.statusCode).toBe(404);
+                expect(response.statusCode).toBe(400);
                 expect(response.body.status).toBe('error');
                 expect(response.body.message).toBe('No document(s) found');
 
@@ -298,7 +298,7 @@ describe('Test the project api with :projectID', () => {
                 expect(response.body).toHaveProperty('status');
                 expect(response.body).toHaveProperty('message');
                 expect(response.body).not.toHaveProperty('data');
-                expect(response.statusCode).toBe(404);
+                expect(response.statusCode).toBe(400);
                 expect(response.body.status).toBe('error');
                 expect(response.body.message).toBe('No document(s) found');
 
