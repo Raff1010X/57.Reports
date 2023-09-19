@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useAppDispatch } from '@/store/hooks';
 import { FormEvent, useRef } from 'react';
-import { selectAuthStatus, userSignIn } from '@/store/slices/auth/authSlice';
 import ui from '@/styles/ui.module.sass';
 import Link from 'next/link';
 import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import IconUser from '@/assets/icons/IconUser';
 import Loader from '@/assets/icons/Loader';
-import bcrypt from 'bcryptjs';
-import { IUser } from '@/models/userModel';
+import useSignIn from '@/hooks/useSignIn';
 
-import { signIn, getSession } from 'next-auth/react';
-import { showMessage } from '@/store/slices/message/messageSlice';
+// import { signIn, getSession } from 'next-auth/react';
+// import { showMessage } from '@/store/slices/message/messageSlice';
 
 export default function LogIn() {
     const dispatch = useAppDispatch();
@@ -42,64 +40,65 @@ export default function LogIn() {
         const password = refs[2]?.current?.value || '';
 
         setLoading(true);
-        const signInResult = await signIn('credentials', {
-            redirect: false,
-            project,
-            email,
-            password,
-        });
+        useSignIn(project, email, password);
+        // const signInResult = await signIn('credentials', {
+        //     redirect: false,
+        //     project,
+        //     email,
+        //     password,
+        // });
 
-        if (!signInResult?.ok) {
-            if (signInResult?.error) dispatch(showMessage(signInResult.error));
-            else {
-                // check if user is in local storage
-                const localUser = localStorage.getItem('user');
-                if (localUser) {
-                    // get user from local storage
-                    const hashedUser = JSON.parse(localUser);
-                    // compare user email, password, project name and projectID using bcrypt.js
-                    const matchEmail = await bcrypt.compare(email, hashedUser.email);
-                    const matchPassword = await bcrypt.compare(password, hashedUser.password);
-                    const matchProject = await bcrypt.compare(project, hashedUser.project);
-                    // if all matches
-                    if (matchEmail && matchPassword && matchProject) {
-                        const user = {
-                            email,
-                            project,
-                            projectID: hashedUser.projectID,
-                            role: hashedUser.role
-                        }
-                        // save user in redux store
-                        dispatch(userSignIn(user));
-                    } else {
-                        // if not all matches
-                        dispatch(showMessage("Log in in unexpected error!"))
-                    }
-                }
-            };
-        } else {
-            const sesion = await getSession() as any;
-            // hash user email, password, project name and projectID using bcrypt.js
-            let hashedUser;
-            if (sesion?.user) {
-                const hashedPassword = await bcrypt.hash(password, 10);
-                const hashedEmail = await bcrypt.hash(email, 10);
-                const hashedProject = await bcrypt.hash(project, 10);
-                const projectID = sesion?.user?.projectID;
-                const role = sesion?.user?.role;
-                hashedUser = {
-                    email: hashedEmail,
-                    password: hashedPassword,
-                    project: hashedProject,
-                    projectID,
-                    role
-                }
-            }
-            // save hashed user in local storage
-            localStorage.setItem('user', JSON.stringify(hashedUser));
-            // save user in redux store
-            dispatch(userSignIn(sesion?.user));
-        }
+        // if (!signInResult?.ok) {
+        //     if (signInResult?.error) dispatch(showMessage(signInResult.error));
+        //     else {
+        //         // check if user is in local storage
+        //         const localUser = localStorage.getItem('user');
+        //         if (localUser) {
+        //             // get user from local storage
+        //             const hashedUser = JSON.parse(localUser);
+        //             // compare user email, password, project name and projectID using bcrypt.js
+        //             const matchEmail = await bcrypt.compare(email, hashedUser.email);
+        //             const matchPassword = await bcrypt.compare(password, hashedUser.password);
+        //             const matchProject = await bcrypt.compare(project, hashedUser.project);
+        //             // if all matches
+        //             if (matchEmail && matchPassword && matchProject) {
+        //                 const user = {
+        //                     email,
+        //                     project,
+        //                     projectID: hashedUser.projectID,
+        //                     role: hashedUser.role
+        //                 }
+        //                 // save user in redux store
+        //                 dispatch(userSignIn(user));
+        //             } else {
+        //                 // if not all matches
+        //                 dispatch(showMessage("Log in in unexpected error!"))
+        //             }
+        //         }
+        //     };
+        // } else {
+        //     const sesion = await getSession() as any;
+        //     // hash user email, password, project name and projectID using bcrypt.js
+        //     let hashedUser;
+        //     if (sesion?.user) {
+        //         const hashedPassword = await bcrypt.hash(password, 10);
+        //         const hashedEmail = await bcrypt.hash(email, 10);
+        //         const hashedProject = await bcrypt.hash(project, 10);
+        //         const projectID = sesion?.user?.projectID;
+        //         const role = sesion?.user?.role;
+        //         hashedUser = {
+        //             email: hashedEmail,
+        //             password: hashedPassword,
+        //             project: hashedProject,
+        //             projectID,
+        //             role
+        //         }
+        //     }
+        //     // save hashed user in local storage
+        //     localStorage.setItem('user', JSON.stringify(hashedUser));
+        //     // save user in redux store
+        //     dispatch(userSignIn(sesion?.user));
+        // }
         setLoading(false);
     };
 
