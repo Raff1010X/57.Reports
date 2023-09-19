@@ -18,15 +18,8 @@ export default function Layout(props: Layout) {
     useEffect(() => {
         getSession()
             .then((sesion) => {
-                if (sesion) {
-                    dispatch(userSignIn(sesion?.user))
-                } else {
-                    // if user exist in local storage then sign in
-                    const user = localStorage.getItem('user');
-                    if (user) {
-                        dispatch(userSignIn(JSON.parse(user)));
-                    }
-                }
+                if (sesion?.user)
+                    dispatch(userSignIn(sesion?.user));
             })
             .catch((err) => {
                 console.log(err);

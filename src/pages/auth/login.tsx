@@ -8,6 +8,8 @@ import IconBxUserPlus from '@/assets/icons/IconBxUserPlus';
 import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import IconUser from '@/assets/icons/IconUser';
 import Loader from '@/assets/icons/Loader';
+import bcrypt from 'bcryptjs';
+import { IUser } from '@/models/userModel';
 
 import { signIn, getSession } from 'next-auth/react';
 import { showMessage } from '@/store/slices/message/messageSlice';
@@ -32,7 +34,7 @@ export default function LogIn() {
         e.preventDefault();
         refs.forEach(el => el.current?.reportValidity());
 
-        if (refs.some(el=>!el.current?.checkValidity))
+        if (refs.some(el => !el.current?.checkValidity))
             return;
 
         const project = refs[0]?.current?.value || '';
@@ -49,10 +51,45 @@ export default function LogIn() {
 
         if (!signInResult?.ok) {
             if (signInResult?.error) dispatch(showMessage(signInResult.error));
-            else dispatch(showMessage("Log in in unexpected error!"));
+            else {
+                dispatch(showMessage("Log in in unexpected error!"))
+                // check if user is in local storage
+                const localUser = localStorage.getItem('user');
+                if (localUser) {
+                    // get user from local storage
+                    const hashedUser = JSON.parse(localUser);
+                    // get user from redux store
+                    const user = useAppSelector(selectAuthStatus);
+                    // compare user from local storage and redux store
+                    const isUser = await bcrypt.compare(JSON.stringify(user), hashedUser);
+                    // if user is the same
+                    if (isUser) {
+                        // save user in redux store
+                        dispatch(userSignIn(user));
+                    }
+                }
+            };
         } else {
-            const sesion = await getSession();
-            localStorage.setItem('user', JSON.stringify(sesion?.user));
+            const sesion = await getSession() as any;
+            // hash user email, password, project name and projectID using bcrypt.js
+            let hashedUser;
+            if (sesion?.user) {
+                const hashedPassword = await bcrypt.hash(password, 10);
+                const hashedEmail = await bcrypt.hash(email, 10);
+                const hashedProject = await bcrypt.hash(project, 10);
+                const hashedProjectID = sesion?.user?.projectID;
+                const hashedUserRole = sesion?.user?.role;
+                hashedUser = {
+                    email: hashedEmail,
+                    password: hashedPassword,
+                    project: hashedProject,
+                    projectID: hashedProjectID,
+                    role: hashedUserRole,
+                }
+            }
+            // save hashed user in local storage
+            localStorage.setItem('user', JSON.stringify(hashedUser));
+            // save user in redux store
             dispatch(userSignIn(sesion?.user));
         }
         setLoading(false);
