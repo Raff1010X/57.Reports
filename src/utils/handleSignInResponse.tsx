@@ -1,13 +1,22 @@
-import { getSession } from 'next-auth/react';
+// function to handle sign in result
+import { SignInResponse, getSession } from 'next-auth/react';
 import { showMessage } from '@/store/slices/message/messageSlice';
 import { userSignIn } from '@/store/slices/auth/authSlice';
 import bcrypt from 'bcryptjs';
 
+interface IOptions {
+    redirect: boolean,
+    project: string,
+    email: string,
+    password: string
+}
 
-export default async function signInUser(signInResult: any, project: string, email: string, password: string) {
+type IResponse = SignInResponse | undefined;
 
-    if (!signInResult?.ok) {
-        if (signInResult?.error) return showMessage(signInResult.error);
+export default async function handleSignInResponse(signInResponse: IResponse, { project, email, password }: IOptions) {
+
+    if (!signInResponse?.ok) {
+        if (signInResponse?.error) return showMessage(signInResponse.error);
         else {
             // check if user is in local storage
             const localUser = localStorage.getItem('user');

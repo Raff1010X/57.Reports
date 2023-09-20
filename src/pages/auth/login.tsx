@@ -8,9 +8,8 @@ import IconHeadQuestionOutline from '@/assets/icons/IconHeadQuestionOutline';
 import IconUser from '@/assets/icons/IconUser';
 import Loader from '@/assets/icons/Loader';
 
-import signInUser from '@/utils/signInUser';
+import handleSignInResponse from '@/utils/handleSignInResponse';
 import { signIn } from 'next-auth/react';
-
 
 export default function LogIn() {
     const dispatch = useAppDispatch();
@@ -38,17 +37,13 @@ export default function LogIn() {
         const project = refs[0]?.current?.value || '';
         const email = refs[1]?.current?.value || '';
         const password = refs[2]?.current?.value || '';
+        const options = { redirect: false, project, email, password };
 
         setLoading(true);
-        const signInResult = await signIn('credentials', {
-            redirect: false,
-            project,
-            email,
-            password,
-        });
+        const signInResponse = await signIn('credentials', options);
         
-        const signInDispatch = await signInUser(signInResult, project, email, password);
-        if (signInDispatch) dispatch(signInDispatch);
+        const signInResult = await handleSignInResponse(signInResponse, options);
+        if (signInResult) dispatch(signInResult);
 
         setLoading(false);
     };
