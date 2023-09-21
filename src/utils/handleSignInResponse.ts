@@ -16,7 +16,8 @@ type IResponse = SignInResponse | undefined;
 export default async function handleSignInResponse(signInResponse: IResponse, { project, email, password }: IOptions) {
 
     if (!signInResponse?.ok) {
-        if (signInResponse?.error) return showMessage(signInResponse.error);
+        if (signInResponse?.error)
+            return showMessage(signInResponse.error);
         else {
             // check if user is in local storage
             const localUser = localStorage.getItem('user');
@@ -39,7 +40,7 @@ export default async function handleSignInResponse(signInResponse: IResponse, { 
                     return userSignIn(user);
                 } else {
                     // if not all matches
-                    return (showMessage("Log in in unexpected error!"))
+                    return showMessage("Log in in unexpected error!")
                 }
             }
         };
@@ -60,10 +61,14 @@ export default async function handleSignInResponse(signInResponse: IResponse, { 
                 projectID,
                 role
             }
+            // save hashed user in local storage
+            localStorage.setItem('user', JSON.stringify(hashedUser));
+            // save user in redux store
+            return userSignIn(sesion?.user);
+        } else {
+            // if no session
+            return showMessage("Log in in unexpected error!")
         }
-        // save hashed user in local storage
-        localStorage.setItem('user', JSON.stringify(hashedUser));
-        // save user in redux store
-        return userSignIn(sesion?.user);
+
     }
 }

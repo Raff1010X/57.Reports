@@ -41,10 +41,8 @@ export default function LogIn() {
 
         setLoading(true);
         const signInResponse = await signIn('credentials', options);
-        
         const signInResult = await handleSignInResponse(signInResponse, options);
         if (signInResult) dispatch(signInResult);
-
         setLoading(false);
     };
 
