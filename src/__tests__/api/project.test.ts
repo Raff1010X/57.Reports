@@ -1,11 +1,12 @@
 // test api/project route
+import getSession from '@/utils/getSession';
 import { Response } from 'superagent';
 import request from 'supertest';
 
 const app = 'http://localhost:3000';
 let cookies: string[];
 
-function statusSuccess(response: any) {
+function statusSuccess(response: Response) {
     expect(response.body).toHaveProperty('status');
     expect(response.body).toHaveProperty('message');
     expect(response.body).toHaveProperty('data');
@@ -13,7 +14,7 @@ function statusSuccess(response: any) {
     expect(response.body.status).toBe('success');
 }
 
-function instanceOf(response: any) {
+function instanceOf(response: Response) {
     expect(response.body.data).toBeInstanceOf(Object);
     expect(response.body.data).toHaveProperty('name');
     expect(response.body.data).toHaveProperty('id');
@@ -22,28 +23,7 @@ function instanceOf(response: any) {
 
 // login
 beforeAll(async () => {
-    // get csrfToken
-    const csrfResponse = await request(app).get('/api/auth/csrf');
-    const csrfToken = csrfResponse.body.csrfToken;
-    // get login response
-    const loginResponse = await request(app)
-        .post('/api/auth/callback/credentials')
-        .withCredentials()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('Cookie', csrfResponse.headers['set-cookie'])
-        .send({
-            csrfToken: csrfToken,
-            email: 'kowalczyk77@o2.pl',
-            password: 'test1234',
-            project: 'Trans',
-        });
-    // get session
-    const sessionResponse = await request(app)
-        .get('/api/auth/session')
-        .withCredentials()
-        .set('Cookie', loginResponse.headers['set-cookie']);
-
-    cookies = sessionResponse.headers['set-cookie'];
+    cookies = await getSession('kowalczyk77@o2.pl', 'test1234', 'Trans');
 });
 
 describe('Test the project api', () => {

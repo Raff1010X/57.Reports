@@ -1,3 +1,4 @@
+// creates the server for the app
 const { createServer } = require("http");
 const { parse } = require("url");
 const { join } = require('path')
@@ -6,7 +7,7 @@ const next = require("next");
 const dev = process.env.NODE_ENV !== "production";
 const port = !dev ? process.env.PORT : 3000;
 
-// Create the Express-Next App
+// Create the next app
 const app = next({ dev });
 const handle = app.getRequestHandler();
 

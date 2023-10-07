@@ -51,6 +51,7 @@ export const nextAuthOptions: NextAuthOptions = {
                     email === process.env.ADMIN_EMAIL &&
                     password === process.env.ADMIN_PASSWORD
                 ) {
+                    console.log('admin login');
                     return {
                         project,
                         projectID: "admin",
