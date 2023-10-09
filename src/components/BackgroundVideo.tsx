@@ -53,7 +53,7 @@ export default function BackgroundVideo() {
                 <p className="bgvideo-title">Report creator</p>
                 <p className="bgvideo-text">
                     Create audit reports <br />
-                    and share them whith your team
+                    and share them with your team
                 </p>
                 <button
                     className={`${ui.button} bgvideo-button`}
