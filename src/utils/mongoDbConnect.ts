@@ -7,18 +7,12 @@ import { Model } from 'mongoose';
 import Report, { IReport } from '../models/reportModel';
 import User, { IUser } from '../models/userModel';
 import SuperUser, { ISuperUser } from '../models/superUserModel';
-import Page, { IPage } from '@/models/pageModel';
 import Project, { IProject } from '@/models/projectModel';
-import FirstPage, { TFirstPage } from '@/models/firstPageModel';
-import PageLayout, { IPageLayout } from '@/models/pageLayoutModel';
 
 const ReportModel: Model<IReport> = Report;
 const UserModel: Model<IUser> = User;
 const SuperUserModel: Model<ISuperUser> = SuperUser;
-const PageModel: Model<IPage> = Page;
 const ProjectModel: Model<IProject> = Project;
-const FirstPageModel: Model<TFirstPage> = FirstPage;
-const PageLayoutModel: Model<IPageLayout> = PageLayout;
 // end initialize models
 
 const mongoUrl = process.env.mongoConnectionString;

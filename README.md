@@ -10,7 +10,7 @@ To login use:
 My git repo: https://github.com/Raff1010X/01.Roadmap
 
 ## Technologie
-Typescript, NEXT.JS, SASS, React, Redux, Redux-Thunk, MONGO, NEXT-AUTH, NEXT-CONNECT...
+Typescript, NEXT.JS, SASS, React, Redux, Redux-Thunk, MONGO, NEXT-AUTH, NEXT-CONNECT, NEXT-PWA
 
 ##
 <p align="center">
