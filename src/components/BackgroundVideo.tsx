@@ -3,7 +3,6 @@ import { fontInter } from '../assets/fonts/fontLoader';
 import IconFiletypePdf from '../assets/icons/IconFiletypePdf';
 import { useRouter } from 'next/router';
 import { selectIsUserLogged } from '../store/slices/auth/authSlice';
-import { useEffect } from 'react';
 import { useAppSelector } from '@/store/hooks';
 
 export default function BackgroundVideo() {
@@ -25,7 +24,7 @@ export default function BackgroundVideo() {
     }
 
     let login = "Login"
-    if (isUserLogged) login= "Enter"
+    if (isUserLogged) login = "Enter"
 
     return (
         <div className={`bgvideo`} id="background-video">
