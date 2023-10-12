@@ -29,6 +29,14 @@ export default function Theme(props: Theme) {
         }
     }, [theme]);
 
+    function handleThemeChange() {
+        if (theme === 'light') {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+        props.handleClick();
+    }
 
     const Icon = theme === 'light'
         ?
@@ -47,15 +55,6 @@ export default function Theme(props: Theme) {
             onClick={handleThemeChange}
             data-testid="theme-icon"
         />;
-
-    function handleThemeChange() {
-        if (theme === 'light') {
-            setTheme('dark');
-        } else {
-            setTheme('light');
-        }
-        props.handleClick();
-    }
 
     return Icon;
 }
