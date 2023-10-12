@@ -10,7 +10,7 @@ export default function User() {
         <div className="page">
             <div className="page-content">
                 User Info Page
-                <div className="border-solid border-2 bg-black w-96">Button</div>
+                <div className="border-solid border-2 bg-blue-950 w-full rounded-md">Button</div>
                 <Button color="primary" className="w-1/2 hover:w-full">
                     Button
                 </Button>
