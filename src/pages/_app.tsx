@@ -1,4 +1,3 @@
-"use client";
 import '@/styles/index.sass';
 
 import { Provider } from 'react-redux';
