@@ -4,12 +4,11 @@
 
 const withPWA = require('next-pwa')({
     dest: 'public',
-    disable: false,//process.env.NODE_ENV === 'development',
+    disable: process.env.NODE_ENV === 'development',
     register: true,
     skipWaiting: true,
     // scope: '/app',
     // sw: 'service-worker.js',
-    mode: 'production',
 });
 
 const nextConfig = {
@@ -26,15 +25,17 @@ const nextConfig = {
     poweredByHeader: false,
     compress: true,
     env: {
-        NEXTAUTH_URL: 'CCCCCCCCCCCCCCCCCCCCCCCC',
         mongoConnectionString:
-            'mongodb://ZZZZZZZZZZZZZ:XXXXXXXXXX@YYYYYYYYYYYYYY:27017/XXXXXXXXXX?authSource=XXXXXXXXXXX',
+            'mongodb://nnn:nnnn@nnnnnnnnnn:27017/nnn?nnnnnn=nnnnnn',
         JWT_SECRET:
-            'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        email_host: 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
+            'JhbGciOiJIUzI1NiIsInR5dCI6IkpXVCJ9.eyJzdeIiOiIxMjM0NTY3ODkwIiwibmFtZSI4IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ',
+        email_host: 'nnn.nnn.nn',
         email_port: 465,
-        email_user: 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ',
-        email_pass: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        email_user: 'nnnn@nnnn.nnnn.nn',
+        email_pass: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        ADMIN_PROJECT: 'admin',
+        ADMIN_EMAIL: 'admin@report.com',
+        ADMIN_PASSWORD: 'xY7zZ6yYsZ4xX8yY',
     },
 };
 

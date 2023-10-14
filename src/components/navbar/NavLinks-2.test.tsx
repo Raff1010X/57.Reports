@@ -14,10 +14,10 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('NavLinks component', () => {
-    it('does not display links when isUserLogged is false', async () => {
+    it('does not display links when isUserLogged is false', () => {
         render(<NavLinks handleClick={() => {}} />);
-        const links = await screen.queryAllByRole('link');
-        const link = await screen.getByText(/login/i);
+        const links = screen.queryAllByRole('link');
+        const link = screen.getByText(/login/i);
         expect(links).toHaveLength(1);
         expect(link).toBeInTheDocument();
     });

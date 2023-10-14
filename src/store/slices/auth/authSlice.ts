@@ -16,7 +16,7 @@ export type TUserState = {
 
 const initialState: TUserState = {
     status: 'idle',
-    user: { project: '', email: '', role: ''},
+    user: { project: '', email: '', role: '' },
 };
 
 export const authSlice = createSlice({
@@ -39,9 +39,9 @@ export const authSlice = createSlice({
             })
             .addCase(userSighUpAsync.fulfilled, (state, action: any) => {
                 state.status = 'idle';
-                if(action.payload.message.indexOf("error")>0) action.asyncDispatch(showMessage('Sign up unexpeted error!'))
+                if (action.payload.message.indexOf("error") > 0) action.asyncDispatch(showMessage('Sign up unexpeted error!'))
                 else
-                action.asyncDispatch(showMessage(action.payload.message))
+                    action.asyncDispatch(showMessage(action.payload.message))
             })
             .addCase(userSighUpAsync.rejected, (state, action: any) => {
                 state.status = 'failed';
@@ -54,9 +54,9 @@ export const authSlice = createSlice({
             })
             .addCase(sendChangePasswordLink.fulfilled, (state, action: any) => {
                 state.status = 'idle';
-                if(action.payload.message.indexOf("error")>0) action.asyncDispatch(showMessage('Change password unexpeted error!'))
+                if (action.payload.message.indexOf("error") > 0) action.asyncDispatch(showMessage('Change password unexpeted error!'))
                 else
-                action.asyncDispatch(showMessage(action.payload.message))
+                    action.asyncDispatch(showMessage(action.payload.message))
             })
             .addCase(sendChangePasswordLink.rejected, (state, action: any) => {
                 state.status = 'failed';
@@ -71,9 +71,8 @@ export const { userSignOut, userSignIn } = authSlice.actions;
 export const selectAuthStatus = (state: AppState) => state.auth.status;
 export const selectIsUserLogged = (state: AppState) => state.auth.user.email !== '' ? true : false;
 export const selectUser = (state: AppState) => state.auth.user;
-export const selectIsSuperUser = (state: AppState) => {
-    const isSuperUser = state.auth.user.role === 'superUser' ? true : false;
-    return isSuperUser;
-};
+
+export const selectIsSuperUser = (state: AppState) => state.auth.user.role === 'superUser' || state.auth.user.role === 'admin' ? true : false;
+
 
 export default authSlice.reducer;

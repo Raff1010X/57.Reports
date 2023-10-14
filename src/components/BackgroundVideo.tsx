@@ -3,7 +3,6 @@ import { fontInter } from '../assets/fonts/fontLoader';
 import IconFiletypePdf from '../assets/icons/IconFiletypePdf';
 import { useRouter } from 'next/router';
 import { selectIsUserLogged } from '../store/slices/auth/authSlice';
-import { useEffect } from 'react';
 import { useAppSelector } from '@/store/hooks';
 
 export default function BackgroundVideo() {

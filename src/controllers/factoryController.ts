@@ -1,4 +1,4 @@
-// Factory function for creating controllers for CRUD operations on a model
+// Factory function for CRUD operations on a model
 
 import mongoose from "mongoose";
 import type { NextApiRequest, NextApiResponse } from 'next';
