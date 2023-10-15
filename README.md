@@ -1,5 +1,9 @@
 # PDF-Reports (Starter template)
 
+Learning to merge NEXT.js, Typescript, SASS, Redux, MongoDB, NEXT-AUTH, NEXT-CONNECT, NEXT-PWA, and more.
+
+Project template with authentication, authorization, CRUD operations, testing and minimal frontend.
+
 Demo: https://reports.webdev.priv.pl/
 
 To login use:
@@ -8,9 +12,6 @@ To login use:
 - password: test1234
 
 My git repo: https://github.com/Raff1010X/01.Roadmap
-
-## Technologie
-Typescript, NEXT.JS, SASS, React, Redux, MONGO, NEXT-AUTH, NEXT-CONNECT, NEXT-PWA
 
 ##
 <p align="center">
